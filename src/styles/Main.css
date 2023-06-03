@@ -1,0 +1,24 @@
+#main-section {
+  background-color: #eceff1;
+  height: 100%;
+  width: calc(100% - 300px);
+}
+
+
+#main-top-bar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  height: 40px;
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+#main-top-bar-profile-picture {
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  border: 1px solid rgb(230, 230, 230);
+  margin-left: 10px;
+  margin-right: 15px;
+}

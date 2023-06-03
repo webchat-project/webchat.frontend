@@ -1,9 +1,22 @@
 import React from 'react'
+import SideTopBarButton from './SideTopBarButton'
 
 export default function SideTopBar() {
-  return(
+
+  return (
     <div id="side-top-bar">
-      <h3>Messaggi</h3>
+      <SideTopBarButton
+      route="chats"
+      material="chat" 
+      name="Chat" />
+      <SideTopBarButton
+      route="contacts"
+      material="group" 
+      name="Contatti" />
+      <SideTopBarButton
+      route="profile"
+      material="account_circle" 
+      name="Profilo" />
     </div>
   )
 }

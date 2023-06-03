@@ -1,8 +1,18 @@
 import React from 'react'
-import ChatContainer from './ChatContainer'
-import {chatList} from '../../chatList.js'
-import NewChatButton from './NewChatButton'
+import { Routes, Route } from 'react-router-dom'
+
 import SideTopBar from './SideTopBar'
+
+import ChatContainer from '../chat/ChatContainer'
+import ContactContainer from '../contact/ContactContainer'
+import ProfileContainer from '../profile/ProfileContainer'
+
+import ChatSearchInput from '../chat/ChatSearchInput'
+import ContactSearchInput from '../contact/ContactSearchInput'
+
+import { chatList } from '../../chatList.js'
+import { contactList } from '../../contactList.js'
+import { profile } from '../../profile.js'
 
 export default function SideSection() {
 
@@ -31,11 +41,20 @@ export default function SideSection() {
   }, [])
   */
 
-  return(
+  return (
     <>
       <SideTopBar />
-      <NewChatButton />
-      <ChatContainer chatList={chatList.data} />
+      <Routes>
+        <Route path='/' element=<ChatSearchInput /> />
+        <Route path='/chats' element=<ChatSearchInput /> />
+        <Route path='/contacts' element=<ContactSearchInput /> />
+      </Routes>
+      <Routes>
+        <Route path='/' element=<ChatContainer chatList={chatList.data} /> />
+        <Route path='/chats' element=<ChatContainer chatList={chatList.data} /> />
+        <Route path='/contacts' element=<ContactContainer contactList={contactList.data} /> />
+        <Route path='/profile' element=<ProfileContainer profile={profile.data}/> />
+      </Routes>
     </>
   )
 }
