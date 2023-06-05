@@ -6,12 +6,12 @@ export default function Home() {
 
     return (
         <>
-            <div id="side-section">
+            <aside id="side-section">
                 <SideSection />
-            </div>
-            <div id="main-section">
+            </aside>
+            <main id="main-section">
                 <MainSection />
-            </div>
+            </main>
         </>
     )
 }

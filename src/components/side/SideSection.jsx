@@ -9,6 +9,7 @@ import ProfileContainer from '../profile/ProfileContainer'
 
 import ChatSearchInput from '../chat/ChatSearchInput'
 import ContactSearchInput from '../contact/ContactSearchInput'
+import AddContactButton from '../contact/AddContactButton'
 
 import { chatList } from '../../chatList.js'
 import { contactList } from '../../contactList.js'
@@ -48,6 +49,9 @@ export default function SideSection() {
         <Route path='/' element=<ChatSearchInput /> />
         <Route path='/chats' element=<ChatSearchInput /> />
         <Route path='/contacts' element=<ContactSearchInput /> />
+      </Routes>
+      <Routes>
+        <Route path='/contacts' element=<AddContactButton /> />
       </Routes>
       <Routes>
         <Route path='/' element=<ChatContainer chatList={chatList.data} /> />

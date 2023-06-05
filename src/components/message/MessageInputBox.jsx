@@ -9,10 +9,14 @@ export default function MessageInputBox() {
                 id="message-input"
                 type='text'
                 value={messageInput}
-                placeholder='Scrivi messaggio...'
+                placeholder='Scrivi un messaggio'
                 onChange={e => setMessageInput(e.target.value)}>
             </input>
-            <button id="message-sender">Invia</button>
+            <button id="message-sender">
+                <span class="material-symbols-outlined">
+                    send
+                </span>
+            </button>
         </div>
     )
 }
