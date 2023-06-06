@@ -9,7 +9,7 @@ import "./styles/Contact.css";
 import "./styles/Profile.css";
 import "./styles/Message.css";
 //import io from "socket.io-client";
-import useCookie from "./util/useCookies";
+import useCookie from "./utils/useCookies";
 
 // Componenti
 import { Routes, Route } from "react-router-dom";
@@ -21,26 +21,25 @@ import PrivateRoute from "./components/routesPrivate/PrivateRoute";
 //const socket = io.connect("http://localhost:3001");
 
 export default function App() {
-  
+
   const [jwtToken, setJwtToken] = useCookie("jwt", "");
 
   return (
     <>
-      <Routes>
-        <Route
-          path="*"
-          element={
-            <PrivateRoute jwt={jwtToken}>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/login"
-          element={<Login jwt={jwtToken} setJwt={setJwtToken} />}
-        />
-      </Routes>
+      
+        <Routes>
+          <Route path="*" element={
+              <PrivateRoute jwt={jwtToken}>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login jwt={jwtToken} setJwt={setJwtToken} />}/>
+        </Routes>
+      
     </>
   );
 }
+
+///   rfce to create a component
