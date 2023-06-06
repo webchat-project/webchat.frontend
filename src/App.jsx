@@ -21,6 +21,7 @@ import PrivateRoute from "./components/routesPrivate/PrivateRoute";
 //const socket = io.connect("http://localhost:3001");
 
 export default function App() {
+  
   const [jwtToken, setJwtToken] = useCookie("jwt", "");
 
   return (

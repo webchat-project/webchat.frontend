@@ -1,22 +1,21 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import SideTopBar from './SideTopBar'
+import SideTopBar from "./SideTopBar";
 
-import ChatContainer from '../chat/ChatContainer'
-import ContactContainer from '../contact/ContactContainer'
-import ProfileContainer from '../profile/ProfileContainer'
+import ChatContainer from "../chat/ChatContainer";
+import ContactContainer from "../contact/ContactContainer";
+import ProfileContainer from "../profile/ProfileContainer";
 
-import ChatSearchInput from '../chat/ChatSearchInput'
-import ContactSearchInput from '../contact/ContactSearchInput'
-import AddContactButton from '../contact/AddContactButton'
+import ChatSearchInput from "../chat/ChatSearchInput";
+import ContactSearchInput from "../contact/ContactSearchInput";
+import AddContactButton from "../contact/AddContactButton";
 
-import { chatList } from '../../xyz/chatList.js'
-import { contactList } from '../../xyz/contactList.js'
-import { profile } from '../../xyz/profile.js'
+import { chatList } from "../../xyz/chatList.js";
+import { contactList } from "../../xyz/contactList.js";
+import { profile } from "../../xyz/profile.js";
 
 export default function SideSection() {
-
   /*
   const url="https://jsonplaceholder.typicode.com/photos"
 
@@ -46,19 +45,28 @@ export default function SideSection() {
     <>
       <SideTopBar />
       <Routes>
-        <Route path='/' element=<ChatSearchInput /> />
-        <Route path='/chats' element=<ChatSearchInput /> />
-        <Route path='/contacts' element=<ContactSearchInput /> />
+        <Route path="/" element={<ChatSearchInput />} />
+        <Route path="/chats" element={<ChatSearchInput />} />
+        <Route path="/contacts" element={<ContactSearchInput />} />
       </Routes>
       <Routes>
-        <Route path='/contacts' element=<AddContactButton /> />
+        <Route path="/contacts" element={<AddContactButton />} />
       </Routes>
       <Routes>
-        <Route path='/' element=<ChatContainer chatList={chatList.data} /> />
-        <Route path='/chats' element=<ChatContainer chatList={chatList.data} /> />
-        <Route path='/contacts' element=<ContactContainer contactList={contactList.data} /> />
-        <Route path='/profile' element=<ProfileContainer profile={profile.data}/> />
+        <Route path="/" element={<ChatContainer chatList={chatList.data} />} />
+        <Route
+          path="/chats"
+          element={<ChatContainer chatList={chatList.data} />}
+        />
+        <Route
+          path="/contacts"
+          element={<ContactContainer contactList={contactList.data} />}
+        />
+        <Route
+          path="/profile"
+          element={<ProfileContainer profile={profile.data} />}
+        />
       </Routes>
     </>
-  )
+  );
 }

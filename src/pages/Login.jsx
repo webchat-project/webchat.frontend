@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Input from "../components/input/Input";
 import jwtDecode from "jwt-decode";
 //import useCookie from "../util/useCookies";
+import { Link } from "react-router-dom";
 
 
 
@@ -73,7 +74,7 @@ export default function Login({jwt, setJwt}) {
             />
             <button onClick={handleLogin}>Login</button>
             <p id="signup-question">
-              Non hai un account? <a href="/signup">Registrati</a>
+              Non hai un account? <Link to="/signup">Registrati</Link>
             </p>
             <div>
               <button id="login-clear-button">Svuota</button>

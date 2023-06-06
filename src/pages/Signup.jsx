@@ -2,6 +2,7 @@ import '../styles/Signup.css'
 
 import React from 'react'
 import Input from '../components/input/Input'
+import { Link } from "react-router-dom";
 
 export default function Signup() {
 
@@ -67,7 +68,7 @@ export default function Signup() {
         </div>
         </div>
 
-        <p id="login-question">Hai un account? <a href='/login'>Accedi</a></p>
+        <p id="login-question">Hai un account? <Link to='/login'>Accedi</Link></p>
 
         <div>
           <button id="signup-clear-button">
