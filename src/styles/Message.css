@@ -4,8 +4,7 @@
     height: calc(100% - 140px);
     overflow: auto;
     padding: 15px 0px 5px 0px;
-    /*background-color: #ECEFF1;*/
-    background-image: url("../../public/chat.png");
+    background-color: #ECEFF1;
 
 }
 
@@ -27,7 +26,8 @@
 }
 
 .sent-message {
-    background-color: #8be9b9;
+    background-color: #90CAF9;
+    /* background-color: #8be9b9; */
     align-self: flex-end;
     max-width: 70%;
     margin: 7px 20px 7px 20px;
