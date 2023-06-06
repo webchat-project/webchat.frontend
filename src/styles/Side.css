@@ -20,7 +20,7 @@
 }
 
 .side-top-bar-button-container :hover {
-  background-color: rgb(230, 230, 230);
+  background-color: #f2f2f2;
 }
 
 .side-top-bar-button {
@@ -35,5 +35,5 @@
 }
 
 .side-top-bar-button-name {
-  margin-top: 5px;
+  margin-top: 3px;
 }

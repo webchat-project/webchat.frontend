@@ -4,7 +4,6 @@ export default function ContactSearchInput() {
     const [contact, setContact] = useState('')
 
     // Metodo per cercare il contatto
-
     return (
         <div id="contact-search-container">
             <input

@@ -4,9 +4,7 @@
     height: calc(100% - 140px);
     overflow: auto;
     padding: 15px 0px 5px 0px;
-    background-image: url("../../public/chat.jpg");
-    background-size:cover;
-    background-repeat: no-repeat;
+    background-color: #ECEFF1;
 }
 
 .message-text {
@@ -67,5 +65,5 @@
 }
 
 #message-sender:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #f2f2f2;
 }

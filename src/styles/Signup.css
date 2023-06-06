@@ -1,5 +1,6 @@
 #signup-page {
     background-color: #fece2f;
+    padding: 20px;
     margin: 0;
     height: 100%;
     width: 100%;
@@ -11,12 +12,19 @@
 
 #signup-page-container {
     position: relative;
-    max-width: 300px;
+    max-width: 500px;
     width: 100%;
     background: white;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+#signup-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    width: 100%;
 }
 
 #page-title {
@@ -78,4 +86,37 @@
     outline: none;
     background-color: rgb(255, 193, 7, 0.1);
     border: 1px solid rgb(255, 193, 7, 0.2);
+}
+
+#login-question {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#login-question a {
+    text-decoration: none;
+    color: #0D47A1;
+}
+
+#signup-clear-button {
+    height: 40px;
+    width: calc(50% - 10px);
+    border: 0px;
+    outline: 0px;
+    border-radius: 12px;
+    color: white;
+    background-color: #C62828;
+}
+
+#signup-send-button {
+    margin-left: 20px;
+    height: 40px;
+    width: calc(50% - 10px);
+    border: 0px;
+    outline: 0px;
+    border-radius: 12px;
+    color: white;
+    background-color: #1976D2;
 }
