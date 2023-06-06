@@ -34,6 +34,8 @@
 
 #name-input {
     height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     width: calc(100% - 30px);
     border: 1px solid #cfd8dc;
     border-radius: 12px;
@@ -48,6 +50,7 @@
 
 #surname-input {
     height: 40px;
+    margin-top: 10px;
     width: calc(100% - 30px);
     border: 1px solid #cfd8dc;
     border-radius: 12px;
@@ -62,6 +65,7 @@
 
 #email-input {
     height: 40px;
+    margin-top: 10px;
     width: calc(100% - 30px);
     border: 1px solid #cfd8dc;
     border-radius: 12px;
@@ -74,8 +78,24 @@
     border: 1px solid rgb(255, 193, 7, 0.2);
 }
 
+#verify-email-input {
+    height: 40px;
+    margin-top: 10px;
+    width: calc(100% - 30px);
+    border: 1px solid #cfd8dc;
+    border-radius: 12px;
+    padding: 0 15px;
+}
+
+#verify-email-input:focus {
+    outline: none;
+    background-color: rgb(255, 193, 7, 0.1);
+    border: 1px solid rgb(255, 193, 7, 0.2);
+}
+
 #password-input {
     height: 40px;
+    margin-top: 10px;
     width: calc(100% - 30px);
     border: 1px solid #cfd8dc;
     border-radius: 12px;
@@ -83,6 +103,21 @@
 }
 
 #password-input:focus {
+    outline: none;
+    background-color: rgb(255, 193, 7, 0.1);
+    border: 1px solid rgb(255, 193, 7, 0.2);
+}
+
+#verify-password-input {
+    height: 40px;
+    margin-top: 10px;
+    width: calc(100% - 30px);
+    border: 1px solid #cfd8dc;
+    border-radius: 12px;
+    padding: 0 15px;
+}
+
+#verify-password-input:focus {
     outline: none;
     background-color: rgb(255, 193, 7, 0.1);
     border: 1px solid rgb(255, 193, 7, 0.2);
