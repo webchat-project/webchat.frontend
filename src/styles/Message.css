@@ -4,7 +4,9 @@
     height: calc(100% - 140px);
     overflow: auto;
     padding: 15px 0px 5px 0px;
-    background-color: #ECEFF1;
+    /*background-color: #ECEFF1;*/
+    background-image: url("../../public/chat.png");
+
 }
 
 .message-text {

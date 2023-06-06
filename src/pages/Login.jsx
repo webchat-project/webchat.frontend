@@ -1,20 +1,22 @@
 import "../styles/Login.css";
 
 import React from "react";
-import Input from "../components/Input";
+import Input from "../components/input/Input";
 import Cookies from "universal-cookie";
 import jwtDecode from "jwt-decode";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+
+
 
 export default function Login() {
   //inizializzare il cookie
-  const cookies = new Cookies();
+  const cookies = useMemo(() => new Cookies(), []);
 
   //Inizializza user state
-  const [user, setUser] = useState(null);
+  const [loggedUser, setloggedUser] = useState(null);
 
   const logout = () => {
-    setUser(null);
+    setloggedUser(null);
     cookies.remove("jwt_authorization");
   };
 
@@ -23,9 +25,9 @@ export default function Login() {
     const jwtToken = cookies.get("jwt_authorization");
     if (jwtToken) {
       const decodedToken = jwtDecode(jwtToken);
-      setUser(decodedToken);
+      setloggedUser(decodedToken);
     }
-  }, []);
+  }, [cookies]);
 
   // Pass a function reference to onClick instead of invoking the function directly
   const handleLogin = () => {
@@ -40,7 +42,7 @@ export default function Login() {
     const decodedToken = jwtDecode(jwtToken);
 
     //Set user state
-    setUser(decodedToken);
+    setloggedUser(decodedToken);
     console.log(decodedToken);
 
     //set cookie
@@ -53,10 +55,10 @@ export default function Login() {
     <div id="login-page">
       <div id="login-page-container">
         {/* Use user state to determine whether to render Login or Logout button */}
-        {user ? (
+        {loggedUser ? (
           <>
-            <h3>{user.name}</h3>
-            <button onClick={logout}>Logout</button>
+            <h3>{loggedUser.name}</h3>
+            <button id="login-send-button" onClick={logout}>Logout</button>
           </>
         ) : (
           <>
