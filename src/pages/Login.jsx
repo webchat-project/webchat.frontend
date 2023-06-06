@@ -1,54 +1,45 @@
 import "../styles/Login.css";
 
-import React from "react";
+import React, { useEffect, useState  } from "react";
 import Input from "../components/input/Input";
-import Cookies from "universal-cookie";
 import jwtDecode from "jwt-decode";
-import { useState, useEffect, useMemo } from "react";
-
-
+import useCookie from "../util/useCookies";
 
 export default function Login() {
   //inizializzare il cookie
-  const cookies = useMemo(() => new Cookies(), []);
+  const [jwt, setJwt] = useCookie("jwt", "");
 
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
 
-  const logout = () => {
+  const handleLogout = () => {
     setloggedUser(null);
-    cookies.remove("jwt_authorization");
+    setJwt("");
   };
+
+ 
+
+
 
   useEffect(() => {
-    // Retrieve state from cookie
-    const jwtToken = cookies.get("jwt_authorization");
-    if (jwtToken) {
-      const decodedToken = jwtDecode(jwtToken);
-      setloggedUser(decodedToken);
-    }
-  }, [cookies]);
-
-  // Pass a function reference to onClick instead of invoking the function directly
-  const handleLogin = () => {
-    login(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    );
-  };
-
-  // DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
-  const login = (jwtToken) => {
+    if(jwt.trim() !== ''){
     //Decode jwt token
-    const decodedToken = jwtDecode(jwtToken);
-
+    const decodedToken = jwtDecode(jwt);
     //Set user state
     setloggedUser(decodedToken);
     console.log(decodedToken);
+    }
+  }, [jwt]);
 
-    //set cookie
-    cookies.set("jwt_authorization", jwtToken, {
-      expires: new Date(decodedToken.expires * 1000),
-    });
+
+  
+
+
+  // DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
+  // Pass a function reference to onClick instead of invoking the function directly
+  const handleLogin = () => {
+    const jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
+    setJwt(jwtToken);
   };
 
   return (
@@ -58,20 +49,26 @@ export default function Login() {
         {loggedUser ? (
           <>
             <h3>{loggedUser.name}</h3>
-            <button id="login-send-button" onClick={logout}>Logout</button>
+            <button id="login-send-button" onClick={handleLogout}>
+              Logout
+            </button>
           </>
         ) : (
           <>
             {" "}
             <h3 id="page-title">Login</h3>
-            <p id="email-input-title">Email</p>
+            <label id="email-input-title" htmlFor="email-input">
+              Email
+            </label>
             <Input
               containerId="email-input-container"
               id="email-input"
               type="text"
               placeholder="Inserisci email"
             />
-            <p id="password-input-title">Password</p>
+            <label id="password-input-title" htmlFor="password-input">
+              Password
+            </label>
             <Input
               containerId="password-input-container"
               id="password-input"

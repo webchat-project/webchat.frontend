@@ -27,10 +27,15 @@
 
 #email-input {
     height: 40px;
+    margin: 10px;
     width: calc(100% - 30px);
     border: 1px solid #cfd8dc;
     border-radius: 12px;
     padding: 0 15px;
+}
+
+#email-input-title {
+    padding : 15px;
 }
 
 #email-input:focus {
@@ -55,11 +60,17 @@
 
 #password-input {
     height: 40px;
+    margin: 10px;
     width: calc(100% - 30px);
     border: 1px solid #cfd8dc;
     border-radius: 12px;
     padding: 0 15px;
 }
+
+#password-input-title {
+    padding: 15px;
+}
+
 
 #password-input:focus {
     outline: none;
