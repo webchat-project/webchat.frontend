@@ -1,13 +1,16 @@
 import "../styles/Login.css";
 
-import React, { useEffect, useState  } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/input/Input";
 import jwtDecode from "jwt-decode";
-import useCookie from "../util/useCookies";
+//import useCookie from "../util/useCookies";
 
-export default function Login() {
+
+
+
+export default function Login({jwt, setJwt}) {
   //inizializzare il cookie
-  const [jwt, setJwt] = useCookie("jwt", "");
+  //const [jwt, setJwt] = useCookie("jwt", "");
 
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
@@ -17,28 +20,21 @@ export default function Login() {
     setJwt("");
   };
 
- 
-
-
-
   useEffect(() => {
-    if(jwt.trim() !== ''){
-    //Decode jwt token
-    const decodedToken = jwtDecode(jwt);
-    //Set user state
-    setloggedUser(decodedToken);
-    console.log(decodedToken);
+    if (jwt.trim() !== "") {
+      //Decode jwt token
+      const decodedToken = jwtDecode(jwt);
+      //Set user state
+      setloggedUser(decodedToken);
+      console.log(decodedToken);
     }
   }, [jwt]);
-
-
-  
-
 
   // DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
   // Pass a function reference to onClick instead of invoking the function directly
   const handleLogin = () => {
-    const jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
+    const jwtToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
     setJwt(jwtToken);
   };
 
