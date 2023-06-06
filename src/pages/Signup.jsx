@@ -24,14 +24,14 @@ export default function Signup() {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  
-  const handleValidation = () => {
+
+  /*const handleValidation = () => {
     const { password, confirmPassword, email, confirmEmail } = values;
 
     if (password !== confirmPassword) {
       toast.error;
     }
-  };
+  };*/
 
   return (
     <div id="signup-page">
@@ -119,9 +119,9 @@ export default function Signup() {
               />
             </div>
           </div>
-          <span id="login-question">
+          <p id="login-question">
             Hai un account? <Link to="/login">Accedi</Link>
-          </span>
+          </p>
           <div>
             <button id="signup-clear-button">Svuota</button>
             <button id="signup-send-button" type="submit">
