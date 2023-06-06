@@ -22,7 +22,15 @@ export default function Signup() {
   const handleChange = (event) => {
     event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
-    
+  };
+
+  
+  const handleValidation = () => {
+    const { password, confirmPassword, email, confirmEmail } = values;
+
+    if (password !== confirmPassword) {
+      toast.error;
+    }
   };
 
   return (
@@ -32,7 +40,9 @@ export default function Signup() {
         <form onSubmit={(event) => handleSubmit(event)}>
           <div id="signup-container">
             <div>
-              <p id="name-input-title">Nome</p>
+              <label id="name-input-title" htmlFor="name-input">
+                Nome
+              </label>
               <input
                 id="name-input"
                 type="text"
@@ -43,7 +53,9 @@ export default function Signup() {
             </div>
 
             <div>
-              <p id="surname-input-title">Cognome</p>
+              <label id="surname-input-title" htmlFor="surname-input">
+                Cognome
+              </label>
               <input
                 id="surname-input"
                 type="text"
@@ -54,7 +66,9 @@ export default function Signup() {
             </div>
 
             <div>
-              <p id="email-input-title">Email</p>
+              <label id="email-input-title" htmlFor="email-input">
+                Email
+              </label>
               <input
                 id="email-input"
                 type="email"
@@ -65,7 +79,9 @@ export default function Signup() {
             </div>
 
             <div>
-              <p id="verify-email-input-title">Verifica email</p>
+              <label id="verify-email-input-title" htmlFor="verify-email-input">
+                Verifica email
+              </label>
               <input
                 id="verify-email-input"
                 type="email"
@@ -76,7 +92,9 @@ export default function Signup() {
             </div>
 
             <div>
-              <p id="password-input-title">Password</p>
+              <label id="password-input-title" htmlFor="password-input">
+                Password
+              </label>
               <input
                 id="password-input"
                 type="password"
@@ -87,7 +105,11 @@ export default function Signup() {
             </div>
 
             <div>
-              <p id="verify-password-input-title">Verifica password</p>
+              <label
+                id="verify-password-input-title"
+                htmlFor="verify-password-input">
+                Verifica password
+              </label>
               <input
                 id="verify-password-input"
                 type="password"
@@ -101,12 +123,12 @@ export default function Signup() {
             Hai un account? <Link to="/login">Accedi</Link>
           </span>
           <div>
-          <button id="signup-clear-button">Svuota</button>
-          <button id="signup-send-button" type="submit">Invia</button>
-        </div>
+            <button id="signup-clear-button">Svuota</button>
+            <button id="signup-send-button" type="submit">
+              Invia
+            </button>
+          </div>
         </form>
-
-       
       </div>
     </div>
   );

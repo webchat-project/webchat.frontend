@@ -7,9 +7,7 @@ import jwtDecode from "jwt-decode";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
-
-
-export default function Login({jwt, setJwt}) {
+export default function Login({ jwt, setJwt }) {
   //inizializzare il cookie
   //const [jwt, setJwt] = useCookie("jwt", "");
 
@@ -44,9 +42,7 @@ export default function Login({jwt, setJwt}) {
       <div id="login-page-container">
         {/* Use user state to determine whether to render Login or Logout button */}
         {loggedUser ? (
-          
-            <Navigate to="/"/>
-          
+          <Navigate to="/" />
         ) : (
           <>
             {" "}
@@ -54,28 +50,23 @@ export default function Login({jwt, setJwt}) {
             <label id="email-input-title" htmlFor="email-input">
               Email
             </label>
-            <Input
-              containerId="email-input-container"
-              id="email-input"
-              type="text"
-              placeholder="Inserisci email"
-            />
+            <input id="email-input" type="text" placeholder="Inserisci email" />
             <label id="password-input-title" htmlFor="password-input">
               Password
             </label>
-            <Input
-              containerId="password-input-container"
+            <input
               id="password-input"
               type="password"
               placeholder="Inserisci password"
             />
-            <button onClick={handleLogin}>Login</button>
             <p id="signup-question">
               Non hai un account? <Link to="/signup">Registrati</Link>
             </p>
             <div>
               <button id="login-clear-button">Svuota</button>
-              <button id="login-send-button">Invia</button>
+              <button id="login-send-button" onClick={handleLogin}>
+                Invia
+              </button>
             </div>
           </>
         )}
