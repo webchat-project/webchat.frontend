@@ -44,30 +44,30 @@ export default function SideSection() {
   }, [])
   */
 
- 
+
   return (
     <>
       <SideTopBar />
       <Routes>
-        <Route path='/' element=<ChatSearchInput /> />
-        <Route path='/chats' element=<ChatSearchInput /> />
-        <Route path='/contacts' element=<SideSearch id={"chat-search"} placeholder={"Cerca contatto"}  /> />
-        </Routes>
+        <Route path='/' element={<ChatSearchInput /> }/>
+        <Route path='/chats' element={<ChatSearchInput /> }/>
+        <Route path='/contacts' element={<SideSearch id={"chat-search"} placeholder={"Cerca contatto"} />} />
+      </Routes>
 
-        <Routes>
-        <Route path='/contacts' element=<AddContactButton /> />
-        </Routes>
+      <Routes>
+        <Route path='/contacts' element={<AddContactButton /> } />
+      </Routes>
 
-        <Routes>
-        <Route path='/add' element=<SideSearch id={"chat-search"} placeholder={"Cerca contatto online"} /> />
-        <Route path='/add' element=<AddContactButton /> />
-        </Routes>
-        
-        <Routes>
-        <Route path='/' element=<ChatContainer chatList={chatList.data} /> />
-        <Route path='/chats' element=<ChatContainer chatList={chatList.data} /> />
-        <Route path='/contacts' element=<ContactContainer contactList={contactList.data} /> />
-        <Route path='/profile' element=<ProfileContainer profile={profile.data}/> />
+      <Routes>
+        <Route path='/add' element={<SideSearch id={"chat-search"} placeholder={"Cerca contatto online"} />} />
+        <Route path='/add' element={<AddContactButton />} />
+      </Routes>
+
+      <Routes>
+        <Route path='/' element={<ChatContainer chatList={chatList.data} /> }/>
+        <Route path='/chats' element={<ChatContainer chatList={chatList.data} /> }/>
+        <Route path='/contacts' element={<ContactContainer contactList={contactList.data} /> }/>
+        <Route path='/profile' element={<ProfileContainer profile={profile.data} /> }/>
       </Routes>
     </>
   )

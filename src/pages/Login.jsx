@@ -1,7 +1,6 @@
 import "../styles/Login.css";
 
 import React, { useEffect, useState } from "react";
-import Input from "../components/input/Input";
 import jwtDecode from "jwt-decode";
 //import useCookie from "../util/useCookies";
 import { Link } from "react-router-dom";

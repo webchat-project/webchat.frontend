@@ -7,25 +7,25 @@ export default function AddContactButton() {
     return (
         <>
             <div id="add-contact-button">
-                <a href="/add">
+                <Link to="/add">
                     <div id="add-contact-button-container">
                         <span className="material-symbols-outlined" id='add-contact-button-icon'>
                             add
                         </span>
                         <h3>Aggiungi contatto</h3>
                     </div>
-                </a>
+                </Link>
 
             </div>
             <div id="add-contact-button">
-                <a href="/requests">
+                <Link to="/requests">
                     <div id="add-contact-button-container">
                         <span className="material-symbols-outlined" id='add-contact-button-icon'>
                             mail
                         </span>
                         <h3>Richieste</h3>
                     </div>
-                </a>
+                </Link>
             </div>
         </>
     )
