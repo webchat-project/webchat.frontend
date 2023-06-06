@@ -11,9 +11,9 @@ import ChatSearchInput from '../chat/ChatSearchInput'
 import ContactSearchInput from '../contact/ContactSearchInput'
 import AddContactButton from '../contact/AddContactButton'
 
-import { chatList } from '../../chatList.js'
-import { contactList } from '../../contactList.js'
-import { profile } from '../../profile.js'
+import { chatList } from '../../xyz/chatList.js'
+import { contactList } from '../../xyz/contactList.js'
+import { profile } from '../../xyz/profile.js'
 
 export default function SideSection() {
 

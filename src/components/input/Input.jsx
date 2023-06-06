@@ -18,5 +18,5 @@ export default function Input({ containerId, id, type, placeholder }) {
 id="message-input-container"
 id="message-input
 type='text'
-placeholder='Scrivi messaggio...'
+placeholder='Scrivi messaggio'
 */

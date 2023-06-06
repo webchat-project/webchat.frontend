@@ -5,15 +5,14 @@
 #contact-search {
     height: 40px;
     width: calc(100% - 30px);
-    border: 1px solid #e1e6ea;
-    background-color: #f4f7f9;
+    border: 1px solid rgb(230, 230, 230);
     border-radius: 7px;
     padding: 0 15px;
 }
 
 #contact-search:focus {
     outline: none;
-    background-color: white;
+    background-color: #f2f2f2;
 }
 
 #contact-button {
@@ -28,7 +27,7 @@
 }
 
 #contact-button:hover {
-    background-color: #f0f2f5;
+    background-color: #f2f2f2;
 }
 
 #contact-button img {
@@ -72,7 +71,7 @@
 }
 
 #add-contact-button:hover {
-    background-color: #f0f2f5;
+    background-color: #f2f2f2;
 }
 
 #add-contact-button span {
