@@ -8,7 +8,6 @@ export default function Signup() {
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
-    username: "",
     email: "",
     confirmEmail: "",
     password: "",
@@ -17,12 +16,13 @@ export default function Signup() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert("form");
+    console.log(user);
   };
 
   const handleChange = (event) => {
     event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
+    
   };
 
   return (
@@ -80,6 +80,7 @@ export default function Signup() {
               <input
                 id="password-input"
                 type="password"
+                name="password"
                 placeholder="Inserisci password"
                 onChange={(e) => handleChange(e)}
               />
@@ -96,16 +97,16 @@ export default function Signup() {
               />
             </div>
           </div>
-          <button type="submit">Create User</button>
           <span id="login-question">
             Hai un account? <Link to="/login">Accedi</Link>
           </span>
+          <div>
+          <button id="signup-clear-button">Svuota</button>
+          <button id="signup-send-button" type="submit">Invia</button>
+        </div>
         </form>
 
-        <div>
-          <button id="signup-clear-button">Svuota</button>
-          <button id="signup-send-button">Invia</button>
-        </div>
+       
       </div>
     </div>
   );

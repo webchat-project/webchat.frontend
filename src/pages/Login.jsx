@@ -5,7 +5,7 @@ import Input from "../components/input/Input";
 import jwtDecode from "jwt-decode";
 //import useCookie from "../util/useCookies";
 import { Link } from "react-router-dom";
-
+import { Navigate } from "react-router-dom";
 
 
 
@@ -44,12 +44,9 @@ export default function Login({jwt, setJwt}) {
       <div id="login-page-container">
         {/* Use user state to determine whether to render Login or Logout button */}
         {loggedUser ? (
-          <>
-            <h3>{loggedUser.name}</h3>
-            <button id="login-send-button" onClick={handleLogout}>
-              Logout
-            </button>
-          </>
+          
+            <Navigate to="/"/>
+          
         ) : (
           <>
             {" "}
