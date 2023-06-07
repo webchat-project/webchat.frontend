@@ -3,6 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 
 import SideTopBar from './SideTopBar'
 
+import Loading from '../await/Loading'
+import Error from '../await/Error'
+
 import ChatContainer from '../chat/ChatContainer'
 import ContactContainer from '../contact/ContactContainer'
 import ProfileContainer from '../profile/ProfileContainer'
@@ -28,6 +31,14 @@ export default function SideSection() {
 
       <Routes>
         <Route path='/contacts/*' element={<AddContactButton /> } />
+      </Routes>
+
+      <Routes>
+        <Route path='/*' element={<Loading /> } />
+      </Routes>
+
+      <Routes>
+        <Route path='/*' element={<Error /> } />
       </Routes>
 
       <Routes>

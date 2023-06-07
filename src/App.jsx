@@ -1,5 +1,6 @@
 // File Stile CSS
 import "./styles/App.css";
+import "./styles/Await.css";
 import "./styles/Signup.css";
 import "./styles/Login.css";
 import "./styles/Side.css";

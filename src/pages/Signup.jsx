@@ -188,7 +188,7 @@ export default function Signup() {
           <div>
             <button id="signup-clear-button">Svuota</button>
              <button id="signup-send-button" type="submit" >
-              Invia
+              Registrati
             </button>
           </div>
         </form>

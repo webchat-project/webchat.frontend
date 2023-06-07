@@ -65,7 +65,7 @@ export default function Login({ jwt, setJwt }) {
             <div>
               <button id="login-clear-button">Svuota</button>
               <button id="login-send-button" onClick={handleLogin}>
-                Invia
+                Accedi
               </button>
             </div>
           </>

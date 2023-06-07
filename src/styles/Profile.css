@@ -8,5 +8,15 @@
     padding: 10px;
     height: calc(100% - 20px);
     width: calc(100% - 20px);
-    border-radius: 20px;
+    border-radius: 22px;
+}
+
+#logout-button {
+    height: 40px;
+    width: calc(100% - 20px);
+    border: 0px;
+    outline: 0px;
+    border-radius: 12px;
+    color: white;
+    background-color: #C62828;
 }
