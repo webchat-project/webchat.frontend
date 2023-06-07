@@ -1,10 +1,15 @@
 import "../styles/Signup.css";
-
 import React, { useState } from "react";
-//import Input from "../components/input/Input";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+//import axios from "axios";
+//import { signupRoute } from "../utils/ApiRoutes";
 
 export default function Signup() {
+
+  const [status, setStatus] = useState('typing'); //string
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -13,10 +18,34 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
+  
+  /*async function handleSubmit(e) { 
+    e.preventDefault(); 
+    setStatus('submitting'); 
+    try { 
+      await sendForm(answer); 
+            setStatus('success'); 
+    }catch (err) {
+      setStatus('typing'); 
+      setError(err);
+    }
+}
+*/
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(user);
+
+    if (handleValidation()) {
+      console.log(user);
+      
+      /*const { firstName, lastName, email, password } = user;
+      const { data } = await axios.post(signupRoute, {
+        firstName,
+        lastName,
+        email,
+        password,
+      });*/
+    }
   };
 
   const handleChange = (event) => {
@@ -24,19 +53,47 @@ export default function Signup() {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 1000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
-  /*const handleValidation = () => {
-    const { password, confirmPassword, email, confirmEmail } = values;
+  
 
-    if (password !== confirmPassword) {
-      toast.error;
+
+
+  const handleValidation = () => {
+    const { password, confirmPassword, email, confirmEmail } = user;
+
+    if (email !== confirmEmail) {
+      toast.error("Email non sono uguali!", toastOptions);
+      return false;
+    } else if (password !== confirmPassword) {
+      toast.error("Password non sono uguali!", toastOptions);
+      return false;
+    } else if (email.length < 13) {
+      toast.error("Email non valido!", toastOptions);
+      return false;
+    } else if (password.length < 8) {
+      toast.error("Password deve avere minimo 8 caratteri!", toastOptions);
+      return false;
+    } else if (email.trim() === "") {
+      toast.error("Email is required", toastOptions);
+      return false;
     }
-  };*/
+    
+    return true;
+  };
+
 
   return (
     <div id="signup-page">
       <div id="signup-page-container">
         <h3 id="page-title">Signup</h3>
+
         <form onSubmit={(event) => handleSubmit(event)}>
           <div id="signup-container">
             <div>
@@ -49,6 +106,7 @@ export default function Signup() {
                 name="firstName"
                 placeholder="Inserisci nome"
                 onChange={(e) => handleChange(e)}
+                required
               />
             </div>
 
@@ -62,6 +120,7 @@ export default function Signup() {
                 name="lastName"
                 placeholder="Inserisci cognome"
                 onChange={(e) => handleChange(e)}
+                required
               />
             </div>
 
@@ -75,6 +134,7 @@ export default function Signup() {
                 name="email"
                 placeholder="Inserisci email"
                 onChange={(e) => handleChange(e)}
+                required
               />
             </div>
 
@@ -88,6 +148,7 @@ export default function Signup() {
                 name="confirmEmail"
                 placeholder="Reinserisci email"
                 onChange={(e) => handleChange(e)}
+                required
               />
             </div>
 
@@ -101,6 +162,7 @@ export default function Signup() {
                 name="password"
                 placeholder="Inserisci password"
                 onChange={(e) => handleChange(e)}
+                required
               />
             </div>
 
@@ -116,6 +178,7 @@ export default function Signup() {
                 name="confirmPassword"
                 placeholder="Reinserisci password"
                 onChange={(e) => handleChange(e)}
+                required
               />
             </div>
           </div>
@@ -124,7 +187,7 @@ export default function Signup() {
           </p>
           <div>
             <button id="signup-clear-button">Svuota</button>
-            <button id="signup-send-button" type="submit">
+             <button id="signup-send-button" type="submit" >
               Invia
             </button>
           </div>
