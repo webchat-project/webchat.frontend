@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function ChatButton({chat}) {
+export default function ChatButton({chat, action}) {
   return(
-    <div id="chat-button">
+    <div id="chat-button" onClick={action}>
       <div id="chat-button-container">
         <div id="image-container">
           <img alt="ProfilePicture" src={chat.picture}></img>

@@ -1,9 +1,13 @@
 import React from "react";
 
-export default function Error() {
+export default function Error({event}) {
     return (
-        <>
-        <div className="error"></div>
-        </>
+        <div className="error">
+            <span className="material-symbols-outlined">
+                error
+            </span>
+            <p>Errore</p>
+            <p>{event}</p>
+        </div>
     )
 }

@@ -1,5 +1,4 @@
 #side-section {
-  overflow: auto;
   border-inline-end: 1px solid rgb(230, 230, 230);
   height: 100%;
   width: 300px;
@@ -54,4 +53,51 @@
 #side-search:focus {
   outline: none;
   background-color: #f2f2f2;
+}
+
+#side-feature-button {
+  height: 70px;
+  margin: 2px 10px 2px 10px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+#side-feature-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 70px;
+}
+
+#side-feature-button:hover {
+  background-color: #f2f2f2;
+}
+
+#side-feature-button a {
+  color: black;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+#side-feature-button span {
+  padding: 10px;
+  border: 1px solid #424242;
+  color: #424242;
+  font-size: 28px;
+  font-weight: 400;
+  border-radius: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+
+}
+
+#side-feature-button h3 {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+}
+
+#side-elements-container {
+  height: calc(100% - 60px);
+  overflow: auto;
 }

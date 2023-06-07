@@ -1,8 +1,9 @@
 import React from 'react'
 
-export default function ContactButton({contact}) {
+export default function ContactButton({contact, action}) {
+
   return(
-    <div id="contact-button">
+    <div id="contact-button" onClick={action}>
       <div id="contact-button-container">
         <div id="image-container">
           <img alt="ProfilePicture" src={contact.picture}></img>

@@ -22,3 +22,13 @@
   margin-left: 10px;
   margin-right: 15px;
 }
+
+#default-message {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
