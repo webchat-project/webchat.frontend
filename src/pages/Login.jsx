@@ -13,11 +13,12 @@ export default function Login({ jwt, setJwt }) {
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
 
+  /*
   const handleLogout = () => {
     setloggedUser(null);
     setJwt("");
   };
-
+*/
   useEffect(() => {
     if (jwt.trim() !== "") {
       //Decode jwt token

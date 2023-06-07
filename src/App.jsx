@@ -17,27 +17,39 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import PrivateRoute from "./components/routesPrivate/PrivateRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //const socket = io.connect("http://localhost:3001");
 
 export default function App() {
-
   const [jwtToken, setJwtToken] = useCookie("jwt", "");
 
   return (
     <>
-      
-        <Routes>
-          <Route path="*" element={
-              <PrivateRoute jwt={jwtToken}>
-                <Home />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login jwt={jwtToken} setJwt={setJwtToken} />}/>
-        </Routes>
-      
+      <Routes>
+        <Route
+          path="*"
+          element={
+            <PrivateRoute jwt={jwtToken}>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <>
+              <ToastContainer />
+              <Signup />
+            </>
+          }
+        />
+        <Route
+          path="/login"
+          element={<Login jwt={jwtToken} setJwt={setJwtToken} />}
+        />
+      </Routes>
     </>
   );
 }
