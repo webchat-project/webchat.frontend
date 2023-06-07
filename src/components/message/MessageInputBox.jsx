@@ -13,7 +13,7 @@ export default function MessageInputBox() {
                 onChange={e => setMessageInput(e.target.value)}>
             </input>
             <button id="message-sender">
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                     send
                 </span>
             </button>

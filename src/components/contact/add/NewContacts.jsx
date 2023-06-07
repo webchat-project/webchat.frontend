@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link } from "react-router-dom";
 
-export default function AddContactButton() {
+export default function NewContacts() {
 
     return (
         <>
