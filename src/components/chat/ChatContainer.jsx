@@ -1,7 +1,12 @@
-import React from 'react'
-import ChatButton from './ChatButton'
+import React from "react";
+import ChatButton from "./ChatButton";
 
-export default function ChatContainer({chatList, action}) {
-  
-  return chatList.map(c => <ChatButton chat={c} action={action} key={c.id}/>)
+export default function ChatContainer({ chatList, handleChatClick }) {
+  return chatList.map((c) => (
+    <ChatButton
+      chat={c}
+      handleClick={() => handleChatClick(c.id)}
+      key={c.id}
+    />
+  ));
 }

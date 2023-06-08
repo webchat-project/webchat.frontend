@@ -1,26 +1,24 @@
-import React, { useState } from 'react'
-import MainTopBar from './MainTopBar'
+import React, { useState } from "react";
+import MainTopBar from "./MainTopBar";
 
-import DefaultMessage from '../message/DefaultMessage'
-import MessageContainer from '../message/MessageContainer'
-import MessageInputBox from '../message/MessageInputBox'
-import { messageList } from '../../xyz/messageList'
+import DefaultMessage from "../message/DefaultMessage";
+import MessageContainer from "../message/MessageContainer";
+import MessageInputBox from "../message/MessageInputBox";
 
-export default function MainSection() {
-
-  const [show, setShow] = useState(true);
-
+export default function MainSection({ messageList }) {
   return (
     <>
-      {show ? <DefaultMessage /> : (
+      {messageList === 0 ? (
+        <DefaultMessage />
+      ) : (
         <>
           <MainTopBar />
           <div id="message-container">
-            <MessageContainer messageList={messageList.data} />
+            <MessageContainer messageList={messageList} />
           </div>
           <MessageInputBox />
         </>
       )}
     </>
-  )
+  );
 }

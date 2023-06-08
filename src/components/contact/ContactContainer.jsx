@@ -1,7 +1,12 @@
-import React from 'react'
-import ContactButton from './ContactButton'
+import React from "react";
+import ContactButton from "./ContactButton";
 
-export default function ContactContainer({contactList, action}) {
-  
-  return contactList.map(c => <ContactButton contact={c} action={action} key={c.id} />)
+export default function ContactContainer({ contactList, handleContactClick }) {
+  return contactList.map((c) => (
+    <ContactButton
+      contact={c}
+      handleClick={() => handleContactClick(c.id)}
+      key={c.id}
+    />
+  ));
 }
