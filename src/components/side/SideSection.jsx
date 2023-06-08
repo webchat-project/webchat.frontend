@@ -13,17 +13,72 @@ import SideFeature from "./SideFeature";
 // Dati provvisori
 import { chatList } from "../../xyz/chatList.js";
 import { contactList } from "../../xyz/contactList.js";
+
 import { profile } from "../../xyz/profile.js";
-import { messageList } from "../../xyz/messageList.js";
+import { messageSalvatore } from "../../xyz/messageSalvatore.js";
+import { messageGledjan } from "../../xyz/messageGledjan.js";
+import { messagePietro } from "../../xyz/messagePietro.js";
 
-export default function SideSection({ setMessageList }) {
-  const handleChatClick = (chatId) => {
-    setMessageList(messageList.data);
+export default function SideSection({ setData }) {
+
+  const handleChatClick = (id) => {
+
+    if (id === 1) {
+      // Logica per il caso 1
+      const updatedData = {
+        user: [messageSalvatore.user], // Aggiorna l'array user
+        messages: [messageSalvatore.data] // Aggiorna l'array messages
+      };
+      setData(updatedData); // Imposta i dati aggiornati nel tuo stato
+      console.log(updatedData)
+    } else if (id === 2) {
+      // Logica per il caso 2
+      const updatedData = {
+        user: [messageGledjan.user], // Aggiorna l'array user
+        messages: [messageGledjan.data] // Aggiorna l'array messages
+      };
+      setData(updatedData); // Imposta i dati aggiornati nel tuo stato
+    } else if (id === 3) {
+      // Logica per il caso 3
+      const updatedData = {
+        user: [messagePietro.user], // Aggiorna l'array user
+        messages: [messagePietro.data] // Aggiorna l'array messages
+      };
+      setData(updatedData); // Imposta i dati aggiornati nel tuo stato
+    } else {
+      // Logica per il caso predefinito
+    }
+
   };
 
-  const handleContactClick = (chatId) => {
-    setMessageList(messageList.data);
+  const handleContactClick = (id) => {
+    if (id === 1) {
+      // Logica per il caso 1
+      const updatedData = {
+        user: [messageSalvatore.user], // Aggiorna l'array user
+        messages: [messageSalvatore.data] // Aggiorna l'array messages
+      };
+      setData(updatedData); // Imposta i dati aggiornati nel tuo stato
+    } else if (id === 2) {
+      // Logica per il caso 2
+      const updatedData = {
+        user: [messageGledjan.user], // Aggiorna l'array user
+        messages: [messageGledjan.data] // Aggiorna l'array messages
+      };
+      setData(updatedData); // Imposta i dati aggiornati nel tuo stato
+    } else if (id === 3) {
+      // Logica per il caso 3
+      const updatedData = {
+        user: [messagePietro.user], // Aggiorna l'array user
+        messages: [messagePietro.data] // Aggiorna l'array messages
+      };
+      setData(updatedData); // Imposta i dati aggiornati nel tuo stato
+    } else {
+      // Logica per il caso predefinito
+    }
+
   };
+
 
   return (
     <>

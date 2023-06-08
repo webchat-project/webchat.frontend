@@ -5,16 +5,16 @@ import DefaultMessage from "../message/DefaultMessage";
 import MessageContainer from "../message/MessageContainer";
 import MessageInputBox from "../message/MessageInputBox";
 
-export default function MainSection({ messageList }) {
+export default function MainSection({ data }) {
   return (
     <>
-      {messageList === 0 ? (
+      {data.messages.length === 0 ? (
         <DefaultMessage />
       ) : (
         <>
-          <MainTopBar />
+          <MainTopBar user={data.user[0][0]} />
           <div id="message-container">
-            <MessageContainer messageList={messageList} />
+            <MessageContainer messageList={data.messages[0]} />
           </div>
           <MessageInputBox />
         </>

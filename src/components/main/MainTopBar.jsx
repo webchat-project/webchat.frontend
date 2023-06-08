@@ -1,15 +1,15 @@
 import React from 'react'
 
-export default function MainTopBar() {
-  return(
+export default function MainTopBar({ user }) {
+  return (
     <div id="main-top-bar">
       <img
-      src='https://pps.whatsapp.net/v/t61.24694-24/301069900_2257521284404262_4647240350205687259_n.jpg?ccb=11-4&oh=01_AdQKKT-uOEX86iJ7Z3A6E83lE4jNATsa0cX4QGXaVHCsGw&oe=6484C197' 
+        src={user.picture}
 
-      alt=""
-      id='main-top-bar-profile-picture'
+        alt="profilo"
+        id='main-top-bar-profile-picture'
       ></img>
-      <h3>Salvatore Gesualdo</h3>
+      <h3>{user.name}</h3>
     </div>
   )
 }

@@ -1,19 +1,22 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import SideSection from '../components/side/SideSection'
 import MainSection from '../components/main/MainSection'
 
 export default function Home() {
 
-    const [messageList, setMessageList] = useState([]);
+    const [data, setData] = useState({
+        user: [],
+        messages: []
+    });
 
 
     return (
         <>
             <aside id="side-section">
-                <SideSection setMessageList={setMessageList}/>
+                <SideSection setData={setData} />
             </aside>
             <main id="main-section">
-                <MainSection messageList={messageList}/>
+                <MainSection data={data} />
             </main>
         </>
     )
