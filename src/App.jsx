@@ -24,6 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 //const socket = io.connect("http://localhost:3001");
 
 export default function App() {
+  
   const [jwtToken, setJwtToken] = useCookie("jwt", "");
 
   return (

@@ -1,12 +1,14 @@
 import "../styles/Signup.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { signupRoute } from "../utils/ApiRoutes";
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -36,12 +38,20 @@ export default function Signup() {
       console.log(user);
 
       const { firstName, lastName, email, password } = user;
+
       const { data } = await axios.post(signupRoute, {
         firstName,
         lastName,
         email,
         password,
       });
+
+      if (data.status === false) {
+        console.log("Utente non creato!!!", data.msg);
+      } else if (data.status === true) {
+        console.log("Utente creato!!!", data.msg);
+        navigate("/login");
+      }
     }
   };
 
@@ -57,6 +67,146 @@ export default function Signup() {
     draggable: true,
     theme: "dark",
   };
+
+
+
+
+  //***************************************************************** */
+/*
+// Metodi per modifica stile
+const nameStyle = () => {
+  if (
+    (this.signupFormControl.name.touched || this.submitted1) &&
+    this.signupFormControl.name.invalid
+  ) {
+    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
+  } else {
+    if (this.signupFormControl.name.valid) {
+      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
+    } else {
+      return {};
+    }
+  }
+}
+
+const surnameStyle=()=> {
+  if (
+    (this.signupFormControl.surname.touched || this.submitted1) &&
+    this.signupFormControl.surname.invalid
+  ) {
+    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
+  } else {
+    if (this.signupFormControl.surname.valid) {
+      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
+    } else {
+      return {};
+    }
+  }
+}
+
+const birthStyle=()=> {
+  if (
+    (this.signupFormControl.birth.touched || this.submitted1) &&
+    this.signupFormControl.birth.invalid
+  ) {
+    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
+  } else {
+    if (this.signupFormControl.birth.valid) {
+      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
+    } else {
+      return {};
+    }
+  }
+}
+
+
+const emailStyle = ()=> {
+  if (
+    (this.signupFormControl.email.touched || this.submitted2) &&
+    this.signupFormControl.email.invalid
+  ) {
+    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
+  } else {
+    if (this.signupFormControl.email.valid) {
+      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
+    } else {
+      return {};
+    }
+  }
+}
+
+const emailCheckStyle = ()=> {
+  if (
+    (this.signupFormControl.emailcheck.touched || this.submitted2) &&
+    (this.signupFormControl.emailcheck.value !== this.signupFormControl.email.value)
+  ) {
+    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
+  } else {
+    if (this.signupFormControl.emailcheck.valid) {
+      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
+    } else {
+      return {};
+    }
+  }
+}
+
+const passwordStyle=()=> {
+  if (
+    (this.signupFormControl.password.touched || this.submitted2) &&
+    this.signupFormControl.password.invalid
+  ) {
+    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
+  } else {
+    if (this.signupFormControl.password.valid) {
+      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
+    } else {
+      return {};
+    }
+  }
+}
+
+const passwordCheckStyle = ()=> {
+  if (
+    (this.signupFormControl.passwordcheck.touched || this.submitted2) &&
+    (this.signupFormControl.passwordcheck.value !== this.signupFormControl.password.value)
+  ) {
+    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
+  } else {
+    if (this.signupFormControl.passwordcheck.valid) {
+      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
+    } else {
+      return {};
+    }
+  }
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleValidation = () => {
     const { password, confirmPassword, email, confirmEmail } = user;

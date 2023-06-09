@@ -1,9 +1,9 @@
-import axios from 'axios';
+//import axios from 'axios';
 import { urlBackend } from '../Backend'
 
 // Import per testare il funzionamento delle pseudo CRUD
-import { chatList } from '../xyz/chatList';
-import { contactList } from '../xyz/contactList';
+//import { chatList } from '../xyz/chatList';
+//import { contactList } from '../xyz/contactList';
 
 // Costante per salvare l'indirizzo del backend
 const Backend = urlBackend
