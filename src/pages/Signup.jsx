@@ -3,13 +3,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-//import axios from "axios";
-//import { signupRoute } from "../utils/ApiRoutes";
+import axios from "axios";
+import { signupRoute } from "../utils/ApiRoutes";
 
 export default function Signup() {
-
-  const [status, setStatus] = useState('typing'); //string
-
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -18,7 +15,7 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
-  
+
   /*async function handleSubmit(e) { 
     e.preventDefault(); 
     setStatus('submitting'); 
@@ -37,14 +34,14 @@ export default function Signup() {
 
     if (handleValidation()) {
       console.log(user);
-      
-      /*const { firstName, lastName, email, password } = user;
+
+      const { firstName, lastName, email, password } = user;
       const { data } = await axios.post(signupRoute, {
         firstName,
         lastName,
         email,
         password,
-      });*/
+      });
     }
   };
 
@@ -60,10 +57,6 @@ export default function Signup() {
     draggable: true,
     theme: "dark",
   };
-
-  
-
-
 
   const handleValidation = () => {
     const { password, confirmPassword, email, confirmEmail } = user;
@@ -84,10 +77,9 @@ export default function Signup() {
       toast.error("Email is required", toastOptions);
       return false;
     }
-    
+
     return true;
   };
-
 
   return (
     <div id="signup-page">
@@ -187,7 +179,7 @@ export default function Signup() {
           </p>
           <div>
             <button id="signup-clear-button">Svuota</button>
-             <button id="signup-send-button" type="submit" >
+            <button id="signup-send-button" type="submit">
               Registrati
             </button>
           </div>
