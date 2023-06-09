@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 
-export default function MessageInputBox() {
+export default function MessageInputBox({ handleSubmit }) {
     const [messageInput, setMessageInput] = useState('')
 
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        handleSubmit(messageInput);
+        setMessageInput('')
+    };
+
     return (
-        <div id="message-input-container">
+        <form onSubmit={handleFormSubmit} id="message-input-container">
             <input
                 id="message-input"
                 type='text'
@@ -17,6 +23,6 @@ export default function MessageInputBox() {
                     send
                 </span>
             </button>
-        </div>
+        </form>
     )
 }

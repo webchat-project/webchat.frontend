@@ -6,7 +6,7 @@ export default function SideTopBar() {
     <div id="side-top-bar">
       <SideTopBarButton route="chats" material="chat" name="Chat" />
       <SideTopBarButton route="contacts" material="group" name="Contatti" />
-      <SideTopBarButton route="profile" material="account_circle" name="Profilo" />
+      <SideTopBarButton route="profile" material="settings" name="Profilo" />
     </div>
   );
 }

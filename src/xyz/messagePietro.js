@@ -7,29 +7,9 @@ export const messagePietro = {
   ],
   "data": [
     {
-      "userId": 1,
-      "type": "received-message",
-      "message": "Egla"
-    },
-    {
       "userId": 4,
       "type": "sent-message",
-      "message": "Oh Petrit"
-    },
-    {
-      "userId": 4,
-      "type": "sent-message",
-      "message": "Hai finito il backend"
-    },
-    {
-      "userId": 1,
-      "type": "received-message",
-      "message": "No"
-    },
-    {
-      "userId": 4,
-      "type": "sent-message",
-      "message": "Tra quanto finisci?"
+      "message": "Va bene"
     },
     {
       "userId": 1,
@@ -39,7 +19,27 @@ export const messagePietro = {
     {
       "userId": 4,
       "type": "sent-message",
-      "message": "Va bene"
+      "message": "Tra quanto finisci?"
+    },
+    {
+      "userId": 1,
+      "type": "received-message",
+      "message": "No"
+    },
+    {
+      "userId": 4,
+      "type": "sent-message",
+      "message": "Hai finito il backend"
+    },
+    {
+      "userId": 4,
+      "type": "sent-message",
+      "message": "Oh Petrit"
+    },
+    {
+      "userId": 1,
+      "type": "received-message",
+      "message": "Egla"
     }
   ]
 }

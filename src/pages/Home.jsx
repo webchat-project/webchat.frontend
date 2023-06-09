@@ -9,7 +9,6 @@ export default function Home() {
         messages: []
     });
 
-
     return (
         <>
             <aside id="side-section">

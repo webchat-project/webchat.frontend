@@ -1,4 +1,20 @@
-html, body {
+:root {
+  --back: #ffffff;
+  --text: #000000;
+  --main: rgba(255, 255, 255, 0.8);
+  --border: rgba(0, 0, 0, 0.2);
+}
+
+:root {
+  --primary: #eceff1;
+  --input-focus: #f2f2f2;
+  --button-hover: #f2f2f2;
+  --button-click: #e0e0e0;
+  --sent-message: #8be9b9;
+}
+
+html,
+body {
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-weight: 300;
@@ -6,6 +22,8 @@ html, body {
   height: 100%;
   width: 100%;
   position: fixed;
+  background-color: var(--primary);
+  color: var(--text);
 }
 
 #root {
@@ -16,5 +34,4 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
 }

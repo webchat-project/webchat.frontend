@@ -1,5 +1,4 @@
 #login-page {
-    background-color: #fece2f;
     padding: 20px;
     margin: 0;
     height: 100%;
@@ -14,7 +13,7 @@
     position: relative;
     max-width: 300px;
     width: 100%;
-    background: white;
+    background: var(--back);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -31,30 +30,30 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0 15px;
 }
 
 #email-input:focus {
     outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
+    background-color: var(--input-focus);
+    border: 1px solid var(--border);
 }
 
 #password-input {
     height: 40px;
     margin-top: 10px;
     width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0 15px;
 }
 
 #password-input:focus {
     outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
+    background-color: var(--input-focus);
+    border: 1px solid var(--border);
 }
 
 #signup-question {
@@ -89,27 +88,3 @@
     color: white;
     background-color: #1976D2;
 }
-
-/*
-
-ROSSO
-background-color: rgb(255, 87, 34, 0.1);
-border: 1px solid rgb(255, 87, 34, 0.2);
-box-shadow: 0px 0px 30px 0px rgb(255, 87, 34, 0.3);
-
-VERDE
-background-color: rgb(76, 175, 80, 0.1);
-border: 1px solid rgb(76, 175, 80, 0.2);
-box-shadow: 0px 0px 30px 0px rgb(76, 175, 80, 0.3);
-
-BLU
-background-color: rgb(33, 150, 243, 0.1);
-border: 1px solid rgb(33, 150, 243, 0.2);
-box-shadow: 0px 0px 30px 0px rgb(33, 150, 243, 0.3);
-
-AMBER
-background-color: rgb(255, 193, 7, 0.1);
-border: 1px solid rgb(255, 193, 7, 0.2);
-box-shadow: 0px 0px 30px 0px rgb(255, 193, 7, 0.3);
-
-*/

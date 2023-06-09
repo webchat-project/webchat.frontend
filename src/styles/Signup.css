@@ -1,5 +1,4 @@
 #signup-page {
-    background-color: #fece2f;
     padding: 20px;
     margin: 0;
     height: 100%;
@@ -14,7 +13,7 @@
     position: relative;
     max-width: 500px;
     width: 100%;
-    background: white;
+    background: var(--back);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -37,90 +36,60 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0 15px;
 }
 
 #name-input:focus {
     outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
+    background-color: var(--input-focus);
+    border: 1px solid var(--border);
 }
 
 #surname-input {
     height: 40px;
     margin-top: 10px;
     width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0 15px;
 }
 
 #surname-input:focus {
     outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
-}
-
-#email-input {
-    height: 40px;
-    margin-top: 10px;
-    width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
-    border-radius: 12px;
-    padding: 0 15px;
-}
-
-#email-input:focus {
-    outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
+    background-color: var(--input-focus);
+    border: 1px solid var(--border);
 }
 
 #verify-email-input {
     height: 40px;
     margin-top: 10px;
     width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0 15px;
 }
 
 #verify-email-input:focus {
     outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
-}
-
-#password-input {
-    height: 40px;
-    margin-top: 10px;
-    width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
-    border-radius: 12px;
-    padding: 0 15px;
-}
-
-#password-input:focus {
-    outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
+    background-color: var(--input-focus);
+    border: 1px solid var(--border);
 }
 
 #verify-password-input {
     height: 40px;
     margin-top: 10px;
     width: calc(100% - 30px);
-    border: 1px solid #cfd8dc;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0 15px;
 }
 
 #verify-password-input:focus {
     outline: none;
-    background-color: rgb(255, 193, 7, 0.1);
-    border: 1px solid rgb(255, 193, 7, 0.2);
+    background-color: var(--input-focus);
+    border: 1px solid var(--border);
 }
 
 #login-question {

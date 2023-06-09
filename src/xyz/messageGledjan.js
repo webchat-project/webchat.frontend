@@ -9,17 +9,17 @@ export const messageGledjan = {
     {
       "userId": 1,
       "type": "received-message",
-      "message": "Eglantin"
+      "message": "Manca la documentazione"
     },
     {
       "userId": 4,
       "type": "sent-message",
-      "message": "Ei Gledjan"
+      "message": "Anche un po' e abbiamo finito"
     },
     {
       "userId": 4,
       "type": "sent-message",
-      "message": "Hai fatto i WebSocket"
+      "message": "Bravo"
     },
     {
       "userId": 1,
@@ -29,17 +29,17 @@ export const messageGledjan = {
     {
       "userId": 4,
       "type": "sent-message",
-      "message": "Bravo"
+      "message": "Hai fatto i WebSocket"
     },
     {
       "userId": 4,
       "type": "sent-message",
-      "message": "Anche un po' e abbiamo finito"
+      "message": "Ei Gledjan"
     },
     {
       "userId": 1,
       "type": "received-message",
-      "message": "Manca la documentazione"
+      "message": "Eglantin"
     }
   ]
 }

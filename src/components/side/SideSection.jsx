@@ -13,8 +13,8 @@ import SideFeature from "./SideFeature";
 // Dati provvisori
 import { chatList } from "../../xyz/chatList.js";
 import { contactList } from "../../xyz/contactList.js";
-
 import { profile } from "../../xyz/profile.js";
+
 import { messageSalvatore } from "../../xyz/messageSalvatore.js";
 import { messageGledjan } from "../../xyz/messageGledjan.js";
 import { messagePietro } from "../../xyz/messagePietro.js";
@@ -23,6 +23,16 @@ export default function SideSection({ setData }) {
 
   const handleChatClick = (id) => {
 
+    var elements = document.getElementsByClassName("chat-button");
+
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute("style");
+    }
+
+    var element = document.getElementById("contact: " + id);
+    element.style.backgroundColor = "var(--button-click)";
+    element.style.border = "1px solid var(--border)";
+
     if (id === 1) {
       // Logica per il caso 1
       const updatedData = {
@@ -30,7 +40,6 @@ export default function SideSection({ setData }) {
         messages: [messageSalvatore.data] // Aggiorna l'array messages
       };
       setData(updatedData); // Imposta i dati aggiornati nel tuo stato
-      console.log(updatedData)
     } else if (id === 2) {
       // Logica per il caso 2
       const updatedData = {
@@ -52,6 +61,17 @@ export default function SideSection({ setData }) {
   };
 
   const handleContactClick = (id) => {
+
+    var elements = document.getElementsByClassName("contact-button");
+
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute("style");
+    }
+
+    var element = document.getElementById("contact: " + id);
+    element.style.backgroundColor = "var(--button-click)";
+    element.style.border = "1px solid var(--border)";
+
     if (id === 1) {
       // Logica per il caso 1
       const updatedData = {

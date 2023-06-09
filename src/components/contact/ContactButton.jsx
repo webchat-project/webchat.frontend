@@ -2,12 +2,12 @@ import React from "react";
 
 export default function ContactButton({ contact, handleClick }) {
   return (
-    <div id="contact-button" onClick={handleClick}>
-      <div id="contact-button-container">
-        <div id="image-container">
+    <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
+      <div className="contact-button-container">
+        <div className="image-container">
           <img alt="ProfilePicture" src={contact.picture}></img>
         </div>
-        <div id="text-container">
+        <div className="text-container">
           <h3>{contact.name}</h3>
         </div>
       </div>

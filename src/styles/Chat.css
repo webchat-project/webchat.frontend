@@ -1,42 +1,46 @@
-#chat-button {
+.chat-button {
+  color: var(--text);
   height: 70px;
   margin: 2px 10px 2px 10px;
-  border-radius: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--back);
+  transition: all 0.3s;
 }
 
-#chat-button-container {
+.chat-button-container {
   display: flex;
   flex-direction: row;
 }
 
-#chat-button:hover {
-  background-color: #f2f2f2;
+.chat-button:hover {
+  background-color: var(--button-hover);
+  border: 1px solid var(--border);
 }
 
-#chat-button img {
+.chat-button img {
   padding: 10px;
   height: 50px;
   width: 50px;
   border-radius: 50px;
 }
 
-#chat-button h3 {
+.chat-button h3 {
   font-weight: 600;
   font-size: 16px;
   margin: 0;
 }
 
-#chat-button p {
+.chat-button p {
   font-size: 14px;
   margin: 0;
 }
 
-#image-container {
+.image-container {
   margin: 0;
   height: 70px;
 }
 
-#text-container {
+.text-container {
   width: auto;
   padding: 10px;
   display: flex;
