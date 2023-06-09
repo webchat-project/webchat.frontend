@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import SideTopBar from "./SideTopBar";
@@ -8,6 +8,7 @@ import ContactContainer from "../contact/ContactContainer";
 import ProfileContainer from "../profile/ProfileContainer";
 
 import SideSearch from "./SideSearch";
+import SideSearchResult from "./SideSearchResult";
 import SideFeature from "./SideFeature";
 
 // Dati provvisori
@@ -21,14 +22,18 @@ import { messagePietro } from "../../xyz/messagePietro.js";
 
 export default function SideSection({ setData }) {
 
+  // Use state per non mostrare lista contatti e chat quando si ricerca
+  const [searching, setSearching] = useState(false);
+
+  // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = (id) => {
 
+    // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName("chat-button");
-
     for (var i = 0; i < elements.length; i++) {
       elements[i].removeAttribute("style");
     }
-
+    // Accentua il componente selezionato
     var element = document.getElementById("contact: " + id);
     element.style.backgroundColor = "var(--button-click)";
     element.style.border = "1px solid var(--border)";
@@ -60,14 +65,15 @@ export default function SideSection({ setData }) {
 
   };
 
+  // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = (id) => {
 
+    // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName("contact-button");
-
     for (var i = 0; i < elements.length; i++) {
       elements[i].removeAttribute("style");
     }
-
+    // Accentua il componente selezionato
     var element = document.getElementById("contact: " + id);
     element.style.backgroundColor = "var(--button-click)";
     element.style.border = "1px solid var(--border)";
@@ -98,11 +104,10 @@ export default function SideSection({ setData }) {
     }
 
   };
-
 
   return (
     <>
-      <SideTopBar />
+      <SideTopBar setSearchFocus={setSearching} />
 
       <div id="side-elements-container">
         <Routes>
@@ -113,6 +118,7 @@ export default function SideSection({ setData }) {
                 id={"side-search"}
                 placeholder={"Cerca o inizia una nuova chat"}
                 request={"chats"}
+                setSearchFocus={setSearching}
               />
             }
           />
@@ -123,6 +129,7 @@ export default function SideSection({ setData }) {
                 id={"side-search"}
                 placeholder={"Cerca o inizia una nuova chat"}
                 request={"chats"}
+                setSearchFocus={setSearching}
               />
             }
           />
@@ -133,6 +140,7 @@ export default function SideSection({ setData }) {
                 id={"side-search"}
                 placeholder={"Cerca contatto"}
                 request={"contacts"}
+                setSearchFocus={setSearching}
               />
             }
           />
@@ -142,7 +150,8 @@ export default function SideSection({ setData }) {
           <Route
             path="/"
             element={
-              <SideFeature span={"bookmark"} text={"Messaggi personali"} />
+              searching === false ?
+                <SideFeature span={"bookmark"} text={"Messaggi personali"} /> : <></>
             }
           />
         </Routes>
@@ -151,7 +160,8 @@ export default function SideSection({ setData }) {
           <Route
             path="/chats/*"
             element={
-              <SideFeature span={"bookmark"} text={"Messaggi personali"} />
+              searching === false ?
+                <SideFeature span={"bookmark"} text={"Messaggi personali"} /> : <></>
             }
           />
         </Routes>
@@ -160,11 +170,12 @@ export default function SideSection({ setData }) {
           <Route
             path="/contacts/*"
             element={
-              <SideFeature
-                url={"/add"}
-                span={"add"}
-                text={"Aggiungi contatto"}
-              />
+              searching === false ?
+                <SideFeature
+                  url={"/add"}
+                  span={"add"}
+                  text={"Aggiungi contatto"}
+                /> : <></>
             }
           />
         </Routes>
@@ -173,7 +184,8 @@ export default function SideSection({ setData }) {
           <Route
             path="/contacts/*"
             element={
-              <SideFeature url={"/requests"} span={"mail"} text={"Richieste"} />
+              searching === false ?
+                <SideFeature url={"/requests"} span={"mail"} text={"Richieste"} /> : <></>
             }
           />
         </Routes>
@@ -182,10 +194,14 @@ export default function SideSection({ setData }) {
           <Route
             path="/add/*"
             element={
-              <SideSearch
-                id={"side-search"}
-                placeholder={"Cerca contatto online"}
-              />
+              <>
+                <SideSearch
+                  id={"side-search"}
+                  placeholder={"Cerca contatto online"}
+                  setSearchFocus={setSearching}
+                />
+                <SideSearchResult></SideSearchResult>
+              </>
             }
           />
         </Routes>
@@ -194,28 +210,29 @@ export default function SideSection({ setData }) {
           <Route
             path="/"
             element={
-              <ChatContainer
+              searching === false ? <ChatContainer
                 chatList={chatList.data}
                 handleChatClick={handleChatClick}
-              />
+              /> : <SideSearchResult />
             }
           />
           <Route
             path="/chats/*"
             element={
-              <ChatContainer
+              searching === false ? <ChatContainer
                 chatList={chatList.data}
                 handleChatClick={handleChatClick}
-              />
+              /> : <SideSearchResult />
             }
           />
           <Route
             path="/contacts/*"
             element={
-              <ContactContainer
-                contactList={contactList.data}
-                handleContactClick={handleContactClick}
-              />
+              searching === false ?
+                <ContactContainer
+                  contactList={contactList.data}
+                  handleContactClick={handleContactClick}
+                /> : <SideSearchResult />
             }
           />
           <Route

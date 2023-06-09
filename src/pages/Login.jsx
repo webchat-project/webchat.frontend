@@ -1,8 +1,7 @@
-import "../styles/Login.css";
-
 import React, { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-//import useCookie from "../util/useCookies";
+
+// import useCookie from "../util/useCookies";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
@@ -13,12 +12,6 @@ export default function Login({ jwt, setJwt }) {
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
 
-  /*
-  const handleLogout = () => {
-    setloggedUser(null);
-    setJwt("");
-  };
-*/
   useEffect(() => {
     if (jwt.trim() !== "") {
       //Decode jwt token
@@ -40,7 +33,6 @@ export default function Login({ jwt, setJwt }) {
   return (
     <div id="login-page">
       <div id="login-page-container">
-        {/* Use user state to determine whether to render Login or Logout button */}
         {loggedUser ? (
           <Navigate to="/" />
         ) : (

@@ -18,18 +18,6 @@ export default function ProfileContainer({ profile }) {
     reloadPage();
   }
 
-  /*
-  '--back': '#ffffff',
-  '--text': '#000000',
-  '--main': 'rgba(255, 255, 255, 0.8)',
-  '--border': 'rgba(0, 0, 0, 0.2)',
-  '--primary': '#fece2f',
-  '--input-focus': '#fff6d7',
-  '--button-hover': '#fff6d7',
-  '--button-click': '#ffe695',
-  '--sent-message': '#ffcc80',
-  */
-
   // Root element
   var rootElement = document.documentElement;
 
@@ -61,6 +49,10 @@ export default function ProfileContainer({ profile }) {
 
   // Default color
   var defaultColor = {
+    "--back": "#ffffff",
+    "--text": "#000000",
+    "--main": "rgba(255, 255, 255, 0.8)",
+    "--border": "rgba(0, 0, 0, 0.2)",
     "--primary": "#eceff1",
     "--input-focus": "#f2f2f2",
     "--button-hover": "#f2f2f2",
@@ -70,6 +62,10 @@ export default function ProfileContainer({ profile }) {
 
   // Gold color
   var goldColor = {
+    "--back": "#ffffff",
+    "--text": "#000000",
+    "--main": "rgba(255, 255, 255, 0.8)",
+    "--border": "rgba(0, 0, 0, 0.2)",
     "--primary": "#fece2f",
     "--input-focus": "#fff6d7",
     "--button-hover": "#fff6d7",
@@ -79,6 +75,10 @@ export default function ProfileContainer({ profile }) {
 
   // Nature color
   var natureColor = {
+    "--back": "#ffffff",
+    "--text": "#000000",
+    "--main": "rgba(255, 255, 255, 0.8)",
+    "--border": "rgba(0, 0, 0, 0.2)",
     "--primary": "#46a094",
     "--input-focus": "#c4e8c2",
     "--button-hover": "#c4e8c2",
@@ -88,6 +88,10 @@ export default function ProfileContainer({ profile }) {
 
   // Sky color
   var skyColor = {
+    "--back": "#ffffff",
+    "--text": "#000000",
+    "--main": "rgba(255, 255, 255, 0.8)",
+    "--border": "rgba(0, 0, 0, 0.2)",
     "--primary": "#3b7197",
     "--input-focus": "#a1e1fa",
     "--button-hover": "#a1e1fa",
@@ -95,12 +99,22 @@ export default function ProfileContainer({ profile }) {
     "--sent-message": "#4a8db7"
   };
 
+  // Tutti i nomi dei temi
+  var light = "light"
+  var dark = "dark"
+  var def = "default"
+  var gold = "gold"
+  var nature = "nature"
+  var sky = "sku"
+
   // Metodo per cambiare il tema
-  const setColorTheme = (color) => {
+  const setColorTheme = (color, name) => {
+    localStorage.setItem("theme", name)
     Object.keys(color).forEach(function (key) {
       rootElement.style.setProperty(key, color[key]);
     });
   }
+
 
   let user;
   profile.map(p => user = p)
@@ -112,15 +126,15 @@ export default function ProfileContainer({ profile }) {
       <button id="logout-button" onClick={handleLogout}>Logout</button>
       <p>Scegli tema</p>
       <div className="colors-container">
-        <div className="theme-color" id="light-theme" onClick={() => setColorTheme(lightTheme)}></div>
-        <div className="theme-color" id="dark-theme" onClick={() => setColorTheme(darkTheme)}></div>
+        <div className="theme-color" id="light-theme" onClick={() => setColorTheme(lightTheme, light)}></div>
+        <div className="theme-color" id="dark-theme" onClick={() => setColorTheme(darkTheme, dark)}></div>
       </div>
       <p>Scegli colore</p>
       <div className="colors-container">
-        <div className="theme-color" id="default-color" onClick={() => setColorTheme(defaultColor)}></div>
-        <div className="theme-color" id="gold-color" onClick={() => setColorTheme(goldColor)}></div>
-        <div className="theme-color" id="nature-color" onClick={() => setColorTheme(natureColor)}></div>
-        <div className="theme-color" id="sky-color" onClick={() => setColorTheme(skyColor)}></div>
+        <div className="theme-color" id="default-color" onClick={() => setColorTheme(defaultColor, def)}></div>
+        <div className="theme-color" id="gold-color" onClick={() => setColorTheme(goldColor, gold)}></div>
+        <div className="theme-color" id="nature-color" onClick={() => setColorTheme(natureColor, nature)}></div>
+        <div className="theme-color" id="sky-color" onClick={() => setColorTheme(skyColor, sky)}></div>
       </div>
     </div>
   )
