@@ -60,19 +60,19 @@ export default function Signup() {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 1000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
+  const handleClearForm = () => {
+    setUser({
+      firstName: "",
+      lastName: "",
+      email: "",
+      confirmEmail: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
-
-
-
   //***************************************************************** */
-/*
+  /*
 // Metodi per modifica stile
 const nameStyle = () => {
   if (
@@ -182,31 +182,13 @@ const passwordCheckStyle = ()=> {
 
 */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 1000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
   const handleValidation = () => {
     const { password, confirmPassword, email, confirmEmail } = user;
@@ -245,6 +227,7 @@ const passwordCheckStyle = ()=> {
               <input
                 id="name-input"
                 type="text"
+                value={user.firstName}
                 name="firstName"
                 placeholder="Inserisci nome"
                 onChange={(e) => handleChange(e)}
@@ -259,6 +242,7 @@ const passwordCheckStyle = ()=> {
               <input
                 id="surname-input"
                 type="text"
+                value={user.lastName}
                 name="lastName"
                 placeholder="Inserisci cognome"
                 onChange={(e) => handleChange(e)}
@@ -273,6 +257,7 @@ const passwordCheckStyle = ()=> {
               <input
                 id="email-input"
                 type="email"
+                value={user.email}
                 name="email"
                 placeholder="Inserisci email"
                 onChange={(e) => handleChange(e)}
@@ -287,6 +272,7 @@ const passwordCheckStyle = ()=> {
               <input
                 id="verify-email-input"
                 type="email"
+                value={user.confirmEmail}
                 name="confirmEmail"
                 placeholder="Reinserisci email"
                 onChange={(e) => handleChange(e)}
@@ -301,6 +287,7 @@ const passwordCheckStyle = ()=> {
               <input
                 id="password-input"
                 type="password"
+                value={user.password}
                 name="password"
                 placeholder="Inserisci password"
                 onChange={(e) => handleChange(e)}
@@ -317,6 +304,7 @@ const passwordCheckStyle = ()=> {
               <input
                 id="verify-password-input"
                 type="password"
+                value={user.confirmPassword}
                 name="confirmPassword"
                 placeholder="Reinserisci password"
                 onChange={(e) => handleChange(e)}
@@ -328,7 +316,9 @@ const passwordCheckStyle = ()=> {
             Hai un account? <Link to="/login">Accedi</Link>
           </p>
           <div>
-            <button id="signup-clear-button">Svuota</button>
+            <button id="signup-clear-button" onClick={handleClearForm}>
+              Svuota
+            </button>
             <button id="signup-send-button" type="submit">
               Registrati
             </button>
