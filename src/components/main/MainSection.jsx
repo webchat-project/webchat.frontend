@@ -5,8 +5,13 @@ import DefaultMessage from "../message/DefaultMessage";
 import MessageContainer from "../message/MessageContainer";
 import MessageInputBox from "../message/MessageInputBox";
 
-export default function MainSection({ data }) {
+import Loading from '../await/Loading'
+import Error from '../await/Error'
 
+
+export default function MainSection({ data, loading, error }) {
+
+  // Aggiunge il messaggio inviato al container dei messaggi
   const handleSubmit = (input) => {
 
     const messageContainer = document.getElementById('message-container');
@@ -26,17 +31,18 @@ export default function MainSection({ data }) {
 
   return (
     <>
-      {data.messages.length === 0 ? (
+      {data.messages.length === 0 ?
         <DefaultMessage />
-      ) : (
-        <>
-          <MainTopBar user={data.user[0][0]} />
-          <div id="message-container">
-            <MessageContainer messageList={data.messages[0]} />
-          </div>
-          <MessageInputBox handleSubmit={handleSubmit} />
-        </>
-      )}
+        : loading === true ? <Loading />
+          : error === true ? <Error />
+            : <>
+              <MainTopBar user={data.user[0][0]} />
+              <div id="message-container">
+                <MessageContainer messageList={data.messages[0]} />
+              </div>
+              <MessageInputBox handleSubmit={handleSubmit} />
+            </>
+      }
     </>
   );
 }

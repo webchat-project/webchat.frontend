@@ -1,30 +1,33 @@
 import React, { useState } from 'react'
 
-export default function SideSearch({ id, placeholder, request, setSearchFocus }) {
-    const [search, setSearch] = useState('')
+import { searchContact } from '../../xyz/searchContact'
 
-    // Use state per mostrare il pulsante indietro solo quando si avvia la ricerca
-    const [searching, setSearching] = useState(false)
+export default function SideSearch({ id, placeholder, setSearchFocus, setResult, setEmpty, setLoading, setError }) {
+    // Input search
+    const [search, setSearch] = useState('')
 
     // Inserimento
     const handleTyping = () => {
-        setSearching(true)
+        setEmpty(true)
+        setResult({})
         setSearchFocus(true)
     }
 
     // Click sul pulsante indietro
     const handleAbort = () => {
-        setSearching(false)
         setSearchFocus(false)
         setSearch('')
     }
 
     // Invio richiesta
     const handleSubmit = () => {
-        alert(search)
-        setSearching(false)
-        setSearchFocus(false)
-        setSearch('')
+        setLoading(true)
+        setEmpty(false)
+        setResult(searchContact.data)
+        setInterval(() => {
+            setLoading(false)
+            setError(false)
+        }, 3000)
     }
 
     return (

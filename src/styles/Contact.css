@@ -36,9 +36,34 @@
 }
 
 .text-container {
-    width: auto;
+    width: 100%;
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#add-contact-button {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+}
+
+#abort-add-contact {
+    height: 30px;
+    border: 0px;
+    outline: 0px;
+    border-radius: 12px;
+    color: white;
+    background-color: #C62828;
+}
+
+#confirm-add-contact {
+    height: 30px;
+    border: 0px;
+    outline: 0px;
+    border-radius: 12px;
+    color: white;
+    background-color: #1976D2;
 }

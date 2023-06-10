@@ -1,10 +1,13 @@
 import React from 'react'
 
-export default function SideSearchResult({ contactList, handleContactAdd }) {
+import ContactAdd from '../contact/ContactAdd'
 
-    return (
-        <>
-            <p>Chat Search</p>
-        </>
-    )
+export default function SideSearchResult({ contactList }) {
+
+    return contactList.map((c) => (
+        <ContactAdd
+            contact={c}
+            key={c.id}
+        />
+    ));
 }

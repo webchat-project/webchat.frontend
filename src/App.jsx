@@ -115,8 +115,6 @@ const setColorTheme = (color) => {
 // Controllo impostazione salvata in LocalStorage, se si, applico quella, altrimenti applico il tema di default
 const storedTheme = localStorage.getItem("theme");
 
-console.warn("Tema")
-
 switch (storedTheme) {
   case "light":
     setColorTheme(lightTheme);
