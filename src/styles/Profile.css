@@ -26,6 +26,7 @@
 
 .colors-container {
     display: flex;
+    margin-bottom: 30px;
 }
 
 .theme-color {

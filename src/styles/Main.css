@@ -57,3 +57,40 @@
   text-align: center;
   height: 100%;
 }
+
+@media screen and (max-width: 600px) {
+  #side-menu {
+    visibility: visible;
+    display: block;
+  }
+
+  #side-section {
+    visibility: visible;
+    display: block;
+    width: 100%;
+  }
+
+  #main-section {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  #side-menu {
+    visibility: hidden;
+    display: none;
+  }
+
+  #side-section {
+    visibility: visible;
+    display: block;
+    width: 300px;
+  }
+
+  #main-section {
+    visibility: visible;
+    display: flex;
+    width: calc(100% - 300px);
+  }
+}

@@ -219,6 +219,16 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
             path="/contacts/*"
             element={
               searching === false ?
+                <SideFeature url={"/delete"} span={"delete"} text={"Elimina contatti"} /> : <></>
+            }
+          />
+        </Routes>
+
+        <Routes>
+          <Route
+            path="/contacts/*"
+            element={
+              searching === false ?
                 <SideFeature url={"/requests"} span={"mail"} text={"Richieste"} /> : <></>
             }
           />
@@ -295,6 +305,24 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
                       />
             }
           />
+          <Route
+            path="/delete"
+            element={
+              searching === false ?
+                <ContactContainer
+                  contactList={contactList.data}
+                  handleContactClick={handleContactClick}
+                />
+                : empty === true ? <></>
+                  : loading === true ? <Loading />
+                    : error === true ? <Error />
+                      : <ContactContainer
+                        contactList={result}
+                        handleContactClick={handleContactClick}
+                      />
+            }
+          />
+
           <Route
             path="/add/*"
             element={

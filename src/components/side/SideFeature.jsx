@@ -14,7 +14,6 @@ export default function SideFeature({ url, span, text }) {
                     <h3>{text}</h3>
                 </div>
             </Link>
-
         </div>
     )
 }
