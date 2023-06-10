@@ -20,8 +20,15 @@
     margin-bottom: 10px;
     border-radius: 12px;
     color: white;
+    cursor: pointer;
     background-color: #C62828;
     transition: all 0.3s;
+}
+
+#logout-button:hover {
+    background-color: #333;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .colors-container {

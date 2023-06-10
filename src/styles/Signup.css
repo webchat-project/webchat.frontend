@@ -117,9 +117,16 @@
     width: calc(50% - 10px);
     border: 0px;
     outline: 0px;
+    cursor: pointer;
     border-radius: 12px;
     color: white;
     background-color: #C62828;
+}
+
+#signup-clear-button:hover {
+    background-color: #333;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 #signup-send-button {
@@ -128,7 +135,14 @@
     width: calc(50% - 10px);
     border: 0px;
     outline: 0px;
+    cursor: pointer;
     border-radius: 12px;
     color: white;
     background-color: #1976D2;
+}
+
+#signup-send-button:hover {
+    background-color: #333;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
