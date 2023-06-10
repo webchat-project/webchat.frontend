@@ -3,13 +3,13 @@ import jwtDecode from "jwt-decode";
 import axios from "axios";
 
 // import useCookie from "../util/useCookies";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link,/* useNavigate,*/ Navigate } from "react-router-dom";
 import { loginRoute } from "../utils/ApiRoutes";
 
 export default function Login({ jwt, setJwt }) {
   //inizializzare il cookie
   //const [jwt, setJwt] = useCookie("jwt", "");
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
@@ -97,9 +97,9 @@ export default function Login({ jwt, setJwt }) {
               onChange={(e) => handleChange(e)}
               required
             />
-            <span id="signup-question">
+            <p id="signup-question">
               Non hai un account? <Link to="/signup">Registrati</Link>
-            </span>
+            </p>
             <div>
               <button id="login-clear-button"  onClick={handleClearForm}>Svuota</button>
               <button id="login-send-button" type="submit">
