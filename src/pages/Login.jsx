@@ -14,6 +14,7 @@ export default function Login({ jwt, setJwt }) {
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
 
+  
   const [loginUser, setLoginUser] = useState({
     email: "",
     password: "",
@@ -57,13 +58,6 @@ export default function Login({ jwt, setJwt }) {
       password: "",
     });
   };
-  /*// DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
-  // Pass a function reference to onClick instead of invoking the function directly
-  const handleLogin = () => {
-    const jwtToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
-    setJwt(jwtToken);
-  };*/
 
   return (
     <div id="login-page">
@@ -112,3 +106,13 @@ export default function Login({ jwt, setJwt }) {
     </div>
   );
 }
+
+
+
+  /*// DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
+  // Pass a function reference to onClick instead of invoking the function directly
+  const handleLogin = () => {
+    const jwtToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
+    setJwt(jwtToken);
+  };*/
