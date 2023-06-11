@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+
+import Loading from '../components/await/Loading'
+import Error from '../components/await/Error'
+
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 
@@ -14,7 +18,10 @@ export default function Login({ jwt, setJwt }) {
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
 
-  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+
   const [loginUser, setLoginUser] = useState({
     email: "",
     password: "",
@@ -23,17 +30,27 @@ export default function Login({ jwt, setJwt }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = loginUser;
-    const { data } = await axios.post(loginRoute, {
-      email,
-      password,
-    });
 
-    if (data.status === true) {
-      setJwt(data.jwtToken);
-      //navigate("/");
-    } else if (data.status === false) {
-      console.log("Utente non logato", data.msg);
+    setLoading(true); // Imposta il caricamento su true
+
+    try {
+      const { data } = await axios.post(loginRoute, {
+        email,
+        password,
+      });
+
+      if (data.status === true) {
+        setJwt(data.jwtToken);
+        //navigate("/");
+      } else if (data.status === false) {
+        console.log("Utente non logato", data.msg);
+      }
+    } catch (error) {
+      setError(true); // Imposta l'errore
+      console.error(error);
     }
+
+    setLoading(false); // Imposta il caricamento su false dopo che la chiamata è completata
   };
 
   const handleChange = (event) => {
@@ -62,46 +79,48 @@ export default function Login({ jwt, setJwt }) {
   return (
     <div id="login-page">
       <div id="login-page-container">
-        {loggedUser ? (
+        {loggedUser ?
           <Navigate to="/" />
-        ) : (
-          <form onSubmit={(event) => handleSubmit(event)}>
-            <h3 id="page-title">Login</h3>
-            <label id="email-input-title" htmlFor="email-input">
-              Email
-            </label>
-            <input
-              id="email-input"
-              type="text"
-              value={loginUser.email}
-              name="email"
-              placeholder="Inserisci email"
-              onChange={(e) => handleChange(e)}
-              required
-            />
-            <label id="password-input-title" htmlFor="password-input">
-              Password
-            </label>
-            <input
-              id="password-input"
-              type="password"
-              value={loginUser.password}
-              name="password"
-              placeholder="Inserisci password"
-              onChange={(e) => handleChange(e)}
-              required
-            />
-            <p id="signup-question">
-              Non hai un account? <Link to="/signup">Registrati</Link>
-            </p>
-            <div>
-              <button id="login-clear-button"  onClick={handleClearForm}>Svuota</button>
-              <button id="login-send-button" type="submit">
-                Accedi
-              </button>
-            </div>
-          </form>
-        )}
+          : loading ? <Loading />
+            : error ? <Error />
+              : (
+                <form onSubmit={(event) => handleSubmit(event)}>
+                  <h3 id="page-title">Login</h3>
+                  <label id="email-input-title" htmlFor="email-input">
+                    Email
+                  </label>
+                  <input
+                    id="email-input"
+                    type="text"
+                    value={loginUser.email}
+                    name="email"
+                    placeholder="Inserisci email"
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
+                  <label id="password-input-title" htmlFor="password-input">
+                    Password
+                  </label>
+                  <input
+                    id="password-input"
+                    type="password"
+                    value={loginUser.password}
+                    name="password"
+                    placeholder="Inserisci password"
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
+                  <p id="signup-question">
+                    Non hai un account? <Link to="/signup">Registrati</Link>
+                  </p>
+                  <div>
+                    <button id="login-clear-button" onClick={handleClearForm}>Svuota</button>
+                    <button id="login-send-button" type="submit">
+                      Accedi
+                    </button>
+                  </div>
+                </form>
+              )}
       </div>
     </div>
   );
@@ -109,10 +128,10 @@ export default function Login({ jwt, setJwt }) {
 
 
 
-  /*// DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
-  // Pass a function reference to onClick instead of invoking the function directly
-  const handleLogin = () => {
-    const jwtToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
-    setJwt(jwtToken);
-  };*/
+/*// DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
+// Pass a function reference to onClick instead of invoking the function directly
+const handleLogin = () => {
+  const jwtToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
+  setJwt(jwtToken);
+};*/
