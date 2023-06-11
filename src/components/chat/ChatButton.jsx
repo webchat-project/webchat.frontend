@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ChatButton({ chat, handleClick }) {
+
+  // Metodo per importare l'immagine di profilo default se l'account ne è privo
+  const [profile, setProfile] = useState("profile.png")
+
+  const handleProfile = (chat) => {
+    if (chat.picture) {
+      setProfile(chat.picture)
+    } else {
+      setProfile("profile.png")
+    }
+  }
+
+  useEffect(() => {
+    handleProfile(chat);
+  }, [chat]);
+
   return (
     <div id={"contact: " + chat.id} className="chat-button" onClick={handleClick}>
       <div className="chat-button-container">
         <div className="image-container">
-          <img alt="ProfilePicture" src={chat.picture}></img>
+          <img alt="ProfilePicture" src={profile}></img>
         </div>
         <div className="text-container">
           <h3>{chat.name}</h3>
