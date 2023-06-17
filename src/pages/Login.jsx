@@ -38,15 +38,17 @@ export default function Login({ jwt, setJwt }) {
         password,
       });
 
-      if (data.status === true) {
+      if (data.status) {
         setJwt(data.jwtToken);
         //navigate("/");
-      } else if (data.status === false) {
-        console.log("Utente non logato", data.msg);
+      } else {
+        console.log(data.msg);
+        //window.location.reload();
       }
-    } catch (error) {
+    } catch (e) {
       setError(true); // Imposta l'errore
-      console.error(error);
+      console.error(e);
+      //window.location.reload();
     }
 
     setLoading(false); // Imposta il caricamento su false dopo che la chiamata è completata
@@ -117,7 +119,7 @@ export default function Login({ jwt, setJwt }) {
               <button id="login-clear-button" onClick={handleClearForm}>
                 Svuota
               </button>
-              <button id="login-send-button" type="submit">
+              <button id="login-send-button" type="submit" >
                 Accedi
               </button>
             </div>
@@ -127,9 +129,6 @@ export default function Login({ jwt, setJwt }) {
     </div>
   );
 }
-
-
-
 
 /*// DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
 // Pass a function reference to onClick instead of invoking the function directly
