@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 
-import Loading from '../components/await/Loading'
-import Error from '../components/await/Error'
+import Loading from "../components/await/Loading";
+import Error from "../components/await/Error";
 
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 
 // import useCookie from "../util/useCookies";
-import { Link,/* useNavigate,*/ Navigate } from "react-router-dom";
+//import {useNavigate } from "react-router-dom";
+
+import { Link, Navigate } from "react-router-dom";
 import { loginRoute } from "../utils/ApiRoutes";
 
 export default function Login({ jwt, setJwt }) {
-  //inizializzare il cookie
-  //const [jwt, setJwt] = useCookie("jwt", "");
-  //const navigate = useNavigate();
+  //inizializzare il cookie //const [jwt, setJwt] = useCookie("jwt", ""); //const navigate = useNavigate();
 
   //Inizializza user state
   const [loggedUser, setloggedUser] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
 
   const [loginUser, setLoginUser] = useState({
     email: "",
@@ -68,7 +67,6 @@ export default function Login({ jwt, setJwt }) {
     }
   }, [jwt]);
 
-
   const handleClearForm = () => {
     setLoginUser({
       email: "",
@@ -79,52 +77,57 @@ export default function Login({ jwt, setJwt }) {
   return (
     <div id="login-page">
       <div id="login-page-container">
-        {loggedUser ?
+        {loggedUser ? (
           <Navigate to="/" />
-          : loading ? <Loading />
-            : error ? <Error />
-              : (
-                <form onSubmit={(event) => handleSubmit(event)}>
-                  <h3 id="page-title">Login</h3>
-                  <label id="email-input-title" htmlFor="email-input">
-                    Email
-                  </label>
-                  <input
-                    id="email-input"
-                    type="text"
-                    value={loginUser.email}
-                    name="email"
-                    placeholder="Inserisci email"
-                    onChange={(e) => handleChange(e)}
-                    required
-                  />
-                  <label id="password-input-title" htmlFor="password-input">
-                    Password
-                  </label>
-                  <input
-                    id="password-input"
-                    type="password"
-                    value={loginUser.password}
-                    name="password"
-                    placeholder="Inserisci password"
-                    onChange={(e) => handleChange(e)}
-                    required
-                  />
-                  <p id="signup-question">
-                    Non hai un account? <Link to="/signup">Registrati</Link>
-                  </p>
-                  <div>
-                    <button id="login-clear-button" onClick={handleClearForm}>Svuota</button>
-                    <button id="login-send-button" type="submit">
-                      Accedi
-                    </button>
-                  </div>
-                </form>
-              )}
+        ) : loading ? (
+          <Loading />
+        ) : error ? (
+          <Error />
+        ) : (
+          <form onSubmit={(event) => handleSubmit(event)}>
+            <h3 id="page-title">Login</h3>
+            <label id="email-input-title" htmlFor="email-input">
+              Email
+            </label>
+            <input
+              id="email-input"
+              type="text"
+              value={loginUser.email}
+              name="email"
+              placeholder="Inserisci email"
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            <label id="password-input-title" htmlFor="password-input">
+              Password
+            </label>
+            <input
+              id="password-input"
+              type="password"
+              value={loginUser.password}
+              name="password"
+              placeholder="Inserisci password"
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            <p id="signup-question">
+              Non hai un account? <Link to="/signup">Registrati</Link>
+            </p>
+            <div>
+              <button id="login-clear-button" onClick={handleClearForm}>
+                Svuota
+              </button>
+              <button id="login-send-button" type="submit">
+                Accedi
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
 }
+
 
 
 
