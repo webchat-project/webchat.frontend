@@ -4,9 +4,6 @@
   margin: 2px 10px 2px 10px;
   border-radius: 12px;
   border: 1px solid var(--back);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   transition: all 0.3s;
 }
 
@@ -44,9 +41,13 @@
 }
 
 .text-container {
+  margin-right: 10px;
   width: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
