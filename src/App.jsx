@@ -37,7 +37,8 @@ var lightTheme = {
   "--input-focus": "#f2f2f2",
   "--button-hover": "#f2f2f2",
   "--button-click": "#e0e0e0",
-  "--sent-message": "#8be9b9"
+  "--sent-message": "#8be9b9",
+  "--loading": "#8be9b9"
 }
 
 // Dark Theme
@@ -50,7 +51,8 @@ var darkTheme = {
   "--input-focus": "#263238",
   "--button-hover": "#263238",
   "--button-click": "#1f282c",
-  "--sent-message": "#263238"
+  "--sent-message": "#263238",
+  "--loading": "#8be9b9"
 }
 
 // Default color
@@ -63,7 +65,8 @@ var defaultColor = {
   "--input-focus": "#f2f2f2",
   "--button-hover": "#f2f2f2",
   "--button-click": "#e0e0e0",
-  "--sent-message": "#8be9b9"
+  "--sent-message": "#8be9b9",
+  "--loading": "#8be9b9"
 };
 
 // Gold color
@@ -76,7 +79,8 @@ var goldColor = {
   "--input-focus": "#fff6d7",
   "--button-hover": "#fff6d7",
   "--button-click": "#ffe695",
-  "--sent-message": "#ffcc80"
+  "--sent-message": "#ffcc80",
+  "--loading": "#fece2f"
 };
 
 // Nature color
@@ -89,7 +93,8 @@ var natureColor = {
   "--input-focus": "#c4e8c2",
   "--button-hover": "#c4e8c2",
   "--button-click": "#aecfa4",
-  "--sent-message": "#6bbd99"
+  "--sent-message": "#6bbd99",
+  "--loading": "#46a094"
 };
 
 // Sky color
@@ -102,7 +107,8 @@ var skyColor = {
   "--input-focus": "#a1e1fa",
   "--button-hover": "#a1e1fa",
   "--button-click": "#74bde0",
-  "--sent-message": "#4a8db7"
+  "--sent-message": "#4a8db7",
+  "--loading": "#3b7197"
 };
 
 // Metodo per cambiare il tema
