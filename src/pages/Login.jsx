@@ -21,14 +21,11 @@ export default function Login({ jwt, setJwt }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const [loginUser, setLoginUser] = useState({
-    email: "",
-    password: "",
-  });
+  const [loginUser, setLoginUser] = useState({ email: "", password: "" });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password } = loginUser;
+    const { email, password } = loginUser; //destructure
 
     setLoading(true); // Imposta il caricamento su true
 
@@ -119,7 +116,7 @@ export default function Login({ jwt, setJwt }) {
               <button id="login-clear-button" onClick={handleClearForm}>
                 Svuota
               </button>
-              <button id="login-send-button" type="submit" >
+              <button id="login-send-button" type="submit">
                 Accedi
               </button>
             </div>
