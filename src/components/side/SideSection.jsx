@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import SideTopBar from "./top/SideTopBar";
 
-import ChatContainer from "../chat/ChatContainer";
+import ChatContainer from "./chat/ChatContainer";
 import ContactContainer from "./contact/ContactContainer";
 import ProfileContainer from "./profile/ProfileContainer";
 
