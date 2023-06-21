@@ -115,7 +115,6 @@ export default function ProfileContainer({ profile }) {
     });
   }
 
-
   let user;
   profile.map(p => user = p)
 

@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import SideTopBar from "./SideTopBar";
+import SideTopBar from "./top/SideTopBar";
 
 import ChatContainer from "../chat/ChatContainer";
-import ContactContainer from "../contact/ContactContainer";
-import ProfileContainer from "../profile/ProfileContainer";
+import ContactContainer from "./contact/ContactContainer";
+import ProfileContainer from "./profile/ProfileContainer";
 
-import SideSearch from "./SideSearch";
-import SideSearchResult from "./SideSearchResult";
+import SideSearch from "./search/SideSearch";
+import SideSearchResult from "./search/SideSearchResult";
+
+
+
 import SideFeature from "./SideFeature";
 
 import Loading from '../await/Loading'
@@ -42,6 +45,7 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
     for (var i = 0; i < elements.length; i++) {
       elements[i].removeAttribute("style");
     }
+
     // Accentua il componente selezionato
     var element = document.getElementById("contact: " + id);
     element.style.backgroundColor = "var(--button-click)";
@@ -130,21 +134,19 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
 
       <div id="side-elements-container">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <SideSearch
-                id={"side-search"}
-                placeholder={"Cerca o inizia una nuova chat"}
-                request={"chats"}
-                setSearchFocus={setSearching}
+          <Route path="/" element={
+            <SideSearch
+              id={"side-search"}
+              placeholder={"Cerca o inizia una nuova chat"}
+              request={"chats"}
+              setSearchFocus={setSearching}
 
-                setEmpty={setEmpty}
-                setResult={setResult}
-                setLoading={setLoading}
-                setError={setError}
-              />
-            }
+              setEmpty={setEmpty}
+              setResult={setResult}
+              setLoading={setLoading}
+              setError={setError}
+            />
+          }
           />
           <Route
             path="/chats/*"

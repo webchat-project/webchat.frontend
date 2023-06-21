@@ -1,9 +1,9 @@
 import React from "react";
 import MainTopBar from "./MainTopBar";
 
-import DefaultMessage from "../message/DefaultMessage";
-import MessageContainer from "../message/MessageContainer";
-import MessageInputBox from "../message/MessageInputBox";
+import DefaultMessage from "./messages/DefaultMessage";
+import MessageContainer from "./messages/MessageContainer";
+import MessageInputBox from "./messages/MessageInputBox";
 
 import Loading from '../await/Loading'
 import Error from '../await/Error'

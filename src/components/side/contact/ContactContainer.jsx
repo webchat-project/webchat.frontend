@@ -18,7 +18,6 @@ export default function ContactContainer({ contactList, handleContactClick }) {
     handleDisplay()
   }
 
-
   return contactList.map((c) => (
     <ContactButton
       contact={c}

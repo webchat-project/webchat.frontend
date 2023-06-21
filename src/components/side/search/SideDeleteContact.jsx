@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ContactDelete from '../contact/ContactDelete'
+import ContactDelete from '../../contact/ContactDelete'
 
 export default function SideDeleteContact({ contactList }) {
 

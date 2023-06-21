@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { searchContact } from '../../xyz/searchContact'
+import { searchContact } from '../../../xyz/searchContact'
 
 export default function SideSearch({ id, placeholder, setSearchFocus, setResult, setEmpty, setLoading, setError }) {
     // Input search

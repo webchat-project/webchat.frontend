@@ -24,7 +24,7 @@ export default function ContactButton({ contact, handleClick }) {
           <img alt="profile" src={profile}></img>
         </div>
         <div className="text-container">
-          <h3>{contact.name}</h3>
+          <h3>{contact.name} {contact.surname}</h3>
         </div>
       </div>
     </div>
