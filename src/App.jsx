@@ -14,7 +14,7 @@ import "./styles/Message.css";
 //import io from "socket.io-client";
 
 // Cookies
-import UseCookie from "./utils/useCookies";
+import UseCookie from "./utils/UseCookies";
 
 // Componenti navigazione
 import { Routes, Route } from "react-router-dom";
