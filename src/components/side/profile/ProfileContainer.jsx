@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 export default function ProfileContainer({ profile }) {
 
+  
   // Elimina il cookie selezionato
   function deleteCookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -116,31 +117,33 @@ export default function ProfileContainer({ profile }) {
   }
 
   // Definisco utente
-  let user;
-  user = profile;
+  //let user;
+  //user = profile;
 
   // Metodo per importare l'immagine di profilo default se l'account ne è privo
-  const [imageProfile, setImageProfile] = useState("profile.png")
-
-  const handleProfile = (image) => {
-    if (image === "") {
-      setImageProfile("profile.png")
-    } else {
-      setImageProfile(image)
-    }
-  }
+  const [imageProfile, setImageProfile] = useState("profile.png");
 
   useEffect(() => {
-    handleProfile(user.image);
-  }, [user.image]);
+    handleChangeProfile(profile.image);
+  }, [profile.image]);
+
+  const handleChangeProfile = (image) => {
+    if (image !== "") setImageProfile(image);
+
+    setImageProfile("profile.png");
+  };
+
+
+
+
 
   return (
     <div id="profile-container">
       <div id="image-container">
         <img id="profile-image" alt="img" src={imageProfile}></img>
       </div>
-      <h3>{user.firstName} {user.lastName}</h3>
-      <p>{user.email}</p>
+      <h3>{profile.firstName} {profile.lastName}</h3>
+      <p>{profile.email}</p>
       <button id="logout-button" onClick={handleLogout}>Logout</button>
       <p>Scegli tema</p>
       <div className="colors-container">

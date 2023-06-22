@@ -18,7 +18,7 @@ export default function ChatButton({ chat, handleClick }) {
   }, [chat]);
 
   return (
-    <div id={"contact: " + chat.id} className="chat-button" onClick={handleClick}>
+    <div id={"contact: " + chat.chatId} className="chat-button" onClick={handleClick}>
       <div className="chat-button-container">
         <div className="image-container">
           <img alt="img" src={profile}></img>

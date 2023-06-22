@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import axios from 'axios';
-import { backend } from '../../utils/Backend'
+import axios from "axios";
+import { backend } from "../../utils/Backend";
 
 import SideTopBar from "./top/SideTopBar";
 
@@ -15,54 +15,61 @@ import SideSearchResult from "./search/SideSearchResult";
 
 import SideFeature from "./SideFeature";
 
-import Loading from '../await/Loading'
-import Error from '../await/Error'
+import Loading from "../await/Loading";
+import Error from "../await/Error";
 
 // Dati provvisori
 import { messageSalvatore } from "../../xyz/messageSalvatore.js";
 import { messageGledjan } from "../../xyz/messageGledjan.js";
 import { messagePietro } from "../../xyz/messagePietro.js";
 
-export default function SideSection({ setData, setLoadingMessages, setErrorMessages, jwt }) {
-
+export default function SideSection({
+  setData,
+  setLoadingMessages,
+  setErrorMessages,
+  jwt,
+}) {
   // Liste chat e contatti
-  const [profile, setProfile] = useState({ data: [] })
-  const [chatList, setChatList] = useState({ data: [] })
-  const [contactList, setContactList] = useState({ data: [] })
+  const [profile, setProfile] = useState({ data: [] });
+  const [chatList, setChatList] = useState({ data: [] });
+  const [contactList, setContactList] = useState({ data: [] });
 
   // Configurazione token
   const config = {
     headers: {
-      Authorization: `Bearer ${jwt}`
-    }
+      Authorization: `Bearer ${jwt}`,
+    },
   };
 
   // Richiesta chat all'avvio
   useEffect(() => {
-    const getProfile = () => {
-      axios.get(backend + '/users/profile', config)
-        .then(response => {
+    const getProfile = async () => {
+      await axios
+        .get(backend + "/users/profile", config)
+        .then((response) => {
           setProfile(response.data);
-          console.log(response.data)
+          console.log(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     };
     getProfile();
 
-    const getChatList = () => {
-      axios.get(backend + '/chats/list', config)
-        .then(response => {
+    const getChatList = async () => {
+      await axios
+        .get(backend + "/chats/list", config)
+        .then((response) => {
           setChatList(response.data);
-          console.log(response.data)
+          console.log(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     };
     getChatList();
   }, []);
+
 
 
   // Use state per non mostrare lista contatti e chat quando si ricerca
@@ -76,7 +83,6 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
 
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = (id) => {
-
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName("chat-button");
     for (var i = 0; i < elements.length; i++) {
@@ -91,56 +97,52 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
     // Configurazione token
     const config = {
       headers: {
-        Authorization: `Bearer ${jwt}`
-      }
+        Authorization: `Bearer ${jwt}`,
+      },
     };
 
-    // Metodo per ottenere i risultati da backend
-    axios.get(backend + '/chats/list', config)
-      .then(response => {
-        // Elabora la risposta qui
-        console.log(response.data);
-      })
-      .catch(error => {
-        // Gestisci gli errori qui
-        console.error(error);
-      });
+   console.log(chatList);
+    setLoadingMessages(true);
 
-    setLoadingMessages(true)
+
     setTimeout(() => {
-      if (id === 1) {
+     /* if (id === 1) {
         // Logica per il caso 1
         const updatedData = {
           user: [messageSalvatore.user], // Aggiorna l'array user
-          messages: [messageSalvatore.data] // Aggiorna l'array messages
+          messages: [messageSalvatore.data], // Aggiorna l'array messages
         };
         setData(updatedData); // Imposta i dati aggiornati nel tuo stato
       } else if (id === 2) {
         // Logica per il caso 2
         const updatedData = {
           user: [messageGledjan.user], // Aggiorna l'array user
-          messages: [messageGledjan.data] // Aggiorna l'array messages
+          messages: [messageGledjan.data], // Aggiorna l'array messages
         };
         setData(updatedData); // Imposta i dati aggiornati nel tuo stato
       } else if (id === 3) {
         // Logica per il caso 3
         const updatedData = {
           user: [messagePietro.user], // Aggiorna l'array user
-          messages: [messagePietro.data] // Aggiorna l'array messages
+          messages: [messagePietro.data], // Aggiorna l'array messages
         };
         setData(updatedData); // Imposta i dati aggiornati nel tuo stato
       } else {
         // Logica per il caso predefinito
       }
-
-      setLoadingMessages(false)
-    }, 2000)
-
+*/
+      setLoadingMessages(false);
+    }, 1000);
   };
+
+
+
+
+
+
 
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = (id) => {
-
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName("contact-button");
     for (var i = 0; i < elements.length; i++) {
@@ -151,37 +153,41 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
     element.style.backgroundColor = "var(--button-click)";
     element.style.border = "1px solid var(--border)";
 
-    setLoadingMessages(true)
+    setLoadingMessages(true);
     setTimeout(() => {
       if (id === 1) {
         // Logica per il caso 1
         const updatedData = {
           user: [messageSalvatore.user], // Aggiorna l'array user
-          messages: [messageSalvatore.data] // Aggiorna l'array messages
+          messages: [messageSalvatore.data], // Aggiorna l'array messages
         };
         setData(updatedData); // Imposta i dati aggiornati nel tuo stato
       } else if (id === 2) {
         // Logica per il caso 2
         const updatedData = {
           user: [messageGledjan.user], // Aggiorna l'array user
-          messages: [messageGledjan.data] // Aggiorna l'array messages
+          messages: [messageGledjan.data], // Aggiorna l'array messages
         };
         setData(updatedData); // Imposta i dati aggiornati nel tuo stato
       } else if (id === 3) {
         // Logica per il caso 3
         const updatedData = {
           user: [messagePietro.user], // Aggiorna l'array user
-          messages: [messagePietro.data] // Aggiorna l'array messages
+          messages: [messagePietro.data], // Aggiorna l'array messages
         };
         setData(updatedData); // Imposta i dati aggiornati nel tuo stato
       } else {
         // Logica per il caso predefinito
       }
 
-      setLoadingMessages(false)
-    }, 2000)
-
+      setLoadingMessages(false);
+    }, 2000);
   };
+
+
+
+
+
 
   return (
     <>
@@ -189,19 +195,20 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
 
       <div id="side-elements-container">
         <Routes>
-          <Route path="/" element={
-            <SideSearch
-              id={"side-search"}
-              placeholder={"Cerca o inizia una nuova chat"}
-              request={"chats"}
-              setSearchFocus={setSearching}
-
-              setEmpty={setEmpty}
-              setResult={setResult}
-              setLoading={setLoading}
-              setError={setError}
-            />
-          }
+          <Route
+            path="/"
+            element={
+              <SideSearch
+                id={"side-search"}
+                placeholder={"Cerca o inizia una nuova chat"}
+                request={"chats"}
+                setSearchFocus={setSearching}
+                setEmpty={setEmpty}
+                setResult={setResult}
+                setLoading={setLoading}
+                setError={setError}
+              />
+            }
           />
           <Route
             path="/chats/*"
@@ -211,7 +218,6 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
                 placeholder={"Cerca o inizia una nuova chat"}
                 request={"chats"}
                 setSearchFocus={setSearching}
-
                 setEmpty={setEmpty}
                 setResult={setResult}
                 setLoading={setLoading}
@@ -227,7 +233,6 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
                 placeholder={"Cerca contatto"}
                 request={"contacts"}
                 setSearchFocus={setSearching}
-
                 setEmpty={setEmpty}
                 setResult={setResult}
                 setLoading={setLoading}
@@ -241,9 +246,15 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
           <Route
             path="/contacts/*"
             element={
-              searching === false ?
-                <SideFeature url={"/add"} span={"add"} text={"Aggiungi contatto"}
-                /> : <></>
+              searching === false ? (
+                <SideFeature
+                  url={"/add"}
+                  span={"add"}
+                  text={"Aggiungi contatto"}
+                />
+              ) : (
+                <></>
+              )
             }
           />
         </Routes>
@@ -252,8 +263,15 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
           <Route
             path="/contacts/*"
             element={
-              searching === false ?
-                <SideFeature url={"/delete"} span={"delete"} text={"Elimina contatti"} /> : <></>
+              searching === false ? (
+                <SideFeature
+                  url={"/delete"}
+                  span={"delete"}
+                  text={"Elimina contatti"}
+                />
+              ) : (
+                <></>
+              )
             }
           />
         </Routes>
@@ -262,8 +280,15 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
           <Route
             path="/contacts/*"
             element={
-              searching === false ?
-                <SideFeature url={"/requests"} span={"mail"} text={"Richieste"} /> : <></>
+              searching === false ? (
+                <SideFeature
+                  url={"/requests"}
+                  span={"mail"}
+                  text={"Richieste"}
+                />
+              ) : (
+                <></>
+              )
             }
           />
         </Routes>
@@ -273,7 +298,15 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
             path="/add/*"
             element={
               <>
-                <SideSearch id={"side-search"} placeholder={"Cerca contatto online"} setSearchFocus={setSearching} setEmpty={setEmpty} setResult={setResult} setLoading={setLoading} setError={setError} />
+                <SideSearch
+                  id={"side-search"}
+                  placeholder={"Cerca contatto online"}
+                  setSearchFocus={setSearching}
+                  setEmpty={setEmpty}
+                  setResult={setResult}
+                  setLoading={setLoading}
+                  setError={setError}
+                />
               </>
             }
           />
@@ -283,88 +316,118 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
           <Route
             path="/"
             element={
-              searching === false ?
+              searching === false ? (
                 <>
-                  {chatList.data.length === 0 ?
+                  {chatList.data.length === 0 ? (
                     <p id="no-chats-message">Non sono presenti chat</p>
-                    : <ChatContainer
+                  ) : (
+                    <ChatContainer
                       chatList={chatList.data}
                       handleChatClick={handleChatClick}
-                    />}
+                    />
+                  )}
                 </>
-                : empty === true ? <></>
-                  : loading === true ? <Loading />
-                    : error === true ? <Error />
-                      : <ContactContainer
-                        contactList={result}
-                        handleContactClick={handleContactClick}
-                      />
+              ) : empty === true ? (
+                <></>
+              ) : loading === true ? (
+                <Loading />
+              ) : error === true ? (
+                <Error />
+              ) : (
+                <ContactContainer
+                  contactList={result}
+                  handleContactClick={handleContactClick}
+                />
+              )
             }
           />
           <Route
             path="/chats/*"
             element={
-              searching === false ?
+              searching === false ? (
                 <>
-                  {chatList.length === 0 ?
+                  {chatList.length === 0 ? (
                     <p id="no-chats-message">Non sono presenti chat</p>
-                    : <ChatContainer
+                  ) : (
+                    <ChatContainer
                       chatList={chatList.data}
                       handleChatClick={handleChatClick}
-                    />}
+                    />
+                  )}
                 </>
-                : empty === true ? <></>
-                  : loading === true ? <Loading />
-                    : error === true ? <Error />
-                      : <ContactContainer
-                        contactList={result}
-                        handleContactClick={handleContactClick}
-                      />
+              ) : empty === true ? (
+                <></>
+              ) : loading === true ? (
+                <Loading />
+              ) : error === true ? (
+                <Error />
+              ) : (
+                <ContactContainer
+                  contactList={result}
+                  handleContactClick={handleContactClick}
+                />
+              )
             }
           />
           <Route
             path="/contacts/*"
             element={
-              searching === false ?
+              searching === false ? (
                 <ContactContainer
                   contactList={contactList.data}
                   handleContactClick={handleContactClick}
                 />
-                : empty === true ? <></>
-                  : loading === true ? <Loading />
-                    : error === true ? <Error />
-                      : <ContactContainer
-                        contactList={result}
-                        handleContactClick={handleContactClick}
-                      />
+              ) : empty === true ? (
+                <></>
+              ) : loading === true ? (
+                <Loading />
+              ) : error === true ? (
+                <Error />
+              ) : (
+                <ContactContainer
+                  contactList={result}
+                  handleContactClick={handleContactClick}
+                />
+              )
             }
           />
           <Route
             path="/delete"
             element={
-              searching === false ?
+              searching === false ? (
                 <ContactContainer
                   contactList={contactList.data}
                   handleContactClick={handleContactClick}
                 />
-                : empty === true ? <></>
-                  : loading === true ? <Loading />
-                    : error === true ? <Error />
-                      : <ContactContainer
-                        contactList={result}
-                        handleContactClick={handleContactClick}
-                      />
+              ) : empty === true ? (
+                <></>
+              ) : loading === true ? (
+                <Loading />
+              ) : error === true ? (
+                <Error />
+              ) : (
+                <ContactContainer
+                  contactList={result}
+                  handleContactClick={handleContactClick}
+                />
+              )
             }
           />
 
           <Route
             path="/add/*"
             element={
-              searching === false ? <></>
-                : empty === true ? <></>
-                  : loading === true ? <Loading />
-                    : error === true ? <Error />
-                      : <SideSearchResult contactList={result} />
+              searching === false ? (
+                <></>
+              ) : empty === true ? (
+                <></>
+              ) : loading === true ? (
+                <Loading />
+              ) : error === true ? (
+                <Error />
+              ) : (
+                <SideSearchResult contactList={result} />
+              )
             }
           />
           <Route
