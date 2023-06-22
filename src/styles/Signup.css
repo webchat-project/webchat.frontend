@@ -113,7 +113,6 @@
 }
 
 #signup-clear-button {
-
     height: 40px;
     width: calc(50% - 10px);
     border: 0px;
@@ -121,13 +120,12 @@
     cursor: pointer;
     border-radius: 12px;
     color: white;
-    background-color: #C62828;
-    transition: all 0.5s;
+    background-color: #d32f2f;
+    transition: all 0.3s;
 }
 
 #signup-clear-button:hover {
-    background-color: #333;
-    color: #fff;
+    background-color: #b71c1c;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -141,10 +139,10 @@
     border-radius: 12px;
     color: white;
     background-color: #1976D2;
+    transition: all 0.3s;
 }
 
 #signup-send-button:hover {
-    background-color: #333;
-    color: #fff;
+    background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }

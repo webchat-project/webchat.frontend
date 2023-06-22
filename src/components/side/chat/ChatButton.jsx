@@ -25,7 +25,7 @@ export default function ChatButton({ chat, handleClick }) {
         </div>
         <div className="text-container">
           <h3>{chat.firstName} {chat.lastName}</h3>
-          <p>{chat.message}</p>
+          <p>{chat.lastMessage}</p>
         </div>
       </div>
     </div>

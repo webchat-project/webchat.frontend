@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function ContactButton({ contact }) {
+export default function ContactDelete({ contact }) {
 
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
@@ -19,25 +19,25 @@ export default function ContactButton({ contact }) {
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
   const handleSend = () => {
-    console.log("Invio richiesta per aggiungere " + contact.name)
+    console.log("Invio richiesta per aggiungere " + contact.chatId)
     handleAbort();
   }
 
   return (
-    <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
+    <div id={"contact: " + contact.chatId} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
-          <img alt="ProfilePicture" src={contact.picture}></img>
+          <img alt="ProfilePicture" src={contact.image}></img>
         </div>
         <div className="text-container">
-          <h3>{contact.name}</h3>
+          <h3>{contact.firsName} {contact.lastName}</h3>
           {addOption === true ? <>
             <div id="add-contact-button">
               <button id="abort-add-contact" onClick={handleAbort}>
                 Annulla
               </button>
               <button id="confirm-add-contact" onClick={handleSend}>
-                Aggiungi
+                Elimina
               </button>
             </div>
           </> :

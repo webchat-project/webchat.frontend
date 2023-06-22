@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+import { backend } from '../../../utils/Backend'
 
 import { searchContact } from '../../../xyz/searchContact'
 
-export default function SideSearch({ id, placeholder, setSearchFocus, setResult, setEmpty, setLoading, setError }) {
+export default function SideSearch({ jwt, id, placeholder, setSearchFocus, setResult, setEmpty, setLoading, setError }) {
     // Input search
     const [search, setSearch] = useState('')
 
@@ -19,11 +21,26 @@ export default function SideSearch({ id, placeholder, setSearchFocus, setResult,
         setSearch('')
     }
 
+    // Configurazione token
+    const config = {
+        headers: {
+            Authorization: `Bearer ${jwt}`,
+        },
+    };
+
     // Invio richiesta
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setLoading(true)
         setEmpty(false)
-        setResult(searchContact.data)
+
+        try {
+            const response = await axios.get(backend + '/users/list', config);
+            setResult(response.data);
+            console.warn(response.data)
+        } catch (error) {
+            console.error(error);
+        }
+
         setInterval(() => {
             setLoading(false)
             setError(false)

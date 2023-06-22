@@ -6,10 +6,10 @@ export default function ContactButton({ contact, handleClick }) {
   const [profile, setProfile] = useState("profile.png")
 
   const handleProfile = (contact) => {
-    if (contact.picture) {
-      setProfile(contact.picture)
-    } else {
+    if (contact.image.trim() === "") {
       setProfile("profile.png")
+    } else {
+      setProfile(contact.image)
     }
   }
 
@@ -18,13 +18,13 @@ export default function ContactButton({ contact, handleClick }) {
   }, [contact]);
 
   return (
-    <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
+    <div id={"contact: " + contact.chatId} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
-          <img alt="profile" src={profile}></img>
+          <img alt="img" src={profile}></img>
         </div>
         <div className="text-container">
-          <h3>{contact.name} {contact.surname}</h3>
+          <h3>{contact.firstName} {contact.lastName}</h3>
         </div>
       </div>
     </div>

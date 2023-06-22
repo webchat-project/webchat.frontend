@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 export default function ProfileContainer({ profile }) {
 
-  
   // Elimina il cookie selezionato
   function deleteCookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -116,47 +115,56 @@ export default function ProfileContainer({ profile }) {
     });
   }
 
-  // Definisco utente
-  //let user;
-  //user = profile;
-
   // Metodo per importare l'immagine di profilo default se l'account ne è privo
   const [imageProfile, setImageProfile] = useState("profile.png");
-
+  const handleChangeProfile = (image) => {
+    if (image === "") {
+      setImageProfile("profile.png");
+    } else {
+      setImageProfile(image);
+    }
+  };
   useEffect(() => {
     handleChangeProfile(profile.image);
-  }, [profile.image]);
+  }, [imageProfile]);
 
-  const handleChangeProfile = (image) => {
-    if (image !== "") setImageProfile(image);
+  // UseState per mostrare info utente o schermata di personalizzazione
+  const [custom, setCustom] = useState(false)
 
-    setImageProfile("profile.png");
-  };
-
-
-
-
+  const handleCustom = (setting) => {
+    setCustom(setting)
+  }
 
   return (
     <div id="profile-container">
-      <div id="image-container">
-        <img id="profile-image" alt="img" src={imageProfile}></img>
-      </div>
-      <h3>{profile.firstName} {profile.lastName}</h3>
-      <p>{profile.email}</p>
-      <button id="logout-button" onClick={handleLogout}>Logout</button>
-      <p>Scegli tema</p>
-      <div className="colors-container">
-        <div className="theme-color" id="light-theme" onClick={() => setColorTheme(lightTheme, light)}></div>
-        <div className="theme-color" id="dark-theme" onClick={() => setColorTheme(darkTheme, dark)}></div>
-      </div>
-      <p>Scegli colore</p>
-      <div className="colors-container">
-        <div className="theme-color" id="default-color" onClick={() => setColorTheme(defaultColor, def)}></div>
-        <div className="theme-color" id="gold-color" onClick={() => setColorTheme(goldColor, gold)}></div>
-        <div className="theme-color" id="nature-color" onClick={() => setColorTheme(natureColor, nature)}></div>
-        <div className="theme-color" id="sky-color" onClick={() => setColorTheme(skyColor, sky)}></div>
-      </div>
+      {custom === false ?
+        <>
+          <div id="image-container">
+            <img id="profile-image" alt="img" src={imageProfile}></img>
+          </div>
+          <h3>{profile.firstName} {profile.lastName}</h3>
+          <p>{profile.email}</p>
+          <div id="profile-button-container">
+            <button id="personalize-button" onClick={() => handleCustom(true)}>Personalizza</button>
+            <button id="logout-button" onClick={handleLogout}>Logout</button>
+          </div>
+        </>
+        :
+        <>
+          <button id="backtoinfo-button" onClick={() => handleCustom(false)}>Indietro</button>
+          <p>Scegli tema</p>
+          <div className="colors-container">
+            <div className="theme-color" id="light-theme" onClick={() => setColorTheme(lightTheme, light)}></div>
+            <div className="theme-color" id="dark-theme" onClick={() => setColorTheme(darkTheme, dark)}></div>
+          </div>
+          <p>Scegli colore</p>
+          <div className="colors-container">
+            <div className="theme-color" id="default-color" onClick={() => setColorTheme(defaultColor, def)}></div>
+            <div className="theme-color" id="gold-color" onClick={() => setColorTheme(goldColor, gold)}></div>
+            <div className="theme-color" id="nature-color" onClick={() => setColorTheme(natureColor, nature)}></div>
+            <div className="theme-color" id="sky-color" onClick={() => setColorTheme(skyColor, sky)}></div>
+          </div>
+        </>}
     </div>
   )
 }

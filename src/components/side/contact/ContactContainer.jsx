@@ -21,8 +21,8 @@ export default function ContactContainer({ contactList, handleContactClick }) {
   return contactList.map((c) => (
     <ContactButton
       contact={c}
-      handleClick={() => handleClick(c.id)}
-      key={c.id}
+      handleClick={() => handleClick(c.chatId)}
+      key={c.chatId}
     />
   ));
 }

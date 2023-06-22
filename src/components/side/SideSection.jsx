@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import axios from "axios";
@@ -29,6 +29,7 @@ export default function SideSection({
   setErrorMessages,
   jwt,
 }) {
+
   // Liste chat e contatti
   const [profile, setProfile] = useState({ data: [] });
   const [chatList, setChatList] = useState({ data: [] });
@@ -41,36 +42,48 @@ export default function SideSection({
     },
   };
 
-  // Richiesta chat all'avvio
+  // Metodo per ottenere i dati del profilo
+  const getProfile = async () => {
+    try {
+      const response = await axios.get(backend + '/users/profile', config);
+      console.log("1Profile: " + JSON.stringify(profile))
+      setProfile(response.data);
+      console.log("2Profile: " + JSON.stringify(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Metodo per ottenere la lista chat
+  const getChatList = async () => {
+    try {
+      const response = await axios.get(backend + '/chats/list', config);
+      console.log("1Chat list: " + JSON.stringify(chatList));
+      setChatList(response.data);
+      console.log("2Chat list: " + JSON.stringify(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Metodo per ottenere la lista contatti
+  const getContactList = async () => {
+    try {
+      const response = await axios.get(backend + '/users/contacts/list', config);
+      console.log("1Contact list: " + JSON.stringify(contactList))
+      setContactList(response.data);
+      console.log("2Contact list: " + JSON.stringify(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Ottengo i dati all'avvio
   useEffect(() => {
-    const getProfile = async () => {
-      await axios
-        .get(backend + "/users/profile", config)
-        .then((response) => {
-          setProfile(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
     getProfile();
-
-    const getChatList = async () => {
-      await axios
-        .get(backend + "/chats/list", config)
-        .then((response) => {
-          setChatList(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
     getChatList();
+    getContactList();
   }, []);
-
-
 
   // Use state per non mostrare lista contatti e chat quando si ricerca
   const [searching, setSearching] = useState(false);
@@ -94,52 +107,11 @@ export default function SideSection({
     element.style.backgroundColor = "var(--button-click)";
     element.style.border = "1px solid var(--border)";
 
-    // Configurazione token
-    const config = {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    };
-
-   console.log(chatList);
+    // Caricamento
     setLoadingMessages(true);
 
 
-    setTimeout(() => {
-     /* if (id === 1) {
-        // Logica per il caso 1
-        const updatedData = {
-          user: [messageSalvatore.user], // Aggiorna l'array user
-          messages: [messageSalvatore.data], // Aggiorna l'array messages
-        };
-        setData(updatedData); // Imposta i dati aggiornati nel tuo stato
-      } else if (id === 2) {
-        // Logica per il caso 2
-        const updatedData = {
-          user: [messageGledjan.user], // Aggiorna l'array user
-          messages: [messageGledjan.data], // Aggiorna l'array messages
-        };
-        setData(updatedData); // Imposta i dati aggiornati nel tuo stato
-      } else if (id === 3) {
-        // Logica per il caso 3
-        const updatedData = {
-          user: [messagePietro.user], // Aggiorna l'array user
-          messages: [messagePietro.data], // Aggiorna l'array messages
-        };
-        setData(updatedData); // Imposta i dati aggiornati nel tuo stato
-      } else {
-        // Logica per il caso predefinito
-      }
-*/
-      setLoadingMessages(false);
-    }, 1000);
   };
-
-
-
-
-
-
 
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = (id) => {
@@ -153,41 +125,11 @@ export default function SideSection({
     element.style.backgroundColor = "var(--button-click)";
     element.style.border = "1px solid var(--border)";
 
+    // Caricamento
     setLoadingMessages(true);
-    setTimeout(() => {
-      if (id === 1) {
-        // Logica per il caso 1
-        const updatedData = {
-          user: [messageSalvatore.user], // Aggiorna l'array user
-          messages: [messageSalvatore.data], // Aggiorna l'array messages
-        };
-        setData(updatedData); // Imposta i dati aggiornati nel tuo stato
-      } else if (id === 2) {
-        // Logica per il caso 2
-        const updatedData = {
-          user: [messageGledjan.user], // Aggiorna l'array user
-          messages: [messageGledjan.data], // Aggiorna l'array messages
-        };
-        setData(updatedData); // Imposta i dati aggiornati nel tuo stato
-      } else if (id === 3) {
-        // Logica per il caso 3
-        const updatedData = {
-          user: [messagePietro.user], // Aggiorna l'array user
-          messages: [messagePietro.data], // Aggiorna l'array messages
-        };
-        setData(updatedData); // Imposta i dati aggiornati nel tuo stato
-      } else {
-        // Logica per il caso predefinito
-      }
 
-      setLoadingMessages(false);
-    }, 2000);
+
   };
-
-
-
-
-
 
   return (
     <>
@@ -199,6 +141,7 @@ export default function SideSection({
             path="/"
             element={
               <SideSearch
+                jwt={jwt}
                 id={"side-search"}
                 placeholder={"Cerca o inizia una nuova chat"}
                 request={"chats"}
@@ -214,6 +157,7 @@ export default function SideSection({
             path="/chats/*"
             element={
               <SideSearch
+                jwt={jwt}
                 id={"side-search"}
                 placeholder={"Cerca o inizia una nuova chat"}
                 request={"chats"}
@@ -229,6 +173,7 @@ export default function SideSection({
             path="/contacts/*"
             element={
               <SideSearch
+                jwt={jwt}
                 id={"side-search"}
                 placeholder={"Cerca contatto"}
                 request={"contacts"}
@@ -346,7 +291,7 @@ export default function SideSection({
             element={
               searching === false ? (
                 <>
-                  {chatList.length === 0 ? (
+                  {chatList.data.length === 0 ? (
                     <p id="no-chats-message">Non sono presenti chat</p>
                   ) : (
                     <ChatContainer
@@ -373,10 +318,16 @@ export default function SideSection({
             path="/contacts/*"
             element={
               searching === false ? (
-                <ContactContainer
-                  contactList={contactList.data}
-                  handleContactClick={handleContactClick}
-                />
+                <>
+                  {contactList.data.length === 0 ? (
+                    <p id="no-chats-message">Non sono presenti contatti</p>
+                  ) : (
+                    <ContactContainer
+                      contactList={contactList.data}
+                      handleContactClick={handleContactClick}
+                    />
+                  )}
+                </>
               ) : empty === true ? (
                 <></>
               ) : loading === true ? (
