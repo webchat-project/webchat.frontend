@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
-import axios from "axios";
-import { backend } from "../../utils/Backend";
+// Axios
+import axios from 'axios';
 
-import SideTopBar from "./top/SideTopBar";
+// Indirizzo backend
+import { backend } from '../../utils/Backend';
 
-import ChatContainer from "./chat/ChatContainer";
-import ContactContainer from "./contact/ContactContainer";
-import ProfileContainer from "./profile/ProfileContainer";
+// Componenti React
+import Loading from '../await/Loading';
+import Error from '../await/Error';
 
-import SideSearch from "./search/SideSearch";
-import SideSearchResult from "./search/SideSearchResult";
+import SideTopBar from './top/SideTopBar';
+import ChatContainer from './chat/ChatContainer';
+import ContactContainer from './contact/ContactContainer';
+import ProfileContainer from './profile/ProfileContainer';
 
-import SideFeature from "./SideFeature";
+// Gestione propri contatti
+import DeleteContactContainer from './contact/delete/ContactDeleteContainer';
 
-import Loading from "../await/Loading";
-import Error from "../await/Error";
-
-// Dati provvisori
-import { messageSalvatore } from "../../xyz/messageSalvatore.js";
-import { messageGledjan } from "../../xyz/messageGledjan.js";
-import { messagePietro } from "../../xyz/messagePietro.js";
+import SideSearch from './search/SideSearch';
+import SideSearchResult from './search/SideSearchResult';
+import SideFeature from './SideFeature';
 
 export default function SideSection({
   setData,
@@ -29,11 +29,12 @@ export default function SideSection({
   setErrorMessages,
   jwt,
 }) {
-
   // Liste chat e contatti
   const [profile, setProfile] = useState({ data: [] });
   const [chatList, setChatList] = useState({ data: [] });
   const [contactList, setContactList] = useState({ data: [] });
+  const [sentRequestList, setSentRequestList] = useState({ sent: [] });
+  const [receivedRequestList, setReceviedRequestList] = useState({ received: [] });
 
   // Configurazione token
   const config = {
@@ -46,9 +47,9 @@ export default function SideSection({
   const getProfile = async () => {
     try {
       const response = await axios.get(backend + '/users/profile', config);
-      console.log("1Profile: " + JSON.stringify(profile))
+      console.log('1Profile: ' + JSON.stringify(profile));
       setProfile(response.data);
-      console.log("2Profile: " + JSON.stringify(response.data));
+      console.log('2Profile: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
@@ -58,9 +59,9 @@ export default function SideSection({
   const getChatList = async () => {
     try {
       const response = await axios.get(backend + '/chats/list', config);
-      console.log("1Chat list: " + JSON.stringify(chatList));
+      console.log('1Chat list: ' + JSON.stringify(chatList));
       setChatList(response.data);
-      console.log("2Chat list: " + JSON.stringify(response.data));
+      console.log('2Chat list: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
@@ -69,119 +70,125 @@ export default function SideSection({
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
     try {
-      const response = await axios.get(backend + '/users/contacts/list', config);
-      console.log("1Contact list: " + JSON.stringify(contactList))
+      const response = await axios.get(
+        backend + '/users/contacts/list',
+        config
+      );
+      console.log('1Contact list: ' + JSON.stringify(contactList));
       setContactList(response.data);
-      console.log("2Contact list: " + JSON.stringify(response.data));
+      console.log('2Contact list: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
   };
 
-  // Ottengo i dati all'avvio
+  // Metodo per ottenere la lista contatti
+  const getRequestList = async () => {
+    try {
+      const response = await axios.get(
+        backend + '/users/requests/list',
+        config
+      );
+      console.log('1Request list: ' + JSON.stringify(sentRequestList));
+      //setSentRequestList();
+      console.log('2Request list: ' + JSON.stringify(response.data.sent));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Location
+  const location = useLocation();
+
+  // Metodo per selezionare il pulsante nella topbar al refresh
+  const setTopBarOnLoad = () => {
+    if (location.pathname === '/') {
+      var element = document.getElementById('side-top-bar-button: Chat');
+      element.style.backgroundColor = 'var(--button-click)';
+      element.style.border = '1px solid var(--border)';
+    }
+    if (location.pathname === '/chats') {
+      var element = document.getElementById('side-top-bar-button: Chat');
+      element.style.backgroundColor = 'var(--button-click)';
+      element.style.border = '1px solid var(--border)';
+    }
+    if (location.pathname === '/contacts') {
+      var element = document.getElementById('side-top-bar-button: Contatti');
+      element.style.backgroundColor = 'var(--button-click)';
+      element.style.border = '1px solid var(--border)';
+    }
+    if (location.pathname === '/profile') {
+      var element = document.getElementById('side-top-bar-button: Profilo');
+      element.style.backgroundColor = 'var(--button-click)';
+      element.style.border = '1px solid var(--border)';
+    }
+  };
+
+  // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
   useEffect(() => {
     getProfile();
     getChatList();
     getContactList();
+    getRequestList();
+    setTopBarOnLoad();
   }, []);
 
   // Use state per non mostrare lista contatti e chat quando si ricerca
   const [searching, setSearching] = useState(false);
 
   // Use state per non mostrare lista contatti e chat quando si ricerca
-  const [result, setResult] = useState({});
+  const [result, setResult] = useState({ data: [] });
   const [empty, setEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   // Metodo che si attiva quando si clicca su una chat
-  const handleChatClick = (id) => {
+  const handleChatClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
-    var elements = document.getElementsByClassName("chat-button");
+    var elements = document.getElementsByClassName('chat-button');
     for (var i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute("style");
+      elements[i].removeAttribute('style');
     }
 
     // Accentua il componente selezionato
-    var element = document.getElementById("contact: " + id);
-    element.style.backgroundColor = "var(--button-click)";
-    element.style.border = "1px solid var(--border)";
+    var element = document.getElementById('contact: ' + id);
+    element.style.backgroundColor = 'var(--button-click)';
+    element.style.border = '1px solid var(--border)';
 
     // Caricamento
     setLoadingMessages(true);
-
-
   };
 
   // Metodo che si attiva quando si clicca su un contatto
-  const handleContactClick = (id) => {
+  const handleContactClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
-    var elements = document.getElementsByClassName("contact-button");
+    var elements = document.getElementsByClassName('contact-button');
     for (var i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute("style");
+      elements[i].removeAttribute('style');
     }
     // Accentua il componente selezionato
-    var element = document.getElementById("contact: " + id);
-    element.style.backgroundColor = "var(--button-click)";
-    element.style.border = "1px solid var(--border)";
+    var element = document.getElementById('contact: ' + id);
+    element.style.backgroundColor = 'var(--button-click)';
+    element.style.border = '1px solid var(--border)';
 
     // Caricamento
     setLoadingMessages(true);
-
-
   };
 
   return (
     <>
-      <SideTopBar setSearchFocus={setSearching} />
+      <SideTopBar />
 
       <div id="side-elements-container">
+
         <Routes>
-          <Route
-            path="/"
-            element={
-              <SideSearch
-                jwt={jwt}
-                id={"side-search"}
-                placeholder={"Cerca o inizia una nuova chat"}
-                request={"chats"}
-                setSearchFocus={setSearching}
-                setEmpty={setEmpty}
-                setResult={setResult}
-                setLoading={setLoading}
-                setError={setError}
-              />
-            }
-          />
-          <Route
-            path="/chats/*"
-            element={
-              <SideSearch
-                jwt={jwt}
-                id={"side-search"}
-                placeholder={"Cerca o inizia una nuova chat"}
-                request={"chats"}
-                setSearchFocus={setSearching}
-                setEmpty={setEmpty}
-                setResult={setResult}
-                setLoading={setLoading}
-                setError={setError}
-              />
-            }
-          />
           <Route
             path="/contacts/*"
             element={
-              <SideSearch
-                jwt={jwt}
-                id={"side-search"}
-                placeholder={"Cerca contatto"}
-                request={"contacts"}
-                setSearchFocus={setSearching}
-                setEmpty={setEmpty}
-                setResult={setResult}
-                setLoading={setLoading}
-                setError={setError}
+              <SideFeature
+                url={'/add'}
+                span={'add'}
+                text={'Aggiungi contatto'}
               />
             }
           />
@@ -191,15 +198,11 @@ export default function SideSection({
           <Route
             path="/contacts/*"
             element={
-              searching === false ? (
-                <SideFeature
-                  url={"/add"}
-                  span={"add"}
-                  text={"Aggiungi contatto"}
-                />
-              ) : (
-                <></>
-              )
+              <SideFeature
+                url={'/delete'}
+                span={'delete'}
+                text={'Elimina contatti'}
+              />
             }
           />
         </Routes>
@@ -208,32 +211,11 @@ export default function SideSection({
           <Route
             path="/contacts/*"
             element={
-              searching === false ? (
-                <SideFeature
-                  url={"/delete"}
-                  span={"delete"}
-                  text={"Elimina contatti"}
-                />
-              ) : (
-                <></>
-              )
-            }
-          />
-        </Routes>
-
-        <Routes>
-          <Route
-            path="/contacts/*"
-            element={
-              searching === false ? (
-                <SideFeature
-                  url={"/requests"}
-                  span={"mail"}
-                  text={"Richieste"}
-                />
-              ) : (
-                <></>
-              )
+              <SideFeature
+                url={'/requests'}
+                span={'mail'}
+                text={'Richieste'}
+              />
             }
           />
         </Routes>
@@ -244,8 +226,8 @@ export default function SideSection({
             element={
               <>
                 <SideSearch
-                  id={"side-search"}
-                  placeholder={"Cerca contatto online"}
+                  id={'side-search'}
+                  placeholder={'Cerca contatto online'}
                   setSearchFocus={setSearching}
                   setEmpty={setEmpty}
                   setResult={setResult}
@@ -261,27 +243,12 @@ export default function SideSection({
           <Route
             path="/"
             element={
-              searching === false ? (
-                <>
-                  {chatList.data.length === 0 ? (
-                    <p id="no-chats-message">Non sono presenti chat</p>
-                  ) : (
-                    <ChatContainer
-                      chatList={chatList.data}
-                      handleChatClick={handleChatClick}
-                    />
-                  )}
-                </>
-              ) : empty === true ? (
-                <></>
-              ) : loading === true ? (
-                <Loading />
-              ) : error === true ? (
-                <Error />
+              chatList.data.length === 0 ? (
+                <p id="no-chats-message">Non sono presenti chat</p>
               ) : (
-                <ContactContainer
-                  contactList={result}
-                  handleContactClick={handleContactClick}
+                <ChatContainer
+                  chatList={chatList.data}
+                  handleChatClick={handleChatClick}
                 />
               )
             }
@@ -289,27 +256,12 @@ export default function SideSection({
           <Route
             path="/chats/*"
             element={
-              searching === false ? (
-                <>
-                  {chatList.data.length === 0 ? (
-                    <p id="no-chats-message">Non sono presenti chat</p>
-                  ) : (
-                    <ChatContainer
-                      chatList={chatList.data}
-                      handleChatClick={handleChatClick}
-                    />
-                  )}
-                </>
-              ) : empty === true ? (
-                <></>
-              ) : loading === true ? (
-                <Loading />
-              ) : error === true ? (
-                <Error />
+              chatList.data.length === 0 ? (
+                <p id="no-chats-message">Non sono presenti chat</p>
               ) : (
-                <ContactContainer
-                  contactList={result}
-                  handleContactClick={handleContactClick}
+                <ChatContainer
+                  chatList={chatList.data}
+                  handleChatClick={handleChatClick}
                 />
               )
             }
@@ -317,51 +269,36 @@ export default function SideSection({
           <Route
             path="/contacts/*"
             element={
-              searching === false ? (
-                <>
-                  {contactList.data.length === 0 ? (
-                    <p id="no-chats-message">Non sono presenti contatti</p>
-                  ) : (
-                    <ContactContainer
-                      contactList={contactList.data}
-                      handleContactClick={handleContactClick}
-                    />
-                  )}
-                </>
-              ) : empty === true ? (
-                <></>
-              ) : loading === true ? (
-                <Loading />
-              ) : error === true ? (
-                <Error />
+              contactList.data.length === 0 ? (
+                <p id="no-chats-message">Non sono presenti contatti</p>
               ) : (
                 <ContactContainer
-                  contactList={result}
+                  contactList={contactList.data}
                   handleContactClick={handleContactClick}
                 />
               )
             }
           />
+
           <Route
-            path="/delete"
+            path="/delete/*"
             element={
-              searching === false ? (
-                <ContactContainer
-                  contactList={contactList.data}
-                  handleContactClick={handleContactClick}
-                />
-              ) : empty === true ? (
-                <></>
-              ) : loading === true ? (
-                <Loading />
-              ) : error === true ? (
-                <Error />
-              ) : (
-                <ContactContainer
-                  contactList={result}
-                  handleContactClick={handleContactClick}
-                />
-              )
+              <>
+                <p id="feature-contact-message">Elimina contatti</p>
+                <DeleteContactContainer contactList={contactList.data} />
+              </>
+            }
+          />
+
+          <Route
+            path="/requests/*"
+            element={
+              <>
+                <p id="feature-contact-message">Richieste ricevute</p>
+                <DeleteContactContainer contactList={contactList.data} />
+                <p id="feature-contact-message">Richieste inviate</p>
+                <DeleteContactContainer contactList={contactList.data} />
+              </>
             }
           />
 

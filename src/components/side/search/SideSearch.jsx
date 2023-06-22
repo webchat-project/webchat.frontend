@@ -2,22 +2,26 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { backend } from '../../../utils/Backend'
 
-import { searchContact } from '../../../xyz/searchContact'
+export default function SideSearch({ jwt, id, placeholder, setSearching, setResult, setEmpty, setLoading, setError }) {
 
-export default function SideSearch({ jwt, id, placeholder, setSearchFocus, setResult, setEmpty, setLoading, setError }) {
-    // Input search
+    // Valore input
     const [search, setSearch] = useState('')
+
+    // Controllo visibilità pulsanti ricerca
+    const [controlVisibility, setControlVisibility] = useState(false)
 
     // Inserimento
     const handleTyping = () => {
         setEmpty(true)
         setResult({})
-        setSearchFocus(true)
+        setSearching(true)
+        setControlVisibility(true)
     }
 
     // Click sul pulsante indietro
     const handleAbort = () => {
-        setSearchFocus(false)
+        setSearching(false)
+        setControlVisibility(false)
         setSearch('')
     }
 
@@ -49,9 +53,6 @@ export default function SideSearch({ jwt, id, placeholder, setSearchFocus, setRe
 
     return (
         <div id="side-search-container">
-            <button id="abort-search" onClick={handleAbort}>
-                <span className="material-symbols-outlined">arrow_back_ios</span>
-            </button>
             <input
                 id={id}
                 type='text'
@@ -60,9 +61,20 @@ export default function SideSearch({ jwt, id, placeholder, setSearchFocus, setRe
                 onFocus={handleTyping}
                 onChange={e => setSearch(e.target.value)}>
             </input>
-            <button id="send-search" onClick={handleSubmit}>
-                <span className="material-symbols-outlined">search</span>
-            </button>
+            {controlVisibility === true ?
+                <>
+                    <div id="search-control-buttons">
+                        <button id="abort-search" onClick={handleAbort}>
+                            <span className="material-symbols-outlined">arrow_back_ios</span>
+                            <p>Indietro</p>
+                        </button>
+                        <button id="send-search" onClick={handleSubmit}>
+                            <span className="material-symbols-outlined">search</span>
+                            <p>Cerca</p>
+                        </button>
+                    </div>
+                </> :
+                <></>}
         </div>
     )
 }

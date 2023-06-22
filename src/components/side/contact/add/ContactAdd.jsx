@@ -2,12 +2,24 @@ import React, { useState } from "react";
 
 export default function ContactButton({ contact }) {
 
+  const handleDisplay = () => {
+    if (window.innerWidth <= 600) {
+      document.getElementById("side-section").setAttribute("style", "visibility: hidden; display: none; width: 300px")
+      document.getElementById("main-section").setAttribute("style", "visibility: visible; display: flex; width: 100%")
+    } else {
+      document.getElementById("side-section").setAttribute("style", "visibility: visible; display: block; width: 300px")
+      document.getElementById("main-section").setAttribute("style", "visibility: visible; display: flex; width: calc(100% - 300px);")
+    }
+  }
+
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
   // Al click sul contatto appaiono due pulsanti per annullare o inviare la richiesta
-  const handleClick = () => {
+  const handleClick = (id) => {
     setAddOption(true)
+    handleDisplay()
+    console.log("Click: " + id)
   }
 
   // Metodo al click su annulla

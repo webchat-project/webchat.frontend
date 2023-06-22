@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ContactAdd from '../contact/ContactAdd'
+import ContactAdd from '../contact/add/ContactAdd'
 
 export default function SideSearchResult({ contactList }) {
 

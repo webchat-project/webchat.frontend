@@ -1,13 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function SideTopBarButton({ material, name, route, setSearchFocus }) {
+export default function SideTopBarButton({ material, name, route }) {
 
   // Handle Click
   const handleClick = (name) => {
-
-    // Ripristina la visualizzazione senza ricerca attiva
-    setSearchFocus(false)
 
     // Ripristina lo sfondo degli elementi ed evidenzia l'elemento attivo
     var elements = document.getElementsByClassName("side-top-bar-button");
