@@ -9,15 +9,23 @@ import "./styles/Chat.css";
 import "./styles/Contact.css";
 import "./styles/Profile.css";
 import "./styles/Message.css";
-//import io from "socket.io-client";
-import useCookie from "./utils/useCookies";
 
-// Componenti
+// Socket
+//import io from "socket.io-client";
+
+// Cookies
+import UseCookie from "./utils/UseCookies";
+
+// Componenti navigazione
 import { Routes, Route } from "react-router-dom";
+import PrivateRoute from "./utils/PrivateRoute";
+
+// Pagine
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import PrivateRoute from "./components/routesPrivate/PrivateRoute";
+
+// Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -121,6 +129,7 @@ const setColorTheme = (color) => {
 // Controllo impostazione salvata in LocalStorage, se si, applico quella, altrimenti applico il tema di default
 const storedTheme = localStorage.getItem("theme");
 
+// Switch per cambio tema app
 switch (storedTheme) {
   case "light":
     setColorTheme(lightTheme);
@@ -142,10 +151,11 @@ switch (storedTheme) {
     break;
 }
 
-
+// DEFAULT
 export default function App() {
 
-  const [jwtToken, setJwtToken] = useCookie("jwt", "");
+  // Imposta un token vuoto nei cookie
+  const [jwtToken, setJwtToken] = UseCookie("jwt", "");
 
   return (
     <>
@@ -154,7 +164,7 @@ export default function App() {
           path="*"
           element={
             <PrivateRoute jwt={jwtToken}>
-              <Home />
+              <Home jwt={jwtToken} />
             </PrivateRoute>
           }
         />
@@ -174,6 +184,4 @@ export default function App() {
       </Routes>
     </>
   );
-}
-
-///   rfce to create a component
+};

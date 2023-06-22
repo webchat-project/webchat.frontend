@@ -1,6 +1,5 @@
+const host = "http://localhost:5000";  // Backend
 
-const host = "http://localhost:5000";  //BACKEND PORT
+export const signupRoute = `${host}/users/signup`
 
-export const signupRoute = `${host}/user/signup`
-
-export const loginRoute = `${host}/user/login`
+export const loginRoute = `${host}/users/login`

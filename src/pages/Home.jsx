@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import SideSection from '../components/side/SideSection'
 import MainSection from '../components/main/MainSection'
 
-export default function Home() {
+export default function Home({ jwt }) {
 
     const [data, setData] = useState({
         user: [],
@@ -16,7 +16,7 @@ export default function Home() {
     return (
         <>
             <aside id="side-section">
-                <SideSection setData={setData} setLoadingMessages={setLoading} setErrorMessages={setError} />
+                <SideSection jwt={jwt} setData={setData} setLoadingMessages={setLoading} setErrorMessages={setError} />
             </aside>
             <main id="main-section">
                 <MainSection data={data} loading={loading} error={error} />

@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function Error({event}) {
+export default function Error({ event }) {
+
+    // Componente chiamato quando un metodo fetch restituisce un errore
     return (
         <div className="error">
             <span className="material-symbols-outlined">

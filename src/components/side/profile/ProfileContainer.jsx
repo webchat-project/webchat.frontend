@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function ProfileContainer({ profile }) {
 
@@ -115,13 +115,32 @@ export default function ProfileContainer({ profile }) {
     });
   }
 
+  // Definisco utente
   let user;
-  profile.map(p => user = p)
+  user = profile;
+
+  // Metodo per importare l'immagine di profilo default se l'account ne è privo
+  const [imageProfile, setImageProfile] = useState("profile.png")
+
+  const handleProfile = (image) => {
+    if (image === "") {
+      setImageProfile("profile.png")
+    } else {
+      setImageProfile(image)
+    }
+  }
+
+  useEffect(() => {
+    handleProfile(user.image);
+  }, [user.image]);
 
   return (
     <div id="profile-container">
-      <img id="profile-image" alt='Profile' src={user.picture}></img>
-      <h3>{user.name}</h3>
+      <div id="image-container">
+        <img id="profile-image" alt="img" src={imageProfile}></img>
+      </div>
+      <h3>{user.firstName} {user.lastName}</h3>
+      <p>{user.email}</p>
       <button id="logout-button" onClick={handleLogout}>Logout</button>
       <p>Scegli tema</p>
       <div className="colors-container">

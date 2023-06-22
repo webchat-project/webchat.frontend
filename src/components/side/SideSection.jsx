@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+
+import axios from 'axios';
+import { backend } from '../../utils/Backend'
 
 import SideTopBar from "./top/SideTopBar";
 
@@ -10,23 +13,57 @@ import ProfileContainer from "./profile/ProfileContainer";
 import SideSearch from "./search/SideSearch";
 import SideSearchResult from "./search/SideSearchResult";
 
-
-
 import SideFeature from "./SideFeature";
 
 import Loading from '../await/Loading'
 import Error from '../await/Error'
 
 // Dati provvisori
-import { chatList } from "../../xyz/chatList.js";
-import { contactList } from "../../xyz/contactList.js";
-import { profile } from "../../xyz/profile.js";
-
 import { messageSalvatore } from "../../xyz/messageSalvatore.js";
 import { messageGledjan } from "../../xyz/messageGledjan.js";
 import { messagePietro } from "../../xyz/messagePietro.js";
 
-export default function SideSection({ setData, setLoadingMessages, setErrorMessages }) {
+export default function SideSection({ setData, setLoadingMessages, setErrorMessages, jwt }) {
+
+  // Liste chat e contatti
+  const [profile, setProfile] = useState({ data: [] })
+  const [chatList, setChatList] = useState({ data: [] })
+  const [contactList, setContactList] = useState({ data: [] })
+
+  // Configurazione token
+  const config = {
+    headers: {
+      Authorization: `Bearer ${jwt}`
+    }
+  };
+
+  // Richiesta chat all'avvio
+  useEffect(() => {
+    const getProfile = () => {
+      axios.get(backend + '/users/profile', config)
+        .then(response => {
+          setProfile(response.data);
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    };
+    getProfile();
+
+    const getChatList = () => {
+      axios.get(backend + '/chats/list', config)
+        .then(response => {
+          setChatList(response.data);
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    };
+    getChatList();
+  }, []);
+
 
   // Use state per non mostrare lista contatti e chat quando si ricerca
   const [searching, setSearching] = useState(false);
@@ -50,6 +87,24 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
     var element = document.getElementById("contact: " + id);
     element.style.backgroundColor = "var(--button-click)";
     element.style.border = "1px solid var(--border)";
+
+    // Configurazione token
+    const config = {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    // Metodo per ottenere i risultati da backend
+    axios.get(backend + '/chats/list', config)
+      .then(response => {
+        // Elabora la risposta qui
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Gestisci gli errori qui
+        console.error(error);
+      });
 
     setLoadingMessages(true)
     setTimeout(() => {
@@ -184,33 +239,10 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
 
         <Routes>
           <Route
-            path="/"
-            element={
-              searching === false ?
-                <SideFeature span={"bookmark"} text={"Messaggi personali"} /> : <></>
-            }
-          />
-        </Routes>
-
-        <Routes>
-          <Route
-            path="/chats/*"
-            element={
-              searching === false ?
-                <SideFeature span={"bookmark"} text={"Messaggi personali"} /> : <></>
-            }
-          />
-        </Routes>
-
-        <Routes>
-          <Route
             path="/contacts/*"
             element={
               searching === false ?
-                <SideFeature
-                  url={"/add"}
-                  span={"add"}
-                  text={"Aggiungi contatto"}
+                <SideFeature url={"/add"} span={"add"} text={"Aggiungi contatto"}
                 /> : <></>
             }
           />
@@ -241,17 +273,7 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
             path="/add/*"
             element={
               <>
-                <SideSearch
-                  id={"side-search"}
-                  placeholder={"Cerca contatto online"}
-                  setSearchFocus={setSearching}
-
-                  setEmpty={setEmpty}
-                  setResult={setResult}
-                  setLoading={setLoading}
-                  setError={setError}
-                />
-                { }
+                <SideSearch id={"side-search"} placeholder={"Cerca contatto online"} setSearchFocus={setSearching} setEmpty={setEmpty} setResult={setResult} setLoading={setLoading} setError={setError} />
               </>
             }
           />
@@ -261,10 +283,15 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
           <Route
             path="/"
             element={
-              searching === false ? <ChatContainer
-                chatList={chatList.data}
-                handleChatClick={handleChatClick}
-              />
+              searching === false ?
+                <>
+                  {chatList.data.length === 0 ?
+                    <p id="no-chats-message">Non sono presenti chat</p>
+                    : <ChatContainer
+                      chatList={chatList.data}
+                      handleChatClick={handleChatClick}
+                    />}
+                </>
                 : empty === true ? <></>
                   : loading === true ? <Loading />
                     : error === true ? <Error />
@@ -277,10 +304,15 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
           <Route
             path="/chats/*"
             element={
-              searching === false ? <ChatContainer
-                chatList={chatList.data}
-                handleChatClick={handleChatClick}
-              />
+              searching === false ?
+                <>
+                  {chatList.length === 0 ?
+                    <p id="no-chats-message">Non sono presenti chat</p>
+                    : <ChatContainer
+                      chatList={chatList.data}
+                      handleChatClick={handleChatClick}
+                    />}
+                </>
                 : empty === true ? <></>
                   : loading === true ? <Loading />
                     : error === true ? <Error />
@@ -337,7 +369,7 @@ export default function SideSection({ setData, setLoadingMessages, setErrorMessa
           />
           <Route
             path="/profile/*"
-            element={<ProfileContainer profile={profile.data} />}
+            element={<ProfileContainer profile={profile} />}
           />
         </Routes>
       </div>

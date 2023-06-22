@@ -162,3 +162,7 @@
   height: calc(100% - 60px);
   overflow: auto;
 }
+
+#no-chats-message {
+  text-align: center;
+}

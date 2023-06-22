@@ -2,13 +2,9 @@ import { useEffect, useState, useMemo } from "react";
 import Cookies from "universal-cookie";
 import jwtDecode from "jwt-decode";
 
-
-
-export default function useCookie(key, defaultValue) {
+export default function UseCookie(key, defaultValue) {
 
   const cookies = useMemo(() => new Cookies(), []);
-
-
 
   const [value, setValue] = useState(() => {
     const cookieValue = cookies.get(key);

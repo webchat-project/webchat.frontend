@@ -6,10 +6,10 @@ export default function ChatButton({ chat, handleClick }) {
   const [profile, setProfile] = useState("profile.png")
 
   const handleProfile = (chat) => {
-    if (chat.picture) {
-      setProfile(chat.picture)
-    } else {
+    if (chat.image.trim() === "") {
       setProfile("profile.png")
+    } else {
+      setProfile(chat.image)
     }
   }
 
@@ -21,10 +21,10 @@ export default function ChatButton({ chat, handleClick }) {
     <div id={"contact: " + chat.id} className="chat-button" onClick={handleClick}>
       <div className="chat-button-container">
         <div className="image-container">
-          <img alt="ProfilePicture" src={profile}></img>
+          <img alt="img" src={profile}></img>
         </div>
         <div className="text-container">
-          <h3>{chat.name}</h3>
+          <h3>{chat.firstName} {chat.lastName}</h3>
           <p>{chat.message}</p>
         </div>
       </div>
