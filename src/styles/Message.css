@@ -75,3 +75,16 @@
     background-color: var(--button-hover);
     border: 1px solid var(--border);
 }
+
+#message-sender:hover {
+    background-color: var(--button-hover);
+    border: 1px solid var(--border);
+    color: rgb(4, 96, 58);
+
+}
+
+#message-sender:disabled:hover {
+    background-color: white;
+    border: none;
+    color: rgb(255, 0, 0);
+  }
