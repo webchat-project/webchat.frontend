@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function ContactDelete({ contact }) {
+export default function ContactRequest({ contact }) {
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
@@ -47,11 +47,14 @@ export default function ContactDelete({ contact }) {
           <h3>{contact.firstName} {contact.lastName}</h3>
           {addOption === true ? <>
             <div className="feature-confirm-contact-button">
-              <button id="abort-delete-contact-button" onClick={handleAbort}>
+              <button id="abort-request-contact-button" onClick={handleAbort}>
                 Annulla
               </button>
-              <button id="confirm-delete-contact-button" onClick={handleSend}>
-                Elimina
+              <button id="accept-request-contact-button" onClick={handleSend}>
+                Accetta
+              </button>
+              <button id="reject-request-contact-button" onClick={handleAbort}>
+                Rifiuta
               </button>
             </div>
           </> :

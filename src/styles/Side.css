@@ -173,7 +173,7 @@
 }
 
 #side-elements-container {
-  height: calc(100% - 70px);
+  height: calc(100% - 80px);
   overflow: auto;
 }
 

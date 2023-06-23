@@ -17,10 +17,10 @@ import ContactContainer from './contact/ContactContainer';
 import ProfileContainer from './profile/ProfileContainer';
 
 // Gestione propri contatti
-import DeleteContactContainer from './contact/delete/ContactDeleteContainer';
+import ContactDeleteContainer from './contact/delete/ContactDeleteContainer';
+import ContactRequestContainer from './contact/request/ContactRequestContainer';
 
-import SideSearch from './search/SideSearch';
-import SideSearchResult from './search/SideSearchResult';
+import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
 
 export default function SideSection({
@@ -132,15 +132,6 @@ export default function SideSection({
     setTopBarOnLoad();
   }, []);
 
-  // Use state per non mostrare lista contatti e chat quando si ricerca
-  const [searching, setSearching] = useState(false);
-
-  // Use state per non mostrare lista contatti e chat quando si ricerca
-  const [result, setResult] = useState({ data: [] });
-  const [empty, setEmpty] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -226,14 +217,10 @@ export default function SideSection({
             path="/add/*"
             element={
               <>
-                <SideSearch
+                <Search
                   id={'side-search'}
+                  jwt={jwt}
                   placeholder={'Cerca contatto online'}
-                  setSearchFocus={setSearching}
-                  setEmpty={setEmpty}
-                  setResult={setResult}
-                  setLoading={setLoading}
-                  setError={setError}
                 />
               </>
             }
@@ -245,7 +232,7 @@ export default function SideSection({
             path="/"
             element={
               chatList.data.length === 0 ? (
-                <p id="no-chats-message">Non sono presenti chat</p>
+                <p id="feature-contact-message">Non sono presenti chat</p>
               ) : (
                 <ChatContainer
                   chatList={chatList.data}
@@ -289,7 +276,7 @@ export default function SideSection({
             element={
               <>
                 <p id="feature-contact-message">Elimina contatti</p>
-                <DeleteContactContainer contactList={contactList.data} />
+                <ContactDeleteContainer contactList={contactList.data} />
               </>
             }
           />
@@ -299,29 +286,13 @@ export default function SideSection({
             element={
               <>
                 <p id="feature-contact-message">Richieste ricevute</p>
-                <DeleteContactContainer contactList={contactList.data} />
+                <ContactRequestContainer contactList={contactList.data} />
                 <p id="request-contact-message">Richieste inviate</p>
-                <DeleteContactContainer contactList={contactList.data} />
+                <ContactRequestContainer contactList={contactList.data} />
               </>
             }
           />
 
-          <Route
-            path="/add/*"
-            element={
-              searching === false ? (
-                <></>
-              ) : empty === true ? (
-                <></>
-              ) : loading === true ? (
-                <Loading />
-              ) : error === true ? (
-                <Error />
-              ) : (
-                <SideSearchResult contactList={result} />
-              )
-            }
-          />
           <Route
             path="/profile/*"
             element={<ProfileContainer profile={profile} />}

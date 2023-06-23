@@ -1,25 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function ContactButton({ contact }) {
-
-  const handleDisplay = () => {
-    if (window.innerWidth <= 600) {
-      document.getElementById("side-section").setAttribute("style", "visibility: hidden; display: none; width: 300px")
-      document.getElementById("main-section").setAttribute("style", "visibility: visible; display: flex; width: 100%")
-    } else {
-      document.getElementById("side-section").setAttribute("style", "visibility: visible; display: block; width: 300px")
-      document.getElementById("main-section").setAttribute("style", "visibility: visible; display: flex; width: calc(100% - 300px);")
-    }
-  }
-
+export default function ContactAdd({ contact }) {
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
   // Al click sul contatto appaiono due pulsanti per annullare o inviare la richiesta
   const handleClick = (id) => {
     setAddOption(true)
-    handleDisplay()
-    console.log("Click: " + id)
   }
 
   // Metodo al click su annulla
@@ -31,24 +18,39 @@ export default function ContactButton({ contact }) {
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
   const handleSend = () => {
-    console.log("Invio richiesta per aggiungere " + contact.name)
+    console.log("Invio richiesta per aggiungere " + contact.userId)
     handleAbort();
   }
+
+  // Metodo per importare l'immagine di profilo default se l'account ne è privo
+  const [profile, setProfile] = useState("profile.png")
+
+  const handleProfile = (contact) => {
+    if (contact.image === "") {
+      setProfile("profile.png")
+    } else {
+      setProfile(contact.image)
+    }
+  }
+
+  useEffect(() => {
+    handleProfile(contact);
+  }, [contact]);
 
   return (
     <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
-          <img alt="ProfilePicture" src={contact.picture}></img>
+          <img alt="img" src={profile}></img>
         </div>
         <div className="text-container">
-          <h3>{contact.name}</h3>
+          <h3>{contact.firstName} {contact.lastName}</h3>
           {addOption === true ? <>
-            <div id="add-contact-button">
-              <button id="abort-add-contact" onClick={handleAbort}>
+            <div className="feature-confirm-contact-button">
+              <button id="abort-add-contact-button" onClick={handleAbort}>
                 Annulla
               </button>
-              <button id="confirm-add-contact" onClick={handleSend}>
+              <button id="confirm-add-contact-button" onClick={handleSend}>
                 Aggiungi
               </button>
             </div>
