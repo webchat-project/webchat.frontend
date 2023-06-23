@@ -8,8 +8,6 @@ export default function MainTopBar({ user }) {
     document.getElementById("main-section").setAttribute("style", "visibility: hidden; display: none;")
   }
 
-  console.log(user)
-
   return (
     <div id="main-top-bar">
       <button id="side-menu" onClick={handleDisplay}>

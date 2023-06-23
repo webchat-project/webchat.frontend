@@ -63,6 +63,7 @@ export default function Login({ jwt, setJwt }) {
       //Set user state
       setloggedUser(decodedToken);
       console.log(decodedToken);
+      localStorage.setItem("currentUserId", decodedToken.id)
     }
   }, [jwt]);
 

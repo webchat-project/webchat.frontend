@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainTopBar from "./MainTopBar";
 
 import axios from "axios";
@@ -22,10 +22,10 @@ export default function MainSection({ jwt, userData, messageData, loading, error
   };
 
   // Metodo per inviare il messaggio appena digitato
-  const sendMessage = async (id, input) => {
+  const sendMessage = async (input) => {
     let data = {
       description: input,
-      chatId: id
+      chatId: userData.userId
     };
 
     try {
@@ -43,6 +43,8 @@ export default function MainSection({ jwt, userData, messageData, loading, error
     const messageContainer = document.getElementById('message-container');
     const sentMessage = document.createElement('div');
     sentMessage.className = "sent-message"
+
+    sentMessage.id = "CurrentSessionMessage"
     const message = document.createElement('p');
     message.className = "message-text"
     message.innerText = input
@@ -50,20 +52,19 @@ export default function MainSection({ jwt, userData, messageData, loading, error
     messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
 
     // Invio messaggio
-    sentMessage(input)
+    sendMessage(input)
   }
 
   return (
     <>
-      {messageData.length === 0 ?<DefaultMessage />: loading === true ? <Loading />: error === true ? <Error />: <>
-              <MainTopBar user={userData} />
-              <div id="message-container">
-                <MessageContainer messageList={messageData} />
-              </div>
-              <MessageInputBox handleSubmit={handleSubmit} />
-            </>
+      {messageData.length === 0 ? <DefaultMessage /> : loading === true ? <Loading /> : error === true ? <Error /> : <>
+        <MainTopBar user={userData} />
+        <div id="message-container">
+          <MessageContainer messageList={messageData} />
+        </div>
+        <MessageInputBox handleSubmit={handleSubmit} />
+      </>
       }
-      
     </>
   );
 }

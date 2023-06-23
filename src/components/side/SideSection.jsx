@@ -201,8 +201,20 @@ export default function SideSection({
     }
   };
 
+  // Metodo per ottenere la lista messaggi
+  const getMessages = async (id) => {
+    try {
+      const response = await axios.get(backend + '/chats/' + id, config);
+      setMessageData(response.data.messages);
+      setLoadingMessages(false)
+      setErrorMessages(false)
+    } catch (error) {
+      console.error(error);
+      setLoadingMessages(false)
+      setErrorMessages(true)
+    }
+  };
 
-  
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -216,42 +228,44 @@ export default function SideSection({
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
 
-
-
-    
     // Imposta l'utente
+    setUserData(prevValue => ({ ...prevValue, userId: id })
+    );
+
     let elementText = element.querySelectorAll('h3');
     let elementImg = element.querySelectorAll('img');
-
     elementText.forEach(e => {
-      //console.log(e)
-      let valoreText = e.innerText;
-
-      setUserData({
-        name: valoreText,
-        image: 'x',}
+      let nameValue = e.innerText;
+      setUserData(prevValue => ({ ...prevValue, name: nameValue })
       );
-      
-    });
 
+    });
     elementImg.forEach(e => {
-      //console.log(e)
       let imgSrc = e.src;
-      setUserData(prevValue => ({...prevValue,image: imgSrc})
+      setUserData(prevValue => ({ ...prevValue, image: imgSrc })
       );
-      
     });
 
-    
+    // Loading
+    setLoadingMessages(true)
+    setErrorMessages(false)
 
+    // Metodo per eliminare i messaggi
+    const currentuserId = localStorage.getItem("currentUserId")
+    const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
+    console.log(sentMessages)
+    if (sentMessages.length > 0) {
+      for (var j = 0; j < sentMessages.length; j++) {
+        sentMessages[j].remove();
+      }
+    }
 
-    // Caricamento
-    setLoadingMessages(true);
+    // Caricamento messaggi
+    getMessages(id);
   };
 
- 
 
-  
+
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -264,9 +278,26 @@ export default function SideSection({
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
 
-    // Caricamento
-    setLoadingMessages(true);
+    // Imposta l'utente
+    let elementText = element.querySelectorAll('h3');
+    let elementImg = element.querySelectorAll('img');
+    elementText.forEach(e => {
+      let nameValue = e.innerText;
+      setUserData(prevValue => ({ ...prevValue, name: nameValue })
+      );
+
+    });
+    elementImg.forEach(e => {
+      let imgSrc = e.src;
+      setUserData(prevValue => ({ ...prevValue, image: imgSrc })
+      );
+    });
+
+    // Caricamento messaggi
+    getMessages(id);
   };
+
+
 
   return (
     <>

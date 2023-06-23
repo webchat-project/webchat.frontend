@@ -5,8 +5,9 @@ import MainSection from '../components/main/MainSection'
 export default function Home({ jwt }) {
 
     const [userData, setUserData] = useState({
+        userId: "",
         name: "",
-        image:"profile.png"
+        image: "profile.png"
     })
 
 

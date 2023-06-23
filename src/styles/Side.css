@@ -80,6 +80,7 @@
   justify-content: center;
   border: 1px solid var(--border);
   background-color: var(--back);
+  color: var(--text);
   border-radius: 20px;
   transition: all 0.3s;
 }
@@ -97,6 +98,7 @@
   justify-content: center;
   border: 1px solid var(--border);
   background-color: var(--back);
+  color: var(--text);
   border-radius: 20px;
   transition: all 0.3s;
 }
