@@ -6,7 +6,7 @@ export default function ChatButton({ chat, handleClick }) {
   const [profile, setProfile] = useState("profile.png")
 
   const handleProfile = (chat) => {
-    if (chat.image.trim() === "") {
+    if (chat.image === "") {
       setProfile("profile.png")
     } else {
       setProfile(chat.image)

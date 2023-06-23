@@ -17,7 +17,7 @@ export default function Home({ jwt }) {
                 <SideSection jwt={jwt} setUserData={setUserData} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} />
             </aside>
             <main id="main-section">
-                <MainSection userData={userData} messageData={messageData} loading={loading} error={error} />
+                <MainSection jwt={jwt} userData={userData} messageData={messageData} loading={loading} error={error} />
             </main>
         </>
     )
