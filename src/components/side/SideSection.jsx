@@ -31,7 +31,7 @@ export default function SideSection({
   jwt,
 }) {
   // Liste chat e contatti
-  const [profile, setProfile] = useState({ data: [] });
+  const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: '' });
   const [chatList, setChatList] = useState({ data: [] });
   const [contactList, setContactList] = useState({ data: [] });
   const [requestList, setRequestList] = useState({ sent: [], received: [] });
@@ -47,9 +47,8 @@ export default function SideSection({
   const getProfile = async () => {
     try {
       const response = await axios.get(backend + '/users/profile', config);
-      console.log('1Profile: ' + JSON.stringify(profile));
-      setProfile(response.data);
-      console.log('2Profile: ' + JSON.stringify(response.data));
+      const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.image.data.data)));
+      setProfile(prevValue => { return { ...prevValue, image: `data:image/png;base64,${base64String}` }; })
     } catch (error) {
       console.error(error);
     }
