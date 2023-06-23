@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 
 export default function ProfileContainer({ profile }) {
 
@@ -115,18 +115,6 @@ export default function ProfileContainer({ profile }) {
     });
   }
 
-  // Metodo per importare l'immagine di profilo default se l'account ne è privo
-  /*const [imageProfile, setImageProfile] = useState("profile.png");
-  const handleChangeProfile = (image) => {
-    if (image === "") {
-      setImageProfile("profile.png");
-    } else {
-      setImageProfile(image);
-    }
-  };
-  useEffect(() => {
-    handleChangeProfile(profile.image);
-  }, [imageProfile]);*/
 
   // UseState per mostrare info utente o schermata di personalizzazione
   const [custom, setCustom] = useState(false)

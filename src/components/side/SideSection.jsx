@@ -31,7 +31,7 @@ export default function SideSection({
   jwt,
 }) {
   // Liste chat e contatti
-  const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: '' });
+  const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: "profile.png" });
   const [chatList, setChatList] = useState({ data: [] });
   const [contactList, setContactList] = useState({ data: [] });
   const [requestList, setRequestList] = useState({ sent: [], received: [] });
@@ -43,30 +43,36 @@ export default function SideSection({
     },
   };
 
+
   // Metodo per ottenere i dati del profilo
   const getProfile = async () => {
     try {
       const response = await axios.get(backend + '/users/profile', config);
-      console.log(response)
+      console.log(response.data)
+
       setProfile(response.data)
       const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.image.data.data)));
       setProfile(prevValue => { return { ...prevValue, image: `data:image/png;base64,${base64String}` }; })
+
     } catch (error) {
       console.error(error);
     }
   };
 
+
+
   // Metodo per ottenere la lista chat
   const getChatList = async () => {
     try {
       const response = await axios.get(backend + '/chats/list', config);
-      console.log('1Chat list: ' + JSON.stringify(chatList));
+      //console.log('1Chat list: ' + JSON.stringify(chatList));
       setChatList(response.data);
-      console.log('2Chat list: ' + JSON.stringify(response.data));
+      //console.log('2Chat list: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
   };
+
 
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
@@ -75,9 +81,9 @@ export default function SideSection({
         backend + '/users/contacts/list',
         config
       );
-      console.log('1Contact list: ' + JSON.stringify(contactList));
+      //console.log('1Contact list: ' + JSON.stringify(contactList));
       setContactList(response.data);
-      console.log('2Contact list: ' + JSON.stringify(response.data));
+      //console.log('2Contact list: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
@@ -91,7 +97,7 @@ export default function SideSection({
         config
       );
       setRequestList(response.data);
-      console.log('2Request list: ' + JSON.stringify(response.data));
+      //console.log('2Request list: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
@@ -124,17 +130,17 @@ export default function SideSection({
     }
   };
 
+
   // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
   useEffect(() => {
+    getProfile();
     getChatList();
     getContactList();
     getRequestList();
     setTopBarOnLoad();
   }, []);
 
-  useEffect(()=>{
-    getProfile();
-  }, [])
+
 
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = id => {
