@@ -4,10 +4,8 @@ import MainSection from '../components/main/MainSection'
 
 export default function Home({ jwt }) {
 
-    const [data, setData] = useState({
-        user: [],
-        messages: []
-    });
+    const [userData, setUserData] = useState([])
+    const [messageData, setMessageData] = useState([])
 
     // Use state per non mostrare lista messaggi
     const [loading, setLoading] = useState(false);
@@ -16,10 +14,10 @@ export default function Home({ jwt }) {
     return (
         <>
             <aside id="side-section">
-                <SideSection jwt={jwt} setData={setData} setLoadingMessages={setLoading} setErrorMessages={setError} />
+                <SideSection jwt={jwt} setUserData={setUserData} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} />
             </aside>
             <main id="main-section">
-                <MainSection data={data} loading={loading} error={error} />
+                <MainSection userData={userData} messageData={messageData} loading={loading} error={error} />
             </main>
         </>
     )

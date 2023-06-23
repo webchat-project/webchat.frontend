@@ -16,11 +16,11 @@ export default function MainTopBar({ user }) {
         </span>
       </button>
       <img
-        src={user.picture}
+        src={user.image}
         alt="profilo"
         id='main-top-bar-profile-picture'
       ></img>
-      <h3>{user.name}</h3>
+      <h3>{user.firstName}</h3>
     </div>
   )
 }

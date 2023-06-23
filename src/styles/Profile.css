@@ -39,11 +39,11 @@
 
 #logout-button {
     height: 40px;
-    width: calc(100% - 20px);
+    width: 100%;
     border: 1px solid var(--border);
     outline: 0px;
-    margin-bottom: 10px;
-    border-radius: 12px;
+    margin-bottom: 3px;
+    border-radius: 20px;
     color: white;
     cursor: pointer;
     background-color: #d32f2f;
@@ -57,11 +57,11 @@
 
 #personalize-button {
     height: 40px;
-    width: calc(100% - 20px);
+    width: 100%;
     border: 1px solid var(--border);
     outline: 0px;
     margin-bottom: 10px;
-    border-radius: 12px;
+    border-radius: 20px;
     color: var(--text);
     cursor: pointer;
     background-color: var(--button-hover);
@@ -75,11 +75,11 @@
 
 #backtoinfo-button {
     min-height: 40px;
-    width: calc(100% - 20px);
+    width: 100%;
     border: 1px solid var(--border);
     outline: 0px;
     margin-bottom: 10px;
-    border-radius: 12px;
+    border-radius: 20px;
     color: white;
     cursor: pointer;
     background-color: #d32f2f;

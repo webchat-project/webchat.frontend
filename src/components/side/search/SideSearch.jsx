@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { backend } from '../../../utils/Backend'
+import { Link } from 'react-router-dom'
 
-export default function SideSearch({ jwt, id, placeholder, setSearching, setResult, setEmpty, setLoading, setError }) {
+export default function SideSearch({ jwt, id, placeholder, setResult, setEmpty, setLoading, setError }) {
 
     // Valore input
     const [search, setSearch] = useState('')
@@ -14,15 +15,14 @@ export default function SideSearch({ jwt, id, placeholder, setSearching, setResu
     const handleTyping = () => {
         setEmpty(true)
         setResult({})
-        setSearching(true)
         setControlVisibility(true)
     }
 
     // Click sul pulsante indietro
     const handleAbort = () => {
-        setSearching(false)
         setControlVisibility(false)
         setSearch('')
+
     }
 
     // Configurazione token
@@ -64,10 +64,12 @@ export default function SideSearch({ jwt, id, placeholder, setSearching, setResu
             {controlVisibility === true ?
                 <>
                     <div id="search-control-buttons">
-                        <button id="abort-search" onClick={handleAbort}>
-                            <span className="material-symbols-outlined">arrow_back_ios</span>
-                            <p>Indietro</p>
-                        </button>
+                        <Link to="/contacts" id="abort-search">
+                            <button id="abort-search-button" onClick={handleAbort}>
+                                <span className="material-symbols-outlined">arrow_back_ios</span>
+                                <p>Annulla</p>
+                            </button>
+                        </Link>
                         <button id="send-search" onClick={handleSubmit}>
                             <span className="material-symbols-outlined">search</span>
                             <p>Cerca</p>

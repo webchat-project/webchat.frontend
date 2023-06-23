@@ -9,7 +9,7 @@ import Loading from '../await/Loading'
 import Error from '../await/Error'
 
 
-export default function MainSection({ data, loading, error }) {
+export default function MainSection({ userData, messageData, loading, error }) {
 
   // Aggiunge il messaggio inviato al container dei messaggi
   const handleSubmit = (input) => {
@@ -31,18 +31,20 @@ export default function MainSection({ data, loading, error }) {
 
   return (
     <>
-      {data.messages.length === 0 ?
+      <MainTopBar user={userData} />
+      {messageData.length === 0 ?
         <DefaultMessage />
         : loading === true ? <Loading />
           : error === true ? <Error />
             : <>
-              <MainTopBar user={data.user[0][0]} />
+              <MainTopBar user={userData} />
               <div id="message-container">
-                <MessageContainer messageList={data.messages[0]} />
+                <MessageContainer messageList={messageData} />
               </div>
-              <MessageInputBox handleSubmit={handleSubmit} />
+
             </>
       }
+      <MessageInputBox handleSubmit={handleSubmit} />
     </>
   );
 }

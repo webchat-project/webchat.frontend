@@ -24,7 +24,8 @@ import SideSearchResult from './search/SideSearchResult';
 import SideFeature from './SideFeature';
 
 export default function SideSection({
-  setData,
+  setUserData,
+  setMessageData,
   setLoadingMessages,
   setErrorMessages,
   jwt,
@@ -33,8 +34,7 @@ export default function SideSection({
   const [profile, setProfile] = useState({ data: [] });
   const [chatList, setChatList] = useState({ data: [] });
   const [contactList, setContactList] = useState({ data: [] });
-  const [sentRequestList, setSentRequestList] = useState({ sent: [] });
-  const [receivedRequestList, setReceviedRequestList] = useState({ received: [] });
+  const [requestList, setRequestList] = useState({ sent: [], received: [] });
 
   // Configurazione token
   const config = {
@@ -89,9 +89,8 @@ export default function SideSection({
         backend + '/users/requests/list',
         config
       );
-      console.log('1Request list: ' + JSON.stringify(sentRequestList));
-      //setSentRequestList();
-      console.log('2Request list: ' + JSON.stringify(response.data.sent));
+      setRequestList(response.data);
+      console.log('2Request list: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
@@ -155,6 +154,8 @@ export default function SideSection({
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
 
+    // Imposta l'utente
+    setUserData()
     // Caricamento
     setLoadingMessages(true);
   };
@@ -257,12 +258,15 @@ export default function SideSection({
             path="/chats/*"
             element={
               chatList.data.length === 0 ? (
-                <p id="no-chats-message">Non sono presenti chat</p>
+                <p id="feature-contact-message">Non sono presenti chat</p>
               ) : (
-                <ChatContainer
-                  chatList={chatList.data}
-                  handleChatClick={handleChatClick}
-                />
+                <>
+                  <p id="feature-contact-message">Lista di tutte le chat</p>
+                  <ChatContainer
+                    chatList={chatList.data}
+                    handleChatClick={handleChatClick}
+                  />
+                </>
               )
             }
           />
@@ -270,7 +274,7 @@ export default function SideSection({
             path="/contacts/*"
             element={
               contactList.data.length === 0 ? (
-                <p id="no-chats-message">Non sono presenti contatti</p>
+                <p id="feature-contact-message">Non sono presenti contatti</p>
               ) : (
                 <ContactContainer
                   contactList={contactList.data}
@@ -296,7 +300,7 @@ export default function SideSection({
               <>
                 <p id="feature-contact-message">Richieste ricevute</p>
                 <DeleteContactContainer contactList={contactList.data} />
-                <p id="feature-contact-message">Richieste inviate</p>
+                <p id="request-contact-message">Richieste inviate</p>
                 <DeleteContactContainer contactList={contactList.data} />
               </>
             }
