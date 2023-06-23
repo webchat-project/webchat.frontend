@@ -47,6 +47,8 @@ export default function SideSection({
   const getProfile = async () => {
     try {
       const response = await axios.get(backend + '/users/profile', config);
+      console.log(response)
+      setProfile(response.data)
       const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.image.data.data)));
       setProfile(prevValue => { return { ...prevValue, image: `data:image/png;base64,${base64String}` }; })
     } catch (error) {
@@ -124,12 +126,15 @@ export default function SideSection({
 
   // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
   useEffect(() => {
-    getProfile();
     getChatList();
     getContactList();
     getRequestList();
     setTopBarOnLoad();
   }, []);
+
+  useEffect(()=>{
+    getProfile();
+  }, [])
 
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = id => {

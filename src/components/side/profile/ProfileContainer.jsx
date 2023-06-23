@@ -140,7 +140,7 @@ export default function ProfileContainer({ profile }) {
       {custom === false ?
         <>
           <div id="image-container">
-            <img id="profile-image" alt="img" src={imageProfile}></img>
+            <img id="profile-image" alt="img" src={profile.image}></img>
           </div>
           <h3>{profile.firstName} {profile.lastName}</h3>
           <p>{profile.email}</p>
