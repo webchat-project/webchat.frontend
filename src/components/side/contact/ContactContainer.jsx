@@ -14,8 +14,8 @@ export default function ContactContainer({ contactList, handleContactClick }) {
   }
 
   const handleClick = (id) => {
-    handleContactClick(id)
-    handleDisplay()
+    handleContactClick(id);
+    handleDisplay();
   }
 
   return contactList.map((c) => (

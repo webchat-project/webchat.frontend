@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+
 export default function ContactDelete({ contact }) {
+  
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
@@ -36,6 +38,7 @@ export default function ContactDelete({ contact }) {
   useEffect(() => {
     handleProfile(contact);
   }, [contact]);
+
 
   return (
     <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>

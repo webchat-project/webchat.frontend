@@ -31,10 +31,53 @@ export default function SideSection({
   jwt,
 }) {
   // Liste chat e contatti
-  const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: "profile.png" });
-  const [chatList, setChatList] = useState({ data: [] });
-  const [contactList, setContactList] = useState({ data: [] });
-  const [requestList, setRequestList] = useState({ sent: [], received: [] });
+  const [profile, setProfile] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    image: 'profile.png',
+  });
+
+  const [chatList, setChatList] = useState([
+    {
+      chatId: '',
+      userId: '',
+      firstName: '',
+      lastName: '',
+      image: 'profile.png',
+      lastMessage: '',
+    },
+  ]);
+
+  const [contactList, setContactList] = useState([
+    {
+      chatId: '',
+      userId: '',
+      firstName: '',
+      lastName: '',
+      image: 'profile.png',
+    },
+  ]);
+
+  const [requestList, setRequestList] = useState({
+    requests: {
+      sent: [{
+                userId: '',
+                firstName: '',
+                lastName: '',
+                image: 'profile.png',
+              }],
+      received: [{
+                userId: '',
+                firstName: '',
+                lastName: '',
+                image: 'profile.png',
+              }],
+    }
+  });
+
+
+
 
   // Configurazione token
   const config = {
@@ -44,35 +87,56 @@ export default function SideSection({
   };
 
 
-  // Metodo per ottenere i dati del profilo
-  const getProfile = async () => {
+  // Metodo per ottenere la lista contatti
+  const getRequestList = async () => {
     try {
-      const response = await axios.get(backend + '/users/profile', config);
-      console.log(response.data)
-
-      setProfile(response.data)
-      const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.image.data.data)));
-      setProfile(prevValue => { return { ...prevValue, image: `data:image/png;base64,${base64String}` }; })
-
+      const response = await axios.get(backend + '/users/requests/list',config);
+      console.log(response.data);
+      setRequestList(response.data);
+      //console.log('2Request list: ' + JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
     }
   };
 
 
+  // Metodo per ottenere i dati del profilo
+  const getProfile = async () => {
+    try {
+      const response = await axios.get(backend + '/users/profile', config);
+      //console.log(response.data)
+
+      setProfile(response.data);
+      const base64String = btoa(
+        String.fromCharCode(...new Uint8Array(response.data.image.data.data))
+      );
+      setProfile(prevValue => {
+        return { ...prevValue, image: `data:image/png;base64,${base64String}` };
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Metodo per ottenere la lista chat
   const getChatList = async () => {
     try {
       const response = await axios.get(backend + '/chats/list', config);
       //console.log('1Chat list: ' + JSON.stringify(chatList));
-      setChatList(response.data);
-      //console.log('2Chat list: ' + JSON.stringify(response.data));
+      //console.log(response.data.data);
+      setChatList(
+        response.data.data.map(chat => {
+          const base64String = btoa(
+            String.fromCharCode(...new Uint8Array(chat.image.data.data))
+          );
+          chat.image = `data:image/png;base64,${base64String}`;
+          return chat;
+        })
+      );
     } catch (error) {
       console.error(error);
     }
   };
-
 
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
@@ -81,27 +145,34 @@ export default function SideSection({
         backend + '/users/contacts/list',
         config
       );
-      //console.log('1Contact list: ' + JSON.stringify(contactList));
-      setContactList(response.data);
-      //console.log('2Contact list: ' + JSON.stringify(response.data));
+
+      //console.log(response.data.data);
+      setContactList(
+        response.data.data.map(chat => {
+          const base64String = btoa(
+            String.fromCharCode(...new Uint8Array(chat.image.data.data))
+          );
+          chat.image = `data:image/png;base64,${base64String}`;
+          return chat;
+        })
+      );
+
+      //console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // Metodo per ottenere la lista contatti
-  const getRequestList = async () => {
-    try {
-      const response = await axios.get(
-        backend + '/users/requests/list',
-        config
-      );
-      setRequestList(response.data);
-      //console.log('2Request list: ' + JSON.stringify(response.data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
+
+  // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
+  useEffect(() => {
+    getProfile();
+    getChatList();
+    getContactList();
+    getRequestList();
+    setTopBarOnLoad();
+  }, []);
 
   // Location
   const location = useLocation();
@@ -130,18 +201,6 @@ export default function SideSection({
     }
   };
 
-
-  // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
-  useEffect(() => {
-    getProfile();
-    getChatList();
-    getContactList();
-    getRequestList();
-    setTopBarOnLoad();
-  }, []);
-
-
-
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -156,7 +215,7 @@ export default function SideSection({
     element.style.border = '1px solid var(--border)';
 
     // Imposta l'utente
-    setUserData()
+    setUserData();
     // Caricamento
     setLoadingMessages(true);
   };
@@ -182,7 +241,6 @@ export default function SideSection({
       <SideTopBar />
 
       <div id="side-elements-container">
-
         <Routes>
           <Route
             path="/contacts/*"
@@ -213,11 +271,7 @@ export default function SideSection({
           <Route
             path="/contacts/*"
             element={
-              <SideFeature
-                url={'/requests'}
-                span={'mail'}
-                text={'Richieste'}
-              />
+              <SideFeature url={'/requests'} span={'mail'} text={'Richieste'} />
             }
           />
         </Routes>
@@ -241,11 +295,11 @@ export default function SideSection({
           <Route
             path="/"
             element={
-              chatList.data.length === 0 ? (
+              chatList.length === 0 ? (
                 <p id="feature-contact-message">Non sono presenti chat</p>
               ) : (
                 <ChatContainer
-                  chatList={chatList.data}
+                  chatList={chatList}
                   handleChatClick={handleChatClick}
                 />
               )
@@ -254,13 +308,13 @@ export default function SideSection({
           <Route
             path="/chats/*"
             element={
-              chatList.data.length === 0 ? (
+              chatList.length === 0 ? (
                 <p id="feature-contact-message">Non sono presenti chat</p>
               ) : (
                 <>
                   <p id="feature-contact-message">Lista di tutte le chat</p>
                   <ChatContainer
-                    chatList={chatList.data}
+                    chatList={chatList}
                     handleChatClick={handleChatClick}
                   />
                 </>
@@ -270,11 +324,11 @@ export default function SideSection({
           <Route
             path="/contacts/*"
             element={
-              contactList.data.length === 0 ? (
+              contactList.length === 0 ? (
                 <p id="feature-contact-message">Non sono presenti contatti</p>
               ) : (
                 <ContactContainer
-                  contactList={contactList.data}
+                  contactList={contactList}
                   handleContactClick={handleContactClick}
                 />
               )

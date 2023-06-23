@@ -15,8 +15,8 @@ export default function ChatContainer({ chatList, handleChatClick }) {
   }
 
   const handleClick = (id) => {
-    handleChatClick(id)
-    handleDisplay()
+    handleChatClick(id);
+    handleDisplay();
   }
 
   return chatList.map((c) => (

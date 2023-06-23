@@ -37,6 +37,7 @@ export default function ContactAdd({ contact }) {
     handleProfile(contact);
   }, [contact]);
 
+  
   return (
     <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">

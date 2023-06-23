@@ -22,6 +22,8 @@ export default function ContactRequest({ contact }) {
     handleAbort();
   }
 
+
+
   // Metodo per importare l'immagine di profilo default se l'account ne è privo
   const [profile, setProfile] = useState("profile.png")
 
@@ -36,6 +38,10 @@ export default function ContactRequest({ contact }) {
   useEffect(() => {
     handleProfile(contact);
   }, [contact]);
+
+
+
+  
 
   return (
     <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>

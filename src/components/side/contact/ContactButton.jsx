@@ -6,7 +6,7 @@ export default function ContactButton({ contact, handleClick }) {
   const [profile, setProfile] = useState("profile.png")
 
   const handleProfile = (contact) => {
-    if (contact.image.trim() === "") {
+    if (contact.image === "") {
       setProfile("profile.png")
     } else {
       setProfile(contact.image)
@@ -16,6 +16,7 @@ export default function ContactButton({ contact, handleClick }) {
   useEffect(() => {
     handleProfile(contact);
   }, [contact]);
+
 
   return (
     <div id={"contact: " + contact.chatId} className="contact-button" onClick={handleClick}>
