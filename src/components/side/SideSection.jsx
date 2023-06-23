@@ -59,26 +59,26 @@ export default function SideSection({
     },
   ]);
 
-
   const [requestList, setRequestList] = useState({
     requests: {
-      sent: [{
-                userId: '',
-                firstName: '',
-                lastName: '',
-                image: 'profile.png',
-              }],
-      received: [{
-                userId: '',
-                firstName: '',
-                lastName: '',
-                image: 'profile.png',
-              }],
-    }
+      sent: [
+        {
+          userId: '',
+          firstName: '',
+          lastName: '',
+          image: 'profile.png',
+        },
+      ],
+      received: [
+        {
+          userId: '',
+          firstName: '',
+          lastName: '',
+          image: 'profile.png',
+        },
+      ],
+    },
   });
-
-
-
 
   // Configurazione token
   const config = {
@@ -87,11 +87,13 @@ export default function SideSection({
     },
   };
 
-
   // Metodo per ottenere la lista contatti
   const getRequestList = async () => {
     try {
-      const response = await axios.get(backend + '/users/requests/list',config);
+      const response = await axios.get(
+        backend + '/users/requests/list',
+        config
+      );
       console.log(response.data);
       setRequestList(response.data);
       //console.log('2Request list: ' + JSON.stringify(response.data));
@@ -99,7 +101,6 @@ export default function SideSection({
       console.error(error);
     }
   };
-
 
   // Metodo per ottenere i dati del profilo
   const getProfile = async () => {
@@ -164,9 +165,6 @@ export default function SideSection({
     }
   };
 
-  
-
-
   // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
   useEffect(() => {
     getProfile();
@@ -203,8 +201,10 @@ export default function SideSection({
     }
   };
 
+
+  
   // Metodo che si attiva quando si clicca su una chat
-  const handleChatClick = (id) => {
+  const handleChatClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName('chat-button');
     for (var i = 0; i < elements.length; i++) {
@@ -216,22 +216,42 @@ export default function SideSection({
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
 
+
+
+    
     // Imposta l'utente
-     if(id)
+    let elementText = element.querySelectorAll('h3');
+    let elementImg = element.querySelectorAll('img');
 
-    setUserData({
+    elementText.forEach(e => {
+      //console.log(e)
+      let valoreText = e.innerText;
 
-      firstName:"",
-        lastName: "",
-        image:"profile.png"
+      setUserData({
+        name: valoreText,
+        image: 'x',}
+      );
+      
     });
+
+    elementImg.forEach(e => {
+      //console.log(e)
+      let imgSrc = e.src;
+      setUserData(prevValue => ({...prevValue,image: imgSrc})
+      );
+      
+    });
+
+    
+
 
     // Caricamento
     setLoadingMessages(true);
   };
 
+ 
 
-
+  
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = id => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe

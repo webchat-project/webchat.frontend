@@ -50,25 +50,20 @@ export default function MainSection({ jwt, userData, messageData, loading, error
     messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
 
     // Invio messaggio
-    sentMessage(input, userData.id)
+    sentMessage(input)
   }
 
   return (
     <>
-      <MainTopBar user={userData} />
-      {messageData.length === 0 ?
-        <DefaultMessage />
-        : loading === true ? <Loading />
-          : error === true ? <Error />
-            : <>
+      {messageData.length === 0 ?<DefaultMessage />: loading === true ? <Loading />: error === true ? <Error />: <>
               <MainTopBar user={userData} />
               <div id="message-container">
                 <MessageContainer messageList={messageData} />
               </div>
-
+              <MessageInputBox handleSubmit={handleSubmit} />
             </>
       }
-      <MessageInputBox handleSubmit={handleSubmit} />
+      
     </>
   );
 }

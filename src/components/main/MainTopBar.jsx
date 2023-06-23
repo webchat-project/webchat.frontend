@@ -8,6 +8,8 @@ export default function MainTopBar({ user }) {
     document.getElementById("main-section").setAttribute("style", "visibility: hidden; display: none;")
   }
 
+  console.log(user)
+
   return (
     <div id="main-top-bar">
       <button id="side-menu" onClick={handleDisplay}>
@@ -20,7 +22,7 @@ export default function MainTopBar({ user }) {
         alt="profilo"
         id='main-top-bar-profile-picture'
       ></img>
-      <h3>{user.firstName} {user.lastName}</h3>
+      <h3>{user.name}</h3>
     </div>
   )
 }
