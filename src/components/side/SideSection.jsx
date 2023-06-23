@@ -251,9 +251,7 @@ export default function SideSection({
     setErrorMessages(false)
 
     // Metodo per eliminare i messaggi
-    const currentuserId = localStorage.getItem("currentUserId")
     const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
-    console.log(sentMessages)
     if (sentMessages.length > 0) {
       for (var j = 0; j < sentMessages.length; j++) {
         sentMessages[j].remove();
@@ -292,6 +290,18 @@ export default function SideSection({
       setUserData(prevValue => ({ ...prevValue, image: imgSrc })
       );
     });
+
+    // Loading
+    setLoadingMessages(true)
+    setErrorMessages(false)
+
+    // Metodo per eliminare i messaggi
+    const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
+    if (sentMessages.length > 0) {
+      for (var j = 0; j < sentMessages.length; j++) {
+        sentMessages[j].remove();
+      }
+    }
 
     // Caricamento messaggi
     getMessages(id);

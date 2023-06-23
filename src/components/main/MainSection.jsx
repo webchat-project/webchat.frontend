@@ -12,7 +12,7 @@ import Loading from '../await/Loading'
 import Error from '../await/Error'
 
 
-export default function MainSection({ jwt, userData, messageData, loading, error }) {
+export default function MainSection({ jwt, firstMessage, userData, messageData, loading, error }) {
 
   // Configurazione token
   const config = {
@@ -57,14 +57,26 @@ export default function MainSection({ jwt, userData, messageData, loading, error
 
   return (
     <>
-      {messageData.length === 0 ? <DefaultMessage /> : loading === true ? <Loading /> : error === true ? <Error /> : <>
+      {firstMessage === false ? <></>
+        : messageData.length === 0 ? <DefaultMessage />
+          : loading === true ? <Loading />
+            : error === true ? <Error />
+              : <>
+                <MainTopBar user={userData} />
+                <div id="message-container">
+                  <MessageContainer messageList={messageData} />
+                </div>
+                <MessageInputBox handleSubmit={handleSubmit} />
+              </>
+      }
+      {firstMessage === true ? <>
         <MainTopBar user={userData} />
         <div id="message-container">
           <MessageContainer messageList={messageData} />
         </div>
         <MessageInputBox handleSubmit={handleSubmit} />
       </>
-      }
+        : <></>}
     </>
   );
 }

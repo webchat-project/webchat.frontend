@@ -14,16 +14,17 @@ export default function Home({ jwt }) {
     const [messageData, setMessageData] = useState([])
 
     // Use state per non mostrare lista messaggi
+    const [firstMessage, setFirstMessage] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
     return (
         <>
             <aside id="side-section">
-                <SideSection jwt={jwt} setUserData={setUserData} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} />
+                <SideSection jwt={jwt} setFirstMessage={setFirstMessage} setUserData={setUserData} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} />
             </aside>
             <main id="main-section">
-                <MainSection jwt={jwt} userData={userData} messageData={messageData} loading={loading} error={error} />
+                <MainSection jwt={jwt} firstMessage={firstMessage} userData={userData} messageData={messageData} loading={loading} error={error} />
             </main>
         </>
     )
