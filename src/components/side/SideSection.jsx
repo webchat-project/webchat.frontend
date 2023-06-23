@@ -43,11 +43,8 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
     try {
       const response = await axios.get(backend + '/users/profile', config);
       //console.log(response.data)
-
       setProfile(response.data);
-      const base64String = btoa(
-        String.fromCharCode(...new Uint8Array(response.data.image.data.data))
-      );
+      const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.image.data.data)));
       setProfile(prevValue => {
         return { ...prevValue, image: `data:image/png;base64,${base64String}` };
       });
@@ -64,9 +61,7 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
       //console.log(response.data.data);
       setChatList(
         response.data.data.map(chat => {
-          const base64String = btoa(
-            String.fromCharCode(...new Uint8Array(chat.image.data.data))
-          );
+          const base64String = btoa(String.fromCharCode(...new Uint8Array(chat.image.data.data)));
           chat.image = `data:image/png;base64,${base64String}`;
           return chat;
         })
@@ -79,11 +74,7 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
     try {
-      const response = await axios.get(
-        backend + '/users/contacts/list',
-        config
-      );
-
+      const response = await axios.get(backend + '/users/contacts/list',config);
       //console.log(response.data.data);
       setContactList(
         response.data.data.map(chat => {
@@ -110,20 +101,18 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
       //setRequestList(response.data.data.requests);
       setRequestList({
         sent: response.data.data.requests.sent.map(s => {
-          const base64String = btoa(
-            String.fromCharCode(...new Uint8Array(s.image.data.data))
-          );
+          const base64String = btoa(String.fromCharCode(...new Uint8Array(s.image.data.data)));
           s.image = `data:image/png;base64,${base64String}`;
           return s;
         }),
+
         received: response.data.data.requests.received.map(r => {
-          const base64String = btoa(
-            String.fromCharCode(...new Uint8Array(r.image.data.data))
-          );
+          const base64String = btoa(String.fromCharCode(...new Uint8Array(r.image.data.data)));
           r.image = `data:image/png;base64,${base64String}`;
           return r;
         }),
       });
+      
     } catch (error) {
       console.error(error);
     }
@@ -145,26 +134,27 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
   // Metodo per selezionare il pulsante nella topbar al refresh
   const setTopBarOnLoad = () => {
     if (location.pathname === '/') {
-      var element = document.getElementById('side-top-bar-button: Chat');
+      let element = document.getElementById('side-top-bar-button: Chat');
       element.style.backgroundColor = 'var(--button-click)';
       element.style.border = '1px solid var(--border)';
     }
     if (location.pathname === '/chats') {
-      var element = document.getElementById('side-top-bar-button: Chat');
+      let element = document.getElementById('side-top-bar-button: Chat');
       element.style.backgroundColor = 'var(--button-click)';
       element.style.border = '1px solid var(--border)';
     }
     if (location.pathname === '/contacts') {
-      var element = document.getElementById('side-top-bar-button: Contatti');
+      let element = document.getElementById('side-top-bar-button: Contatti');
       element.style.backgroundColor = 'var(--button-click)';
       element.style.border = '1px solid var(--border)';
     }
     if (location.pathname === '/profile') {
-      var element = document.getElementById('side-top-bar-button: Profilo');
+      let element = document.getElementById('side-top-bar-button: Profilo');
       element.style.backgroundColor = 'var(--button-click)';
       element.style.border = '1px solid var(--border)';
     }
   };
+
 
   // Metodo per ottenere la lista messaggi
   const getMessages = async (id) => {

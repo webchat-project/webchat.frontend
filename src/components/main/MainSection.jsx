@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MainTopBar from "./MainTopBar";
 
 import axios from "axios";
@@ -23,14 +23,11 @@ export default function MainSection({ jwt, firstMessage, userData, messageData, 
 
   // Metodo per inviare il messaggio appena digitato
   const sendMessage = async (input) => {
-    let data = {
-      description: input,
-      chatId: userData.userId
-    };
 
+    let data = {description: input, chatId: userData.userId};
     try {
-      const response = await axios.post(backend + '/messages/', data, config);
-      console.log(response)
+      const response = await axios.post(backend + '/messages', data, config);
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -47,12 +44,12 @@ export default function MainSection({ jwt, firstMessage, userData, messageData, 
     sentMessage.id = "CurrentSessionMessage"
     const message = document.createElement('p');
     message.className = "message-text"
-    message.innerText = input
+    message.innerText = input;
     sentMessage.appendChild(message)
     messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
 
     // Invio messaggio
-    sendMessage(input)
+    sendMessage(input);
   }
 
   return (

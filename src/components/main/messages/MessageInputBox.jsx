@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 
 export default function MessageInputBox({ handleSubmit }) {
+
+
     const [messageInput, setMessageInput] = useState('')
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
         handleSubmit(messageInput);
-        setMessageInput('')
+        setMessageInput('');
     };
 
     return (
@@ -18,7 +20,7 @@ export default function MessageInputBox({ handleSubmit }) {
                 placeholder='Scrivi un messaggio'
                 onChange={e => setMessageInput(e.target.value)}>
             </input>
-            <button id="message-sender">
+            <button id="message-sender" disabled={messageInput.trim()===""}>
                 <span className="material-symbols-outlined">
                     send
                 </span>
