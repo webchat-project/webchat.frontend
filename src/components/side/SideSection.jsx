@@ -59,6 +59,7 @@ export default function SideSection({
     },
   ]);
 
+
   const [requestList, setRequestList] = useState({
     requests: {
       sent: [{
@@ -165,6 +166,7 @@ export default function SideSection({
 
   
 
+
   // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
   useEffect(() => {
     getProfile();
@@ -202,7 +204,7 @@ export default function SideSection({
   };
 
   // Metodo che si attiva quando si clicca su una chat
-  const handleChatClick = id => {
+  const handleChatClick = (id) => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName('chat-button');
     for (var i = 0; i < elements.length; i++) {
@@ -215,10 +217,20 @@ export default function SideSection({
     element.style.border = '1px solid var(--border)';
 
     // Imposta l'utente
-    setUserData();
+     if(id)
+
+    setUserData({
+
+      firstName:"",
+        lastName: "",
+        image:"profile.png"
+    });
+
     // Caricamento
     setLoadingMessages(true);
   };
+
+
 
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = id => {

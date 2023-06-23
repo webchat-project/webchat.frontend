@@ -4,7 +4,13 @@ import MainSection from '../components/main/MainSection'
 
 export default function Home({ jwt }) {
 
-    const [userData, setUserData] = useState([])
+    const [userData, setUserData] = useState({
+        firstName:"",
+        lastName: "",
+        image:"profile.png"
+    })
+
+    
     const [messageData, setMessageData] = useState([])
 
     // Use state per non mostrare lista messaggi
