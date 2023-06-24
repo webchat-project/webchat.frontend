@@ -23,12 +23,12 @@ import ContactRequestContainer from './contact/request/ContactRequestContainer';
 import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
 
-export default function SideSection({setUserData,setMessageData,setLoadingMessages,setErrorMessages,jwt}) {
+export default function SideSection({ setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, jwt }) {
   // Liste chat e contatti
-  const [profile, setProfile] = useState({firstName: '',lastName: '',email: '',image: 'profile.png'});
-  const [chatList, setChatList] = useState([{chatId: '',userId: '',firstName: '',lastName: '',image: 'profile.png',lastMessage: ''}]);
-  const [contactList, setContactList] = useState([{chatId: '',userId: '',firstName: '',lastName: '',image: 'profile.png',},]);
-  const [requestList, setRequestList] = useState({sent: [{userId: '',firstName: '',lastName: '',image: 'profile.png'}], received: [{userId: '',firstName: '',lastName: '',image: 'profile.png'} ]});
+  const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: 'profile.png' });
+  const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '' }]);
+  const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
+  const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
 
   // Configurazione token
   const config = {
@@ -74,8 +74,8 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
     try {
-      const response = await axios.get(backend + '/users/contacts/list',config);
-      //console.log(response.data.data);
+      const response = await axios.get(backend + '/users/contacts/list', config);
+      console.log(response.data.data);
       setContactList(
         response.data.data.map(chat => {
           const base64String = btoa(
@@ -92,10 +92,10 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
     }
   };
 
-   // Metodo per ottenere la lista contatti
-   const getRequestList = async () => {
+  // Metodo per ottenere la lista contatti
+  const getRequestList = async () => {
     try {
-      const response = await axios.get(backend + '/users/requests/list',config);
+      const response = await axios.get(backend + '/users/requests/list', config);
       //console.log(requestList)
       //console.log(response.data.data.requests);
       //setRequestList(response.data.data.requests);
@@ -112,13 +112,13 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
           return r;
         }),
       });
-      
+
     } catch (error) {
       console.error(error);
     }
   };
 
-  
+
   // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
   useEffect(() => {
     getProfile();
@@ -201,6 +201,9 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
       );
     });
 
+    // Primo messaggio
+    setFirstMessage(true)
+
     // Loading
     setLoadingMessages(true)
     setErrorMessages(false)
@@ -245,6 +248,9 @@ export default function SideSection({setUserData,setMessageData,setLoadingMessag
       setUserData(prevValue => ({ ...prevValue, image: imgSrc })
       );
     });
+
+    // Primo messaggio
+    setFirstMessage(true)
 
     // Loading
     setLoadingMessages(true)

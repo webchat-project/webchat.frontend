@@ -14,7 +14,7 @@ export default function Home({ jwt }) {
     const [messageData, setMessageData] = useState([])
 
     // Use state per non mostrare lista messaggi
-    const [firstMessage, setFirstMessage] = useState();
+    const [firstMessage, setFirstMessage] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 

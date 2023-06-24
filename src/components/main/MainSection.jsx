@@ -54,26 +54,17 @@ export default function MainSection({ jwt, firstMessage, userData, messageData, 
 
   return (
     <>
-      {firstMessage === false ? <></>
-        : messageData.length === 0 ? <DefaultMessage />
-          : loading === true ? <Loading />
-            : error === true ? <Error />
-              : <>
-                <MainTopBar user={userData} />
-                <div id="message-container">
-                  <MessageContainer messageList={messageData} />
-                </div>
-                <MessageInputBox handleSubmit={handleSubmit} />
-              </>
+      {firstMessage === false ? <DefaultMessage />
+        : loading === true ? <Loading />
+          : error === true ? <Error />
+            : <>
+              <MainTopBar user={userData} />
+              <div id="message-container">
+                <MessageContainer messageList={messageData} />
+              </div>
+              <MessageInputBox handleSubmit={handleSubmit} />
+            </>
       }
-      {firstMessage === true ? <>
-        <MainTopBar user={userData} />
-        <div id="message-container">
-          <MessageContainer messageList={messageData} />
-        </div>
-        <MessageInputBox handleSubmit={handleSubmit} />
-      </>
-        : <></>}
     </>
   );
 }
