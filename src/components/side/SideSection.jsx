@@ -44,10 +44,10 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   // Metodo per ottenere i dati del profilo
   const getProfile = async () => {
     try {
-      const response = await axios.get(backend + '/users/profile', config);
+      const { data } = await axios.get(backend + '/users/profile', config);
       //console.log(response.data)
-      setProfile(response.data);
-      const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.image.data.data)));
+      setProfile(data.body);
+      const base64String = btoa(String.fromCharCode(...new Uint8Array(data.body.image.data.data)));
       setProfile(prevValue => {
         return { ...prevValue, image: `data:image/png;base64,${base64String}` };
       });
@@ -59,11 +59,11 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   // Metodo per ottenere la lista chat
   const getChatList = async () => {
     try {
-      const response = await axios.get(backend + '/chats/list', config);
+      const { data } = await axios.get(backend + '/chats/list', config);
       //console.log('1Chat list: ' + JSON.stringify(chatList));
       //console.log(response.data.data);
       setChatList(
-        response.data.data.map(chat => {
+        data.body.map(chat => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(chat.image.data.data)));
           chat.image = `data:image/png;base64,${base64String}`;
           return chat;
@@ -77,9 +77,9 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
     try {
-      const response = await axios.get(backend + '/users/contacts/list', config);
+      const { data } = await axios.get(backend + '/users/contacts/list', config);
       setContactList(
-        response.data.data.map(chat => {
+        data.body.map(chat => {
           const base64String = btoa(
             String.fromCharCode(...new Uint8Array(chat.image.data.data))
           );
@@ -97,21 +97,21 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   // Metodo per ottenere la lista contatti
   const getRequestList = async () => {
     try {
-      const response = await axios.get(backend + '/users/requests/list', config);
-      setRequestList(response.data.data.requests);
-      console.warn(response.data.data.requests)
+      const { data } = await axios.get(backend + '/users/requests/list', config);
+      setRequestList(data.body.requests);
+      console.warn(data.body.requests)
 
-      setReceivedRequestList(response.data.data.requests.received)
-      setSentRequestList(response.data.data.requests.sent)
+      setReceivedRequestList(data.body.requests.received)
+      setSentRequestList(data.body.requests.sent)
 
       setRequestList({
-        sent: response.data.data.requests.sent.map(s => {
+        sent: data.body.requests.sent.map(s => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(s.image.data.data)));
           s.image = `data:image/png;base64,${base64String}`;
           return s;
         }),
 
-        received: response.data.data.requests.received.map(r => {
+        received: data.body.requests.received.map(r => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(r.image.data.data)));
           r.image = `data:image/png;base64,${base64String}`;
           return r;
@@ -164,8 +164,8 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   // Metodo per ottenere la lista messaggi
   const getMessages = async (id) => {
     try {
-      const response = await axios.get(backend + '/chats/' + id, config);
-      setMessageData(response.data.messages);
+      const {data} = await axios.get(backend + '/chats/' + id, config);
+      setMessageData(data.body.messages);
       setLoadingMessages(false)
       setErrorMessages(false)
     } catch (error) {

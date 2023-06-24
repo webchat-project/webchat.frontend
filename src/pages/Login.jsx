@@ -34,12 +34,13 @@ export default function Login({ jwt, setJwt }) {
         email,
         password,
       });
+      console.log(data)
 
-      if (data.status) {
-        setJwt(data.jwtToken);
+      if (!data.error) {
+        setJwt(data.body.jwtToken);
         //navigate("/");
       } else {
-        console.log(data.msg);
+        console.log(data.body.jwtToken);
         //window.location.reload();
       }
     } catch (e) {
@@ -57,14 +58,12 @@ export default function Login({ jwt, setJwt }) {
   };
 
   useEffect(() => {
-    if (jwt.trim() !== "") {
-      //Decode jwt token
-      const decodedToken = jwtDecode(jwt);
-      //Set user state
-      setloggedUser(decodedToken);
-      console.log(decodedToken);
-      localStorage.setItem("currentUserId", decodedToken.id)
-    }
+    //Decode jwt token
+    const decodedToken = jwtDecode(jwt);
+    //Set user state
+    setloggedUser(decodedToken);
+    console.log(decodedToken);
+    localStorage.setItem("currentUserId", decodedToken.id)
   }, [jwt]);
 
   const handleClearForm = () => {
