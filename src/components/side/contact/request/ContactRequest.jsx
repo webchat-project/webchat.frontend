@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function ContactRequest({ contact }) {
+export default function ContactRequest({ contact, jwt }) {
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
@@ -15,6 +15,13 @@ export default function ContactRequest({ contact }) {
       setAddOption(false);
     }, 10);
   }
+
+  // Configurazione token
+  const config = {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
   const handleSend = () => {
@@ -41,7 +48,7 @@ export default function ContactRequest({ contact }) {
 
 
 
-  
+
 
   return (
     <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>

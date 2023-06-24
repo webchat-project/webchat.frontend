@@ -24,7 +24,7 @@ export default function MainSection({ jwt, firstMessage, userData, messageData, 
   // Metodo per inviare il messaggio appena digitato
   const sendMessage = async (input) => {
 
-    let data = {description: input, chatId: userData.userId};
+    let data = { description: input, chatId: userData.userId };
     try {
       const response = await axios.post(backend + '/messages', data, config);
       console.log(response);

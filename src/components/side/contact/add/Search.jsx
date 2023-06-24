@@ -83,7 +83,7 @@ export default function SideSearch({ jwt, id, placeholder }) {
             </div>
             {loading === true ? <Loading />
                 : error === true ? <Error />
-                    : resultList.length === 0 ? <></> : <ContactAddContainer resultList={resultList} />}
+                    : resultList.length === 0 ? <></> : <ContactAddContainer jwt={jwt} resultList={resultList} />}
         </>
     )
 }

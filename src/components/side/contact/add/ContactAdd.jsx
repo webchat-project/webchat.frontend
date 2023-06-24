@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-export default function ContactAdd({ contact }) {
+import { backend } from "../../../../utils/Backend";
+
+export default function ContactAdd({ contact, jwt }) {
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
@@ -16,10 +19,28 @@ export default function ContactAdd({ contact }) {
     }, 10);
   }
 
+  // Configurazione token
+  const config = {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
+
   // Metodo al click su invia, procede ad inviare la richiesta al backend
-  const handleSend = () => {
+  const handleSend = async () => {
     console.log("Invio richiesta per aggiungere " + contact.userId)
     handleAbort();
+    let data = { userId: contact.userId, type: "sender" };
+    console.warn(config)
+    console.warn(data)
+
+
+    try {
+      const response = await axios.post(backend + '/users/requests/', data, config);
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // Metodo per importare l'immagine di profilo default se l'account ne è privo
@@ -27,9 +48,8 @@ export default function ContactAdd({ contact }) {
 
   const handleProfile = (contact) => {
     if (contact.image === "") {
-      setProfile("profile.png")
     } else {
-      setProfile(contact.image)
+      setProfile("profile.png")
     }
   }
 
@@ -37,7 +57,7 @@ export default function ContactAdd({ contact }) {
     handleProfile(contact);
   }, [contact]);
 
-  
+
   return (
     <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">

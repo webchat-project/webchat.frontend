@@ -24,11 +24,14 @@ import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
 
 export default function SideSection({ setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, jwt }) {
+
   // Liste chat e contatti
   const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: 'profile.png' });
   const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '' }]);
   const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
   const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
+  const [receivedRequestList, setReceivedRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
+  const [sentRequestList, setSentRequestList] = useState({ received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
 
   // Configurazione token
   const config = {
@@ -75,7 +78,6 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   const getContactList = async () => {
     try {
       const response = await axios.get(backend + '/users/contacts/list', config);
-      console.log(response.data.data);
       setContactList(
         response.data.data.map(chat => {
           const base64String = btoa(
@@ -96,9 +98,12 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   const getRequestList = async () => {
     try {
       const response = await axios.get(backend + '/users/requests/list', config);
-      //console.log(requestList)
-      //console.log(response.data.data.requests);
-      //setRequestList(response.data.data.requests);
+      setRequestList(response.data.data.requests);
+      console.warn(response.data.data.requests)
+
+      setReceivedRequestList(response.data.data.requests.received)
+      setSentRequestList(response.data.data.requests.sent)
+
       setRequestList({
         sent: response.data.data.requests.sent.map(s => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(s.image.data.data)));
@@ -235,6 +240,9 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     element.style.border = '1px solid var(--border)';
 
     // Imposta l'utente
+    setUserData(prevValue => ({ ...prevValue, userId: id })
+    );
+
     let elementText = element.querySelectorAll('h3');
     let elementImg = element.querySelectorAll('img');
     elementText.forEach(e => {
@@ -374,7 +382,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
             element={
               <>
                 <p id="feature-contact-message">Elimina contatti</p>
-                <ContactDeleteContainer contactList={contactList.data} />
+                <ContactDeleteContainer contactList={contactList} />
               </>
             }
           />
@@ -383,10 +391,29 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
             path="/requests/*"
             element={
               <>
-                <p id="feature-contact-message">Richieste ricevute</p>
-                <ContactRequestContainer contactList={contactList.data} />
-                <p id="request-contact-message">Richieste inviate</p>
-                <ContactRequestContainer contactList={contactList.data} />
+                {receivedRequestList.length === 0 ? (
+                  <>
+                    <p id="feature-contact-message">Richieste ricevute</p>
+                    <p id="side-text-message-info">Nessuna richiesta ricevuta</p>
+                  </>
+                ) : (
+                  <>
+                    <p id="feature-contact-message">Richieste ricevute</p>
+                    <ContactRequestContainer contactList={receivedRequestList} />
+                  </>
+                )}
+                {sentRequestList.length === 0 ? (
+                  <>
+                    <p id="request-contact-message">Richieste inviate</p>
+                    <p id="side-text-message-info">Nessuna richiesta inviata</p>
+                  </>
+                ) : (
+                  <>
+                    <p id="request-contact-message">Richieste inviate</p>
+                    <ContactRequestContainer contactList={sentRequestList} />
+                  </>
+                )}
+
               </>
             }
           />

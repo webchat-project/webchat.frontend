@@ -1,7 +1,7 @@
 import React from "react";
 import ContactRequest from "./ContactRequest";
 
-export default function ContactRequestContainer({ contactList, handleContactClick }) {
+export default function ContactRequestContainer({ contactList, handleContactClick, jwt }) {
 
   const handleDisplay = () => {
     if (window.innerWidth <= 600) {
