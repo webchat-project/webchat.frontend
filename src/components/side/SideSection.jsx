@@ -164,7 +164,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   // Metodo per ottenere la lista messaggi
   const getMessages = async (id) => {
     try {
-      const {data} = await axios.get(backend + '/chats/' + id, config);
+      const { data } = await axios.get(backend + '/chats/' + id, config);
       setMessageData(data.body.messages);
       setLoadingMessages(false)
       setErrorMessages(false)
@@ -287,11 +287,14 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
           <Route
             path="/contacts/*"
             element={
-              <SideFeature
-                url={'/add'}
-                span={'add'}
-                text={'Aggiungi contatto'}
-              />
+              <>
+                <p id="first-feature-contact-message">Gestione contatti</p>
+                <SideFeature
+                  url={'/add'}
+                  span={'add'}
+                  text={'Aggiungi contatto'}
+                />
+              </>
             }
           />
         </Routes>
@@ -338,7 +341,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
             path="/"
             element={
               chatList.length === 0 ? (
-                <p id="feature-contact-message">Non sono presenti chat</p>
+                <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
                 <ChatContainer
                   chatList={chatList}
@@ -351,10 +354,10 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
             path="/chats/*"
             element={
               chatList.length === 0 ? (
-                <p id="feature-contact-message">Non sono presenti chat</p>
+                <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
                 <>
-                  <p id="feature-contact-message">Lista di tutte le chat</p>
+                  <p id="first-feature-contact-message">Lista di tutte le chat</p>
                   <ChatContainer
                     chatList={chatList}
                     handleChatClick={handleChatClick}
@@ -367,12 +370,15 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
             path="/contacts/*"
             element={
               contactList.length === 0 ? (
-                <p id="feature-contact-message">Non sono presenti contatti</p>
+                <p id="second-feature-contact-message">Non sono presenti contatti</p>
               ) : (
-                <ContactContainer
-                  contactList={contactList}
-                  handleContactClick={handleContactClick}
-                />
+                <>
+                  <p id="second-feature-contact-message">Lista di tutti i contatti</p>
+                  <ContactContainer
+                    contactList={contactList}
+                    handleContactClick={handleContactClick}
+                  />
+                </>
               )
             }
           />
@@ -381,7 +387,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
             path="/delete/*"
             element={
               <>
-                <p id="feature-contact-message">Elimina contatti</p>
+                <p id="first-feature-contact-message">Elimina contatti</p>
                 <ContactDeleteContainer contactList={contactList} />
               </>
             }
@@ -393,23 +399,23 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
               <>
                 {receivedRequestList.length === 0 ? (
                   <>
-                    <p id="feature-contact-message">Richieste ricevute</p>
+                    <p id="first-feature-contact-message">Richieste ricevute</p>
                     <p id="side-text-message-info">Nessuna richiesta ricevuta</p>
                   </>
                 ) : (
                   <>
-                    <p id="feature-contact-message">Richieste ricevute</p>
+                    <p id="first-feature-contact-message">Richieste ricevute</p>
                     <ContactRequestContainer contactList={receivedRequestList} />
                   </>
                 )}
                 {sentRequestList.length === 0 ? (
                   <>
-                    <p id="request-contact-message">Richieste inviate</p>
+                    <p id="second-feature-contact-message">Richieste inviate</p>
                     <p id="side-text-message-info">Nessuna richiesta inviata</p>
                   </>
                 ) : (
                   <>
-                    <p id="request-contact-message">Richieste inviate</p>
+                    <p id="second-feature-contact-message">Richieste inviate</p>
                     <ContactRequestContainer contactList={sentRequestList} />
                   </>
                 )}

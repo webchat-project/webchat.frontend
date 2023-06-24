@@ -183,12 +183,14 @@
   text-align: center;
 }
 
-#feature-contact-message {
+#first-feature-contact-message {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 40px;
   border: 1px solid var(--border);
+  background-color: var(--button-hover);
+  color: var(--text);
   margin: 10px;
   margin-top: 2px;
   border-radius: 20px;
@@ -196,12 +198,14 @@
   font-weight: 600;
 }
 
-#request-contact-message {
+#second-feature-contact-message {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 40px;
   border: 1px solid var(--border);
+  background-color: var(--button-hover);
+  color: var(--text);
   margin: 10px;
   border-radius: 20px;
   font-size: 16px;
