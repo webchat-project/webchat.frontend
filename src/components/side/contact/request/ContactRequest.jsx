@@ -1,4 +1,8 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
+
+import { backend } from "../../../../utils/Backend";
+
 
 export default function ContactRequest({ contact, jwt }) {
   // Se true, vengono mostrati i due pulsanti annulla e invia
@@ -24,9 +28,20 @@ export default function ContactRequest({ contact, jwt }) {
   };
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
-  const handleSend = () => {
+  const handleSend = async () => {
     console.log("Invio richiesta per aggiungere " + contact.userId)
     handleAbort();
+    let data = { userId: contact.userId, type: "accept" };
+    console.warn(config)
+    console.warn(data)
+
+    try {
+      const response = await axios.post(backend + '/users/requests/', data, config);
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+
   }
 
 

@@ -74,6 +74,8 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     }
   };
 
+  console.log(contactList);
+
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
     try {
@@ -405,7 +407,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
                 ) : (
                   <>
                     <p id="first-feature-contact-message">Richieste ricevute</p>
-                    <ContactRequestContainer contactList={receivedRequestList} />
+                    <ContactRequestContainer contactList={receivedRequestList} jwt={jwt} />
                   </>
                 )}
                 {sentRequestList.length === 0 ? (
@@ -416,7 +418,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
                 ) : (
                   <>
                     <p id="second-feature-contact-message">Richieste inviate</p>
-                    <ContactRequestContainer contactList={sentRequestList} />
+                    <ContactRequestContainer contactList={sentRequestList} jwt={jwt} />
                   </>
                 )}
 

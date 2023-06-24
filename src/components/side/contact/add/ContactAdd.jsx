@@ -30,7 +30,7 @@ export default function ContactAdd({ contact, jwt }) {
   const handleSend = async () => {
     console.log("Invio richiesta per aggiungere " + contact.userId)
     handleAbort();
-    let data = { userId: contact.userId, type: "sender" };
+    let data = { userId: contact.userId, type: "send" };
     console.warn(config)
     console.warn(data)
 

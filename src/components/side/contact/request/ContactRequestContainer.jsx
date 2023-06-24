@@ -22,6 +22,7 @@ export default function ContactRequestContainer({ contactList, handleContactClic
     <ContactRequest
       contact={c}
       key={c.chatId}
+      jwt = {jwt}
     />
   ));
 }
