@@ -22,6 +22,7 @@ export default function UseCookie(key, defaultValue) {
       cookies.set(key, value, {
         expires: new Date(decodedToken.expires * 1000),
       });
+
     }
   }, [key, value, cookies]);
 

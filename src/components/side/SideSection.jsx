@@ -30,8 +30,12 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '' }]);
   const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
   const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
-  const [receivedRequestList, setReceivedRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
-  const [sentRequestList, setSentRequestList] = useState({ received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
+
+  //const [receivedRequestList, setReceivedRequestList] = useState({ received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
+
+  //const [sentRequestList, setSentRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
+
+
 
   // Configurazione token
   const config = {
@@ -52,7 +56,8 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
         return { ...prevValue, image: `data:image/png;base64,${base64String}` };
       });
     } catch (error) {
-      console.error(error);
+      //console.error(error);
+
     }
   };
 
@@ -70,11 +75,12 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
         })
       );
     } catch (error) {
-      console.error(error);
+      //console.error(error);
+
     }
   };
 
-  console.log(contactList);
+  //console.log(contactList);
 
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
@@ -92,7 +98,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
 
       //console.log(response.data);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
     }
   };
 
@@ -101,11 +107,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     try {
       const { data } = await axios.get(backend + '/users/requests/list', config);
       setRequestList(data.body.requests);
-      console.warn(data.body.requests)
-
-      setReceivedRequestList(data.body.requests.received)
-      setSentRequestList(data.body.requests.sent)
-
+      console.log(data.body.requests)
       setRequestList({
         sent: data.body.requests.sent.map(s => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(s.image.data.data)));
@@ -119,10 +121,9 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
           return r;
         }),
       });
-
     } catch (error) {
-      console.error(error);
-    }
+      //console.error(error);
+    }  
   };
 
 
@@ -399,7 +400,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
             path="/requests/*"
             element={
               <>
-                {receivedRequestList.length === 0 ? (
+                {requestList.received.length === 0 ? (
                   <>
                     <p id="first-feature-contact-message">Richieste ricevute</p>
                     <p id="side-text-message-info">Nessuna richiesta ricevuta</p>
@@ -407,10 +408,10 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
                 ) : (
                   <>
                     <p id="first-feature-contact-message">Richieste ricevute</p>
-                    <ContactRequestContainer contactList={receivedRequestList} jwt={jwt} />
+                    <ContactRequestContainer contactList={requestList.received} jwt={jwt} />
                   </>
                 )}
-                {sentRequestList.length === 0 ? (
+                {requestList.sent.length === 0 ? (
                   <>
                     <p id="second-feature-contact-message">Richieste inviate</p>
                     <p id="side-text-message-info">Nessuna richiesta inviata</p>
@@ -418,7 +419,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
                 ) : (
                   <>
                     <p id="second-feature-contact-message">Richieste inviate</p>
-                    <ContactRequestContainer contactList={sentRequestList} jwt={jwt} />
+                    <ContactRequestContainer contactList={requestList.sent} jwt={jwt} />
                   </>
                 )}
 

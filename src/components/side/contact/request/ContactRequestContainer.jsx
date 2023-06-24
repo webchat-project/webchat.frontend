@@ -13,6 +13,9 @@ export default function ContactRequestContainer({ contactList, handleContactClic
     }
   }
 
+  console.log(typeof contactList);
+
+  
   const handleClick = (id) => {
     handleContactClick(id)
     handleDisplay()

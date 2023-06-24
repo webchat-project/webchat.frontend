@@ -13,6 +13,7 @@ import { Link, Navigate } from "react-router-dom";
 import { loginRoute } from "../utils/ApiRoutes";
 
 export default function Login({ jwt, setJwt }) {
+
   //inizializzare il cookie //const [jwt, setJwt] = useCookie("jwt", ""); //const navigate = useNavigate();
 
   //Inizializza user state
@@ -34,7 +35,9 @@ export default function Login({ jwt, setJwt }) {
         email,
         password,
       });
-      console.log(data)
+  
+
+      console.log(data);
 
       if (!data.error) {
         setJwt(data.body.jwtToken);
@@ -63,10 +66,11 @@ export default function Login({ jwt, setJwt }) {
       const decodedToken = jwtDecode(jwt);
       //Set user state
       setloggedUser(decodedToken);
-      console.log(decodedToken);
+      //console.log(decodedToken);
       localStorage.setItem("currentUserId", decodedToken.id)
     }
   }, [jwt]);
+
 
   const handleClearForm = () => {
     setLoginUser({
