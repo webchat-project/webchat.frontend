@@ -69,7 +69,7 @@ export default function ContactRequest({ contact, jwt }) {
     <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
-          <img alt="img" src={profile}></img>
+          <img alt="img" src={contact.image}></img>
         </div>
         <div className="text-container">
           <h3>{contact.firstName} {contact.lastName}</h3>

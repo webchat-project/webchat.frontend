@@ -49,7 +49,9 @@ export default function ContactAdd({ contact, jwt }) {
   const handleProfile = (contact) => {
     if (contact.image === "") {
     } else {
-      setProfile("profile.png")
+      const base64String = btoa(String.fromCharCode(...new Uint8Array(contact.image.data.data)));
+      contact.image = `data:image/png;base64,${base64String}`;
+      setProfile(contact.image)
     }
   }
 
