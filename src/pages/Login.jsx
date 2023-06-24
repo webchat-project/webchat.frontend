@@ -58,12 +58,14 @@ export default function Login({ jwt, setJwt }) {
   };
 
   useEffect(() => {
-    //Decode jwt token
-    const decodedToken = jwtDecode(jwt);
-    //Set user state
-    setloggedUser(decodedToken);
-    console.log(decodedToken);
-    localStorage.setItem("currentUserId", decodedToken.id)
+    if (jwt.trim() !== "") {
+      //Decode jwt token
+      const decodedToken = jwtDecode(jwt);
+      //Set user state
+      setloggedUser(decodedToken);
+      console.log(decodedToken);
+      localStorage.setItem("currentUserId", decodedToken.id)
+    }
   }, [jwt]);
 
   const handleClearForm = () => {
