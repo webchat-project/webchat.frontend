@@ -23,7 +23,7 @@ import ContactRequestContainer from './contact/request/ContactRequestContainer';
 import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
 
-export default function SideSection({  jwt, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, joinChat }) {
+export default function SideSection({ jwt, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, joinChat }) {
 
   // Liste chat e contatti
   const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: 'profile.png' });
@@ -31,11 +31,11 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
   const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
   const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
 
-  //const [receivedRequestList, setReceivedRequestList] = useState({ received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
-  //const [sentRequestList, setSentRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
-
-  const navigate = useNavigate();
-
+  // Caricamento e errore chat e contatti
+  const [chatsLoading, setChatsLoading] = useState();
+  const [chatsError, setChatsError] = useState();
+  const [contactsLoading, setContactsLoading] = useState();
+  const [contactsError, setContactsError] = useState();
 
   // Configurazione token
   const config = {
@@ -63,10 +63,10 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
 
   // Metodo per ottenere la lista chat
   const getChatList = async () => {
+    setChatsLoading(true)
     try {
       const { data } = await axios.get(backend + '/chats/list', config);
-      //console.log('1Chat list: ' + JSON.stringify(chatList));
-      //console.log(response.data.data);
+      setChatsLoading(false)
       setChatList(
         data.body.map(chat => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(chat.image.data.data)));
@@ -75,17 +75,19 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
         })
       );
     } catch (error) {
+      setChatsLoading(false)
+      setChatsError(true)
       console.error(error);
 
     }
   };
 
-  //console.log(contactList);
-
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
+    setContactsLoading(true)
     try {
       const { data } = await axios.get(backend + '/users/contacts/list', config);
+      setContactsLoading(false)
       setContactList(
         data.body.map(chat => {
           const base64String = btoa(
@@ -95,9 +97,9 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
           return chat;
         })
       );
-
-      //console.log(response.data);
     } catch (error) {
+      setContactsLoading(false)
+      setContactsError(true)
       console.error(error);
     }
   };
@@ -123,7 +125,7 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
       });
     } catch (error) {
       console.error(error);
-    }  
+    }
 
   };
 
@@ -181,8 +183,6 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
 
 
 
-
-
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = (id) => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -192,7 +192,7 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
     }
 
     // Accentua il componente selezionato
-    var element = document.getElementById('contact: ' + id);
+    var element = document.getElementById('chat: ' + id);
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
 
@@ -233,63 +233,45 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
   };
 
 
+  // Metodo per rendirizzamento in chats
+  const navigate = useNavigate();
+  const redirectToChats = (id) => {
+    navigate("/chats")
 
+    // Ripristina il pulsante contatti
+    var topbarcontacts = document.getElementById("side-top-bar-button: Contatti");
+    topbarcontacts.removeAttribute("style");
 
-  // Metodo per redirigere in chat quando si clicca su un contatto
+    // Accentua il pulsante chat
+    var topbarchats = document.getElementById("side-top-bar-button: Chat");
+    topbarchats.style.backgroundColor = 'var(--button-click)';
+    topbarchats.style.border = '1px solid var(--border)';
 
-
-
-
+  }
 
 
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = (id) => {
-    // Resetta lo stile di tutti i componenti che hanno la stessa classe
-    var elements = document.getElementsByClassName('contact-button');
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute('style');
-    }
-    // Accentua il componente selezionato
-    var element = document.getElementById('contact: ' + id);
-    element.style.backgroundColor = 'var(--button-click)';
-    element.style.border = '1px solid var(--border)';
 
-    // Imposta l'utente
-    setUserData(prevValue => ({ ...prevValue, chatId: id })
-    );
+    // Rendirizzamento in chats
+    redirectToChats(id);
 
-    let elementText = element.querySelectorAll('h3');
-    let elementImg = element.querySelectorAll('img');
-    elementText.forEach(e => {
-      let nameValue = e.innerText;
-      setUserData(prevValue => ({ ...prevValue, name: nameValue })
-      );
+    setTimeout(() => {
+      var element = document.getElementById('chat: ' + id);
+      if (element) {
+        handleChatClick(id);
 
-    });
-    elementImg.forEach(e => {
-      let imgSrc = e.src;
-      setUserData(prevValue => ({ ...prevValue, image: imgSrc })
-      );
-    });
-    // Primo messaggio
-    setFirstMessage(true)
+        // Porto l'elemento in alto
+        var parent = element.parentNode;
+        var secondChild = parent.children[1];
+        parent.insertBefore(element, secondChild);
 
-    // Loading
-    setLoadingMessages(true)
-    setErrorMessages(false)
+      } else {
 
-    // Metodo per eliminare i messaggi
-    const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
-    if (sentMessages.length > 0) {
-      for (var j = 0; j < sentMessages.length; j++) {
-        sentMessages[j].remove();
       }
-    }
 
-    // Caricamento messaggi
-    getMessages(id);
+    }, 100);
   };
-
 
 
   return (
@@ -354,49 +336,55 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
           <Route
             path="/"
             element={
-              chatList.length === 0 ? (
-                <p id="first-feature-contact-message">Non sono presenti chat</p>
-              ) : (
-                 <> 
-                  <p id="first-feature-contact-message">Lista di tutte le chat</p>
-                  <ChatContainer
-                    chatList={chatList}
-                    handleChatClick={handleChatClick}
-                    joinChat = {joinChat}
-                  />
-                </>
+              chatsLoading === true ? <Loading />
+                : chatsError === true ? <Error />
+                  : chatList.length === 0 ? (
+                    <p id="first-feature-contact-message">Non sono presenti chat</p>
+                  ) : (
+                    <>
+                      <p id="first-feature-contact-message">Lista di tutte le chat</p>
+                      <ChatContainer
+                        chatList={chatList}
+                        handleChatClick={handleChatClick}
+                        joinChat={joinChat}
+                      />
+                    </>
 
-              )
+                  )
             }
           />
           <Route
             path="/chats/*"
             element={
-              chatList.length === 0 ? (
-                <p id="first-feature-contact-message">Non sono presenti chat</p>
-              ) : (
-                <>
-                  <p id="first-feature-contact-message">Lista di tutte le chat</p>
-                  <ChatContainer
-                    chatList={chatList}
-                    handleChatClick={handleChatClick}
-                    joinChat = {joinChat}
-                  />
-                </>
-              )
+              chatsLoading === true ? <Loading />
+                : chatsError === true ? <Error />
+                  : chatList.length === 0 ? (
+                    <p id="first-feature-contact-message">Non sono presenti chat</p>
+                  ) : (
+                    <>
+                      <p id="first-feature-contact-message">Lista di tutte le chat</p>
+                      <ChatContainer
+                        chatList={chatList}
+                        handleChatClick={handleChatClick}
+                        joinChat={joinChat}
+                      />
+                    </>
+                  )
             }
           />
           <Route
             path="/contacts/*"
             element={
-              contactList.length === 0 ? (
-                <p id="second-feature-contact-message">Non sono presenti contatti</p>
-              ) : (
-                <>
-                  <p id="second-feature-contact-message">Lista di tutti i contatti</p>
-                  <ContactContainer contactList={contactList} handleContactClick={handleContactClick} />
-                </>
-              )
+              contactsLoading === true ? <Loading />
+                : contactsError === true ? <Error />
+                  : contactList.length === 0 ? (
+                    <p id="second-feature-contact-message">Non sono presenti contatti</p>
+                  ) : (
+                    <>
+                      <p id="second-feature-contact-message">Lista di tutti i contatti</p>
+                      <ContactContainer contactList={contactList} handleContactClick={handleContactClick} />
+                    </>
+                  )
             }
           />
 
