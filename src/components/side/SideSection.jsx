@@ -44,12 +44,10 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
     },
   };
 
-
   // Metodo per ottenere i dati del profilo
   const getProfile = async () => {
     try {
       const { data } = await axios.get(backend + '/users/profile', config);
-      //console.log(response.data)
       setProfile(data.body);
       const base64String = btoa(String.fromCharCode(...new Uint8Array(data.body.image.data.data)));
       setProfile(prevValue => {
@@ -57,7 +55,6 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       });
     } catch (error) {
       console.error(error);
-
     }
   };
 
@@ -78,7 +75,6 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       setChatsLoading(false)
       setChatsError(true)
       console.error(error);
-
     }
   };
 
@@ -104,12 +100,11 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
     }
   };
 
-  // Metodo per ottenere la lista contatti
+  // Metodo per ottenere la lista richieste contatti
   const getRequestList = async () => {
     try {
       const { data } = await axios.get(backend + '/users/requests/list', config);
       setRequestList(data.body.requests);
-      //console.log(data.body.requests)
       setRequestList({
         sent: data.body.requests.sent.map(s => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(s.image.data.data)));
