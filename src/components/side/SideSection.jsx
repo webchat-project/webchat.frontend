@@ -357,20 +357,12 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
               chatList.length === 0 ? (
                 <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
-
-                <ChatContainer
-                  chatList={chatList}
-                  handleChatClick={handleChatClick}
-                  joinChat = {joinChat}
-                />
-
-                <>
+                 <> 
                   <p id="first-feature-contact-message">Lista di tutte le chat</p>
                   <ChatContainer
                     chatList={chatList}
                     handleChatClick={handleChatClick}
                     joinChat = {joinChat}
-
                   />
                 </>
 
