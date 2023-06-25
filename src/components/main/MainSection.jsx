@@ -13,6 +13,7 @@ import Error from '../await/Error'
 
 
 // scrolla automaticamente  <ScrollToBottom className=""></ScrollToBottom>
+// eslint-disable-next-line 
 import ScrollToBottom from "react-scroll-to-bottom";
 
 

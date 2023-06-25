@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import SideSection from '../components/side/SideSection'
 import MainSection from '../components/main/MainSection'
 import { backend } from "../utils/Backend";
@@ -12,6 +12,14 @@ export default function Home({ jwt }) {
 
     const [userData, setUserData] = useState({chatId: "", name: "", image: "profile.png"})
     const [messageData, setMessageData] = useState([])
+
+    //console.log(messageData);
+
+
+    useEffect(() => {
+        console.log("msg changed");
+      }, [messageData,userData]);
+
 
     // Use state per non mostrare lista messaggi
     const [firstMessage, setFirstMessage] = useState(false);
@@ -27,14 +35,10 @@ export default function Home({ jwt }) {
         // posso utilizzare anche userData.chatId
         if(userData.name.trim() !== "" && userData.chatId !== null ){
           socket.emit("joinChat", userData.chatId )
-    
         }
        
     }
     
-
-
-
 
 
     return (

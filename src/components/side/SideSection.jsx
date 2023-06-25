@@ -167,7 +167,6 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
   const getMessages = async (id) => {
     try {
       const { data } = await axios.get(backend + '/chats/' + id, config);
-
       setMessageData(data.body.messages);
       setLoadingMessages(false)
       setErrorMessages(false)
@@ -177,6 +176,8 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
       setErrorMessages(true)
     }
   };
+
+
 
 
 
@@ -195,17 +196,15 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
 
 
     // Imposta l'utente registrato
-    setUserData(prevValue => ({ ...prevValue, chatId: id })
-    );
+    setUserData(prevValue => ({ ...prevValue, chatId: id }));
 
     let elementText = element.querySelectorAll('h3');
     let elementImg = element.querySelectorAll('img');
     elementText.forEach(e => {
       let nameValue = e.innerText;
-      setUserData(prevValue => ({ ...prevValue, name: nameValue })
-      );
-
+      setUserData(prevValue => ({ ...prevValue, name: nameValue }));
     });
+
     elementImg.forEach(e => {
       let imgSrc = e.src;
       setUserData(prevValue => ({ ...prevValue, image: imgSrc })
@@ -262,12 +261,6 @@ export default function SideSection({  jwt, setUserData, setFirstMessage, setMes
       setUserData(prevValue => ({ ...prevValue, image: imgSrc })
       );
     });
-
-
-
-
-
-
     // Primo messaggio
     setFirstMessage(true)
 
