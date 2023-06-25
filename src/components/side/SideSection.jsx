@@ -23,7 +23,7 @@ import ContactRequestContainer from './contact/request/ContactRequestContainer';
 import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
 
-export default function SideSection({ setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, jwt }) {
+export default function SideSection({  jwt, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, joinChat }) {
 
   // Liste chat e contatti
   const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: 'profile.png' });
@@ -32,7 +32,6 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
 
   //const [receivedRequestList, setReceivedRequestList] = useState({ received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
-
   //const [sentRequestList, setSentRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
 
 
@@ -56,7 +55,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
         return { ...prevValue, image: `data:image/png;base64,${base64String}` };
       });
     } catch (error) {
-      //console.error(error);
+      console.error(error);
 
     }
   };
@@ -75,7 +74,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
         })
       );
     } catch (error) {
-      //console.error(error);
+      console.error(error);
 
     }
   };
@@ -98,7 +97,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
 
       //console.log(response.data);
     } catch (error) {
-      //console.error(error);
+      console.error(error);
     }
   };
 
@@ -107,7 +106,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     try {
       const { data } = await axios.get(backend + '/users/requests/list', config);
       setRequestList(data.body.requests);
-      console.log(data.body.requests)
+      //console.log(data.body.requests)
       setRequestList({
         sent: data.body.requests.sent.map(s => {
           const base64String = btoa(String.fromCharCode(...new Uint8Array(s.image.data.data)));
@@ -122,7 +121,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
         }),
       });
     } catch (error) {
-      //console.error(error);
+      console.error(error);
     }  
   };
 
@@ -168,6 +167,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
   const getMessages = async (id) => {
     try {
       const { data } = await axios.get(backend + '/chats/' + id, config);
+
       setMessageData(data.body.messages);
       setLoadingMessages(false)
       setErrorMessages(false)
@@ -178,8 +178,10 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     }
   };
 
+
+
   // Metodo che si attiva quando si clicca su una chat
-  const handleChatClick = id => {
+  const handleChatClick = (id) => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName('chat-button');
     for (var i = 0; i < elements.length; i++) {
@@ -191,8 +193,9 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
 
-    // Imposta l'utente
-    setUserData(prevValue => ({ ...prevValue, userId: id })
+
+    // Imposta l'utente registrato
+    setUserData(prevValue => ({ ...prevValue, chatId: id })
     );
 
     let elementText = element.querySelectorAll('h3');
@@ -231,7 +234,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
 
 
   // Metodo che si attiva quando si clicca su un contatto
-  const handleContactClick = id => {
+  const handleContactClick = (id) => {
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName('contact-button');
     for (var i = 0; i < elements.length; i++) {
@@ -243,7 +246,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     element.style.border = '1px solid var(--border)';
 
     // Imposta l'utente
-    setUserData(prevValue => ({ ...prevValue, userId: id })
+    setUserData(prevValue => ({ ...prevValue, chatId: id })
     );
 
     let elementText = element.querySelectorAll('h3');
@@ -259,6 +262,11 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
       setUserData(prevValue => ({ ...prevValue, image: imgSrc })
       );
     });
+
+
+
+
+
 
     // Primo messaggio
     setFirstMessage(true)
@@ -349,6 +357,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
                 <ChatContainer
                   chatList={chatList}
                   handleChatClick={handleChatClick}
+                  joinChat = {joinChat}
                 />
               )
             }
@@ -364,6 +373,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
                   <ChatContainer
                     chatList={chatList}
                     handleChatClick={handleChatClick}
+                    joinChat = {joinChat}
                   />
                 </>
               )
@@ -377,10 +387,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
               ) : (
                 <>
                   <p id="second-feature-contact-message">Lista di tutti i contatti</p>
-                  <ContactContainer
-                    contactList={contactList}
-                    handleContactClick={handleContactClick}
-                  />
+                  <ContactContainer contactList={contactList} handleContactClick={handleContactClick} />
                 </>
               )
             }
