@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 // Axios
 import axios from 'axios';
@@ -35,6 +35,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
 
   //const [sentRequestList, setSentRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
 
+  const navigate = useNavigate();
 
 
   // Configurazione token
@@ -123,7 +124,7 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
       });
     } catch (error) {
       //console.error(error);
-    }  
+    }
   };
 
 
@@ -227,6 +228,14 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
     // Caricamento messaggi
     getMessages(id);
   };
+
+
+
+
+  // Metodo per redirigere in chat quando si clicca su un contatto
+
+
+
 
 
 
@@ -346,10 +355,13 @@ export default function SideSection({ setUserData, setFirstMessage, setMessageDa
               chatList.length === 0 ? (
                 <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
-                <ChatContainer
-                  chatList={chatList}
-                  handleChatClick={handleChatClick}
-                />
+                <>
+                  <p id="first-feature-contact-message">Lista di tutte le chat</p>
+                  <ChatContainer
+                    chatList={chatList}
+                    handleChatClick={handleChatClick}
+                  />
+                </>
               )
             }
           />
