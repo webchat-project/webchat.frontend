@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainTopBar from "./MainTopBar";
 
 import axios from "axios";
@@ -12,7 +12,13 @@ import Loading from '../await/Loading'
 import Error from '../await/Error'
 
 
-export default function MainSection({ jwt, firstMessage, userData, messageData, loading, error }) {
+// scrolla automaticamente  <ScrollToBottom className=""></ScrollToBottom>
+// eslint-disable-next-line 
+import ScrollToBottom from "react-scroll-to-bottom";
+
+
+export default function MainSection({ jwt, userData,socket, firstMessage, messageData, loading, error }) {
+
 
   // Configurazione token
   const config = {
@@ -21,18 +27,35 @@ export default function MainSection({ jwt, firstMessage, userData, messageData, 
     },
   };
 
+
+
   // Metodo per inviare il messaggio appena digitato
   const sendMessage = async (input) => {
 
-    let data = { description: input, chatId: userData.userId };
+    let data = { description: input, chatId: userData.chatId };
+
+    //IN BACKEND DOBBIAMO AGGIUNGERE L'ATTRIBUTO time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() 
+
     try {
-      const response = await axios.post(backend + '/messages', data, config);
+      const response = await axios.post(backend + '/messages/', data, config);
+      await socket.emit("sendMessage", data);
       console.log(response);
+
     } catch (error) {
       console.error(error);
     }
 
   }
+
+
+  useEffect(()=>{
+    socket.on("receivedMessage",(data)=>{
+      console.log(data);
+    })
+  },[socket])
+
+
+  
 
   // Aggiunge il messaggio inviato al container dei messaggi
   const handleSubmit = (input) => {

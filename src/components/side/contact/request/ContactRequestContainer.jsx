@@ -13,7 +13,7 @@ export default function ContactRequestContainer({ contactList, handleContactClic
     }
   }
 
-  console.log(typeof contactList);
+  //console.log(typeof contactList);
 
   
   const handleClick = (id) => {
