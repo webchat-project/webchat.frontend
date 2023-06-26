@@ -12,6 +12,8 @@ import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { loginRoute } from "../utils/ApiRoutes";
 
+import { GoogleLogin } from '@react-oauth/google'
+
 export default function Login({ jwt, setJwt }) {
 
   //inizializzare il cookie //const [jwt, setJwt] = useCookie("jwt", ""); //const navigate = useNavigate();
@@ -35,7 +37,7 @@ export default function Login({ jwt, setJwt }) {
         email,
         password,
       });
-  
+
 
       console.log(data);
 
@@ -89,44 +91,58 @@ export default function Login({ jwt, setJwt }) {
         ) : error ? (
           <Error />
         ) : (
-          <form onSubmit={(event) => handleSubmit(event)}>
-            <h3 id="page-title">Login</h3>
-            <label id="email-input-title" htmlFor="email-input">
-              Email
-            </label>
-            <input
-              id="email-input"
-              type="text"
-              value={loginUser.email}
-              name="email"
-              placeholder="Inserisci email"
-              onChange={(e) => handleChange(e)}
-              required
-            />
-            <label id="password-input-title" htmlFor="password-input">
-              Password
-            </label>
-            <input
-              id="password-input"
-              type="password"
-              value={loginUser.password}
-              name="password"
-              placeholder="Inserisci password"
-              onChange={(e) => handleChange(e)}
-              required
-            />
-            <p id="signup-question">
-              Non hai un account? <Link to="/signup">Registrati</Link>
-            </p>
-            <div>
-              <button id="login-clear-button" onClick={handleClearForm}>
-                Svuota
-              </button>
-              <button id="login-send-button" type="submit">
-                Accedi
-              </button>
+          <>
+            <form onSubmit={(event) => handleSubmit(event)}>
+              <h3 id="page-title">Login</h3>
+              <label id="email-input-title" htmlFor="email-input">
+                Email
+              </label>
+              <input
+                id="email-input"
+                type="text"
+                value={loginUser.email}
+                name="email"
+                placeholder="Inserisci email"
+                onChange={(e) => handleChange(e)}
+                required
+              />
+              <label id="password-input-title" htmlFor="password-input">
+                Password
+              </label>
+              <input
+                id="password-input"
+                type="password"
+                value={loginUser.password}
+                name="password"
+                placeholder="Inserisci password"
+                onChange={(e) => handleChange(e)}
+                required
+              />
+              <p id="signup-question">
+                Non hai un account? <Link to="/signup">Registrati</Link>
+              </p>
+              <div>
+                <button id="login-clear-button" onClick={handleClearForm}>
+                  Svuota
+                </button>
+                <button id="login-send-button" type="submit">
+                  Accedi
+                </button>
+              </div>
+            </form>
+            <p>oppure</p>
+            <div id="googleButtonDiv">
+              <GoogleLogin
+                onSuccess={response => {
+                  console.log(response.credential)
+                }}
+                type="standard"
+                theme="filled_blue"
+                size="large"
+                shape="pill"
+              />
             </div>
-          </form>
+          </>
         )}
       </div>
     </div>
