@@ -81,6 +81,32 @@ export default function Login({ jwt, setJwt }) {
     });
   };
 
+  const handleCredentialResponse = async response => {
+
+    setLoading(true); // Imposta il caricamento su true
+
+    try {
+
+      const data = await axios.post(`${loginRoute}/google`, response)
+
+      console.log(data);
+
+      if (!data.error) {
+        setJwt(data.body.jwtToken);
+        //navigate("/");
+      } else {
+        console.log(data.body.jwtToken);
+        //window.location.reload();
+      }
+    } catch (e) {
+      setError(true); // Imposta l'errore
+      console.error(e);
+      //window.location.reload();
+    }
+
+    setLoading(false);
+  }
+
   return (
     <div id="login-page">
       <div id="login-page-container">
@@ -130,12 +156,10 @@ export default function Login({ jwt, setJwt }) {
                 </button>
               </div>
             </form>
-            <p>oppure</p>
             <div id="googleButtonDiv">
+              <p>oppure</p>
               <GoogleLogin
-                onSuccess={response => {
-                  console.log(response.credential)
-                }}
+                onSuccess={handleCredentialResponse}
                 type="standard"
                 theme="filled_blue"
                 size="large"
