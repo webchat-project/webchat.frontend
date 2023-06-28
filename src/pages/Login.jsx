@@ -35,7 +35,7 @@ export default function Login({ jwt, setJwt }) {
         email,
         password,
       });
-  
+
 
       console.log(data);
 
@@ -49,6 +49,7 @@ export default function Login({ jwt, setJwt }) {
     } catch (e) {
       setError(true); // Imposta l'errore
       console.error(e);
+      setError(e.response.data.error)
       //window.location.reload();
     }
 
@@ -86,8 +87,10 @@ export default function Login({ jwt, setJwt }) {
           <Navigate to="/" />
         ) : loading ? (
           <Loading />
-        ) : error ? (
-          <Error />
+        ) : error !== false ? (
+          <>
+            <Error event={error} />
+          </>
         ) : (
           <form onSubmit={(event) => handleSubmit(event)}>
             <h3 id="page-title">Login</h3>
