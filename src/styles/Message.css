@@ -81,3 +81,20 @@
     visibility: hidden;
     display: none;
 }
+
+#image-sender {
+    height: 40px;
+    width: 50px;
+    margin: 0px 7px 0px 10px;
+    border: 0px;
+    padding: 0px;
+    outline: none;
+    border-radius: 12px;
+    background-color: var(--back);
+    color: var(--text);
+}
+
+#image-sender:hover {
+    background-color: var(--button-hover);
+    border: 1px solid var(--border);
+}

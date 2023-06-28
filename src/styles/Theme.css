@@ -1,0 +1,43 @@
+#theme-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.colors-container {
+    display: flex;
+    margin: 0;
+}
+
+.theme-color {
+    margin: 10px;
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+#light-theme {
+    background-color: #ffffff;
+}
+
+#dark-theme {
+    background-color: #000000;
+}
+
+#default-color {
+    background-color: #eceff1;
+}
+
+#gold-color {
+    background-color: #fece2f;
+}
+
+#nature-color {
+    background-color: #46a094;
+}
+
+#sky-color {
+    background-color: #3b7197;
+}

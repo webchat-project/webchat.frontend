@@ -9,6 +9,7 @@ import "./styles/Chat.css";
 import "./styles/Contact.css";
 import "./styles/Profile.css";
 import "./styles/Message.css";
+import "./styles/Theme.css";
 
 // Socket
 //import io from "socket.io-client";

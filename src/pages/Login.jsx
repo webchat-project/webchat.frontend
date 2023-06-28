@@ -80,6 +80,10 @@ export default function Login({ jwt, setJwt }) {
     });
   };
 
+  const handleBackToLogin = () => {
+    window.location.reload();
+  }
+
   return (
     <div id="login-page">
       <div id="login-page-container">
@@ -90,6 +94,7 @@ export default function Login({ jwt, setJwt }) {
         ) : error !== false ? (
           <>
             <Error event={error} />
+            <button id="reset-login-button" onClick={handleBackToLogin}>Ritorna a login</button>
           </>
         ) : (
           <form onSubmit={(event) => handleSubmit(event)}>

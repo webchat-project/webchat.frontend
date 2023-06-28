@@ -108,3 +108,26 @@
     background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+#reset-login-button {
+    height: 40px;
+    width: 100%;
+    border: 0px;
+    outline: 0px;
+    cursor: pointer;
+    border-radius: 12px;
+    color: white;
+    background-color: #1976D2;
+    transition: all 0.3s;
+}
+
+#reset-login-button:hover {
+    background-color: #0d47a1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (width < 400px) {
+    #signup-container label {
+        font-size: 13px;
+    }
+}
