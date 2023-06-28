@@ -9,7 +9,10 @@ export default function ContactAdd({ contact, jwt }) {
   const [addOption, setAddOption] = useState(false);
 
   // Al click sul contatto appaiono due pulsanti per annullare o inviare la richiesta
-  const handleClick = (id) => {
+  const handleClick = () => {
+    console.log("contact: " + contact.userId)
+    const button = document.getElementById("contact: " + contact.userId)
+    button.style = "height: 90px"
     setAddOption(true)
   }
 
@@ -62,13 +65,12 @@ export default function ContactAdd({ contact, jwt }) {
 
 
   return (
-    <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
+    <div id={"contact: " + contact.userId} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
           <img alt="img" src={profile}></img>
         </div>
         <div className="text-container">
-          <h3>{contact.firstName} {contact.lastName}</h3>
           <p>{contact.email}</p>
           {addOption === true ? <>
             <div className="feature-confirm-contact-button">

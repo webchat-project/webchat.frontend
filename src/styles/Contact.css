@@ -31,6 +31,12 @@
     margin: 0;
 }
 
+.contact-button p {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0;
+}
+
 .image-container {
     margin: 0;
     height: 70px;
