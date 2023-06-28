@@ -17,7 +17,7 @@ import Error from '../await/Error'
 import ScrollToBottom from "react-scroll-to-bottom";
 
 
-export default function MainSection({ jwt, userData,socket, firstMessage, messageData, loading, error }) {
+export default function MainSection({ jwt, userData, socket, firstMessage, messageData, loading, error }) {
 
 
   // Configurazione token
@@ -48,14 +48,35 @@ export default function MainSection({ jwt, userData,socket, firstMessage, messag
   }
 
 
-  useEffect(()=>{
-    socket.on("receivedMessage",(data)=>{
+  useEffect(() => {
+    socket.on("receivedMessage", (data) => {
       console.log(data);
+
+      // Mostra il messaggio ricevuto
+      handleReceivedMessage(data.description)
+
     })
-  },[socket])
+  }, [socket])
 
 
-  
+  // Metodo per mostrare il messaggio ricevuto
+  const handleReceivedMessage = (receivedText) => {
+
+    // Metodo per mostrare il messaggio appena ricevuto
+    const messageContainer = document.getElementById('message-container');
+    const receivedMessage = document.createElement('div');
+    receivedMessage.className = "received-message"
+
+    receivedMessage.id = "CurrentSessionMessage"
+    const message = document.createElement('p');
+    message.className = "message-text"
+    message.innerText = receivedText;
+    receivedMessage.appendChild(message)
+    messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
+  }
+
+
+
 
   // Aggiunge il messaggio inviato al container dei messaggi
   const handleSubmit = (input) => {

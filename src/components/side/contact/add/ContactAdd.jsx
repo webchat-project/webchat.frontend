@@ -44,10 +44,10 @@ export default function ContactAdd({ contact, jwt }) {
     console.log('Invio richiesta per aggiungere ' + contact.userId);
     handleAbort();
     //console.warn(config);
-   //console.warn(data);
+    //console.warn(data);
 
     try {
-      const { data } = await axios.post(backend + '/users/requests/', { userId: contact.userId, type: 'send' } ,config);
+      const { data } = await axios.post(backend + '/users/requests/', { userId: contact.userId, type: 'send' }, config);
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -86,13 +86,13 @@ export default function ContactAdd({ contact, jwt }) {
         <div className="text-container">
           <p id={`${contact.email}`}>{contact.email}</p>
           {addOption ? (
-                        <>
-                          <div className="feature-confirm-contact-button">
-                            <button id="abort-add-contact-button" onClick={handleAbort}> Annulla </button>
-                            <button id="confirm-add-contact-button" onClick={handleSend}> Aggiungi </button>
-                          </div>
-                        </>
-                      ) : ( <></>)}
+            <>
+              <div className="feature-confirm-contact-button">
+                <button id="abort-add-contact-button" onClick={handleAbort}> Annulla </button>
+                <button id="confirm-add-contact-button" onClick={handleSend}> Aggiungi </button>
+              </div>
+            </>
+          ) : (<></>)}
         </div>
       </div>
     </div>
