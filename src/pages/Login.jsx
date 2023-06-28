@@ -12,6 +12,8 @@ import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { loginRoute } from "../utils/ApiRoutes";
 
+import { GoogleLogin } from '@react-oauth/google'
+
 export default function Login({ jwt, setJwt }) {
 
   //inizializzare il cookie //const [jwt, setJwt] = useCookie("jwt", ""); //const navigate = useNavigate();
@@ -84,6 +86,32 @@ export default function Login({ jwt, setJwt }) {
     window.location.reload();
   }
 
+  const handleCredentialResponse = async response => {
+
+    setLoading(true); // Imposta il caricamento su true
+
+    try {
+
+      const data = await axios.post(`${loginRoute}/google`, response)
+
+      console.log(data);
+
+      if (!data.error) {
+        setJwt(data.body.jwtToken);
+        //navigate("/");
+      } else {
+        console.log(data.body.jwtToken);
+        //window.location.reload();
+      }
+    } catch (e) {
+      setError(true); // Imposta l'errore
+      console.error(e);
+      //window.location.reload();
+    }
+
+    setLoading(false);
+  }
+
   return (
     <div id="login-page">
       <div id="login-page-container">
@@ -97,44 +125,56 @@ export default function Login({ jwt, setJwt }) {
             <button id="reset-login-button" onClick={handleBackToLogin}>Ritorna a login</button>
           </>
         ) : (
-          <form onSubmit={(event) => handleSubmit(event)}>
-            <h3 id="page-title">Login</h3>
-            <label id="email-input-title" htmlFor="email-input">
-              Email
-            </label>
-            <input
-              id="email-input"
-              type="text"
-              value={loginUser.email}
-              name="email"
-              placeholder="Inserisci email"
-              onChange={(e) => handleChange(e)}
-              required
-            />
-            <label id="password-input-title" htmlFor="password-input">
-              Password
-            </label>
-            <input
-              id="password-input"
-              type="password"
-              value={loginUser.password}
-              name="password"
-              placeholder="Inserisci password"
-              onChange={(e) => handleChange(e)}
-              required
-            />
-            <p id="signup-question">
-              Non hai un account? <Link to="/signup">Registrati</Link>
-            </p>
-            <div>
-              <button id="login-clear-button" onClick={handleClearForm}>
-                Svuota
-              </button>
-              <button id="login-send-button" type="submit">
-                Accedi
-              </button>
+          <>
+            <form onSubmit={(event) => handleSubmit(event)}>
+              <h3 id="page-title">Login</h3>
+              <label id="email-input-title" htmlFor="email-input">
+                Email
+              </label>
+              <input
+                id="email-input"
+                type="text"
+                value={loginUser.email}
+                name="email"
+                placeholder="Inserisci email"
+                onChange={(e) => handleChange(e)}
+                required
+              />
+              <label id="password-input-title" htmlFor="password-input">
+                Password
+              </label>
+              <input
+                id="password-input"
+                type="password"
+                value={loginUser.password}
+                name="password"
+                placeholder="Inserisci password"
+                onChange={(e) => handleChange(e)}
+                required
+              />
+              <p id="signup-question">
+                Non hai un account? <Link to="/signup">Registrati</Link>
+              </p>
+              <div>
+                <button id="login-clear-button" onClick={handleClearForm}>
+                  Svuota
+                </button>
+                <button id="login-send-button" type="submit">
+                  Accedi
+                </button>
+              </div>
+            </form>
+            <div id="googleButtonDiv">
+              <p>oppure</p>
+              <GoogleLogin
+                onSuccess={handleCredentialResponse}
+                type="standard"
+                theme="filled_blue"
+                size="large"
+                shape="pill"
+              />
             </div>
-          </form>
+          </>
         )}
       </div>
     </div>
