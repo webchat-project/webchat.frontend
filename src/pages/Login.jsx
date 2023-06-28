@@ -92,9 +92,7 @@ export default function Login({ jwt, setJwt }) {
 
     try {
 
-      const data = await axios.post(`${loginRoute}/google`, response)
-
-      console.log(data);
+      const { data } = await axios.post(`${loginRoute}/google`, response)
 
       if (!data.error) {
         setJwt(data.body.jwtToken);
