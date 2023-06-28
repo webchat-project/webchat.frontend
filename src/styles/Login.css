@@ -134,7 +134,7 @@
 }
 
 @media screen and (width < 400px) {
-    #signup-container label {
+    #login-container label {
         font-size: 13px;
     }
 }

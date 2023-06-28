@@ -212,3 +212,22 @@
   font-weight: 600;
   text-align: center;
 }
+
+#back-from-feature-button {
+  margin-left: 10px;
+  min-height: 40px;
+  width: calc(100% - 20px);
+  border: 1px solid var(--border);
+  outline: 0px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  background-color: #d32f2f;
+  transition: all 0.3s;
+}
+
+#back-from-feature-button:hover {
+  border: 1px solid var(--border);
+  background-color: #b71c1c;
+}

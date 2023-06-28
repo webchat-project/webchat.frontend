@@ -268,6 +268,10 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
     }, 100);
   };
 
+  // Metodo per ritornare alla schermata contatti se si è presente nelle schermate delete e request
+  const backFromFeature = () => {
+    navigate("/contacts")
+  }
 
   return (
     <>
@@ -389,6 +393,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
               <>
                 <p id="first-feature-contact-message">Elimina contatti</p>
                 <ContactDeleteContainer contactList={contactList} />
+                <button type="button" id="back-from-feature-button" onClick={backFromFeature}>Indietro</button>
               </>
             }
           />
@@ -419,7 +424,6 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
                     <ContactRequestContainer contactList={requestList.sent} jwt={jwt} />
                   </>
                 )}
-
               </>
             }
           />

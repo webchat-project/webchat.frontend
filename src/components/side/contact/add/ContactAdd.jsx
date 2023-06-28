@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { backend } from "../../../../utils/Backend";
 
 export default function ContactAdd({ contact, jwt }) {
+
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
@@ -68,6 +69,7 @@ export default function ContactAdd({ contact, jwt }) {
         </div>
         <div className="text-container">
           <h3>{contact.firstName} {contact.lastName}</h3>
+          <p>{contact.email}</p>
           {addOption === true ? <>
             <div className="feature-confirm-contact-button">
               <button id="abort-add-contact-button" onClick={handleAbort}>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 
 export default function ContactDelete({ contact }) {
-  
+
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
 
@@ -20,7 +20,7 @@ export default function ContactDelete({ contact }) {
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
   const handleSend = () => {
-    console.log("Invio richiesta per aggiungere " + contact.userId)
+    console.log("Invio richiesta per eliminare " + contact.userId)
     handleAbort();
   }
 
