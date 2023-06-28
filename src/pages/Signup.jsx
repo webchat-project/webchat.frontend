@@ -99,11 +99,7 @@ export default function Signup() {
 
   // Metodo per impostare la foto
   const handlePhotoChange = (event) => {
-    if (file) {
-      file = event.target.files[0];
-    } else {
-      let file = event.target.files[0];
-    }
+    let file = event.target.files[0];
     setUser((prevUser) => ({
       ...prevUser,
       image: file,
