@@ -1,10 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function SideTopBarButton({ material, name, route }) {
+export default function SideTopBarButton({ material, name, route, getChatList, getContactList, getProfile }) {
 
   // Handle Click
   const handleClick = (name) => {
+
+    switch (name) {
+      case "Chat":
+        getChatList()
+        break
+      case "Contatti":
+        getContactList()
+        break
+      case "Profilo":
+        getProfile()
+        break
+      default:
+        break
+    }
 
     // Ripristina lo sfondo degli elementi ed evidenzia l'elemento attivo
     var elements = document.getElementsByClassName("side-top-bar-button");

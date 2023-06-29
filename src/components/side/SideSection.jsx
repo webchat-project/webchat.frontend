@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { createElement, useEffect, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 // Axios
@@ -248,24 +248,80 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = (id) => {
 
+    // Resetta lo stile di tutti i componenti che hanno la stessa classe
+    var elements = document.getElementsByClassName('contact-button');
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute('style');
+    }
+
+    // Accentua il componente selezionato
+    var element = document.getElementById('contact: ' + id);
+    element.style.backgroundColor = 'var(--button-click)';
+    element.style.border = '1px solid var(--border)';
+
+
+    // Imposta l'utente registrato
+    setUserData(prevValue => ({ ...prevValue, chatId: id }));
+
+    let elementText = element.querySelectorAll('h3');
+    let elementImg = element.querySelectorAll('img');
+    elementText.forEach(e => {
+      let nameValue = e.innerText;
+      setUserData(prevValue => ({ ...prevValue, name: nameValue }));
+    });
+
+    elementImg.forEach(e => {
+      let imgSrc = e.src;
+      setUserData(prevValue => ({ ...prevValue, image: imgSrc })
+      );
+    });
+
+    // Primo messaggio
+    setFirstMessage(true)
+
+    // Loading
+    setLoadingMessages(true)
+    setErrorMessages(false)
+
+    // Metodo per eliminare i messaggi
+    const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
+    if (sentMessages.length > 0) {
+      for (var j = 0; j < sentMessages.length; j++) {
+        sentMessages[j].remove();
+      }
+    }
+
+    // Caricamento messaggi
+    getMessages(id);
+
+    /*
+ 
+    // Ottengo l'elemento contact button
+    var contactButton = document.getElementById("contact: " + id)
+ 
     // Rendirizzamento in chats
     redirectToChats(id);
-
+ 
     setTimeout(() => {
       var element = document.getElementById('chat: ' + id);
       if (element) {
         handleChatClick(id);
-
+ 
         // Porto l'elemento in alto
         var parent = element.parentNode;
         var secondChild = parent.children[1];
         parent.insertBefore(element, secondChild);
-
+ 
       } else {
-
+ 
+        // Se il contatto viene cliccato per la prima volta, viene generato a partire dall'elemento contact button
+        var sideContainer = document.getElementById("side-elements-container");
+        sideContainer.append(contactButton)
       }
-
+ 
     }, 100);
+ 
+    */
   };
 
   // Metodo per ritornare alla schermata contatti se si è presente nelle schermate delete e request
@@ -275,7 +331,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
 
   return (
     <>
-      <SideTopBar />
+      <SideTopBar getChatList={getChatList} getContactList={getContactList} getProfile={getProfile} />
 
       <div id="side-elements-container">
         <Routes>
@@ -393,7 +449,6 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
               <>
                 <p id="first-feature-contact-message">Elimina contatti</p>
                 <ContactDeleteContainer contactList={contactList} />
-                <button type="button" id="back-from-feature-button" onClick={backFromFeature}>Indietro</button>
               </>
             }
           />
