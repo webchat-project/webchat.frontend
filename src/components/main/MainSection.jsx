@@ -32,14 +32,12 @@ export default function MainSection({ jwt, userData, socket, firstMessage, messa
   // Metodo per inviare il messaggio appena digitato
   const sendMessage = async (input) => {
 
-    let data = { description: input, chatId: userData.chatId };
+    let data = { description: input, chatId: userData.chatId, jwtToken: userData.jwt };
 
     //IN BACKEND DOBBIAMO AGGIUNGERE L'ATTRIBUTO time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() 
 
     try {
-      const response = await axios.post(backend + '/messages/', data, config);
       await socket.emit("sendMessage", data);
-      console.log(response);
 
     } catch (error) {
       console.error(error);
@@ -49,12 +47,15 @@ export default function MainSection({ jwt, userData, socket, firstMessage, messa
 
 
   useEffect(() => {
-    socket.on("receivedMessage", (data) => {
-      console.log(data);
+    socket.on("receivedMessage", (response) => {
+      console.log(response);
 
-      // Mostra il messaggio ricevuto
-      handleReceivedMessage(data.description)
-
+      if (response.error) {
+        console.log(response.error)
+      } else {
+        // Mostra il messaggio ricevuto
+        handleReceivedMessage(response.body.message)
+      }
     })
   }, [socket])
 

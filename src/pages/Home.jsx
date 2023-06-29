@@ -10,7 +10,7 @@ const socket = io.connect(backend);
 export default function Home({ jwt }) {
 
 
-    const [userData, setUserData] = useState({chatId: "", name: "", image: "profile.png"})
+    const [userData, setUserData] = useState({chatId: "", name: "", image: "profile.png", jwt: jwt})
     const [messageData, setMessageData] = useState([])
 
     //console.log(messageData);

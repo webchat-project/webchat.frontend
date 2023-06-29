@@ -27,12 +27,12 @@ export default function MessageInputBox({ handleSubmit }) {
             <div id="message-input-container">
                 {inputType === "text" ?
                     <button id="message-type-changer" onClick={imageInput}>
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                             image
                         </span>
                     </button>
                     : <button id="message-type-changer" onClick={textInput}>
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                             text_fields
                         </span>
                     </button>}
