@@ -67,8 +67,8 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       setChatsLoading(false)
       setChatList(
         data.body.map(chat => {
-          const base64String = btoa(String.fromCharCode(...new Uint8Array(chat.image.data.data)));
-          chat.image = `data:image/png;base64,${base64String}`;
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], { type: 'image/jpeg' });
+          chat.image = URL.createObjectURL(imageBlob);
           return chat;
         })
       );
@@ -87,10 +87,8 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       setContactsLoading(false)
       setContactList(
         data.body.map(chat => {
-          const base64String = btoa(
-            String.fromCharCode(...new Uint8Array(chat.image.data.data))
-          );
-          chat.image = `data:image/png;base64,${base64String}`;
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], { type: 'image/jpeg' });
+          chat.image = URL.createObjectURL(imageBlob);
           return chat;
         })
       );
