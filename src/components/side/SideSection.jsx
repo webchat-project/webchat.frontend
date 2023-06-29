@@ -1,4 +1,4 @@
-import React, { createElement, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 // Axios
@@ -36,6 +36,8 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
   const [chatsError, setChatsError] = useState();
   const [contactsLoading, setContactsLoading] = useState();
   const [contactsError, setContactsError] = useState();
+  const [requestLoading, setRequestLoading] = useState();
+  const [requestError, setRequestError] = useState();
 
   // Configurazione token
   const config = {
@@ -293,40 +295,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
     // Caricamento messaggi
     getMessages(id);
 
-    /*
- 
-    // Ottengo l'elemento contact button
-    var contactButton = document.getElementById("contact: " + id)
- 
-    // Rendirizzamento in chats
-    redirectToChats(id);
- 
-    setTimeout(() => {
-      var element = document.getElementById('chat: ' + id);
-      if (element) {
-        handleChatClick(id);
- 
-        // Porto l'elemento in alto
-        var parent = element.parentNode;
-        var secondChild = parent.children[1];
-        parent.insertBefore(element, secondChild);
- 
-      } else {
- 
-        // Se il contatto viene cliccato per la prima volta, viene generato a partire dall'elemento contact button
-        var sideContainer = document.getElementById("side-elements-container");
-        sideContainer.append(contactButton)
-      }
- 
-    }, 100);
- 
-    */
   };
-
-  // Metodo per ritornare alla schermata contatti se si è presente nelle schermate delete e request
-  const backFromFeature = () => {
-    navigate("/contacts")
-  }
 
   return (
     <>
@@ -447,7 +416,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
             element={
               <>
                 <p id="first-feature-contact-message">Elimina contatti</p>
-                <ContactDeleteContainer contactList={contactList} />
+                <ContactDeleteContainer contactList={contactList} jwt={jwt} />
               </>
             }
           />

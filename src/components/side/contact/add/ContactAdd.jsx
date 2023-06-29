@@ -2,35 +2,53 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 import { backend } from '../../../../utils/Backend';
+import Loading from '../../../await/Loading';
+import Error from '../../../await/Error';
 
 export default function ContactAdd({ contact, jwt }) {
+
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   // Al click sul contatto appaiono due pulsanti per annullare o inviare la richiesta
-  const handleClick = e => {
-    //console.log(e.target);
-    //console.log('contact: ' + contact.userId);
-    const button = document.getElementById('contact: ' + contact.userId);
-    button.style = 'height: 90px';
-    const emailParagraph = document.getElementById(`${contact.email}`);
-    emailParagraph.style = 'font-weight: bold';
+  const handleClick = () => {
 
+    // Resetta lo stile dei contact button
+    let elements = document.getElementsByClassName('contact-button');
+    Array.from(elements).forEach(element => {
+      element.removeAttribute('style');
+    });
+
+    // Rende invisibili eventuali contact options
+    let options = document.getElementsByClassName("contact-options")
+    Array.from(options).forEach(option => {
+      option.setAttribute("style", "visibility: hidden;")
+    });
+
+    // Accentua il componente selezionato
+    let button = document.getElementById('contact: ' + contact.userId);
+    if (button) {
+      button.setAttribute("style", "background-color: var(--button-click); border: 1px solid var(--border); height: auto")
+    }
+    let option = document.getElementById("contact-options: " + contact.userId);
+    if (option) {
+      option.setAttribute("style", "visibility: visible;")
+    }
     setAddOption(true);
   };
 
   // Metodo al click su annulla
   const handleAbort = () => {
+    setError(false)
     setTimeout(() => {
       const button = document.getElementById('contact: ' + contact.userId);
       button.style = 'height: normal';
-      const emailParagraph = document.getElementById(`${contact.email}`);
-      emailParagraph.style = 'font-weight: normal';
       setAddOption(false);
     }, 10);
   };
-
-
 
   // Configurazione token
   const config = {
@@ -41,29 +59,40 @@ export default function ContactAdd({ contact, jwt }) {
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
   const handleSend = async () => {
-    console.log('Invio richiesta per aggiungere ' + contact.userId);
-    handleAbort();
-    //console.warn(config);
-    //console.warn(data);
-
+    setTimeout(() => {
+      setAddOption(false);
+    }, 10);
+    setLoading(true);
     try {
       const { data } = await axios.post(backend + '/users/requests/', { userId: contact.userId, type: 'send' }, config);
       console.log(data);
+      setLoading(false)
+      setSuccess(true)
     } catch (error) {
       console.error(error);
+      setLoading(false);
+      setError(error.response.data.error)
     }
   };
+
+  // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
+  const closeConfirmedSuccess = () => {
+    setSuccess(false)
+    const button = document.getElementById('contact: ' + contact.userId);
+    console.log('contact: ' + contact.userId)
+    if (button) {
+      button.parentNode.removeChild(button);
+    }
+  }
 
   // Metodo per importare l'immagine di profilo default se l'account ne è privo
   const [profile, setProfile] = useState('profile.png');
 
   const handleProfile = contact => {
-    if (contact.image !== '') {
-      const base64String = btoa(
-        String.fromCharCode(...new Uint8Array(contact.image.data.data))
-      );
-      contact.image = `data:image/png;base64,${base64String}`;
-      setProfile(contact.image);
+    if (contact.image === "") {
+      setProfile("profile.png")
+    } else {
+      setProfile(contact.image)
     }
   };
 
@@ -71,29 +100,33 @@ export default function ContactAdd({ contact, jwt }) {
     handleProfile(contact);
   }, [contact]);
 
-
-
   return (
-    <div
-      id={'contact: ' + contact.userId}
-      className="contact-button"
-      onClick={handleClick}
-    >
+    <div id={'contact: ' + contact.userId} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
           <img alt="img" src={profile}></img>
         </div>
         <div className="text-container">
           <p id={`${contact.email}`}>{contact.email}</p>
-          {addOption ? (
-            <>
-              <div className="feature-confirm-contact-button">
-                <button id="abort-add-contact-button" onClick={handleAbort}> Annulla </button>
-                <button id="confirm-add-contact-button" onClick={handleSend}> Aggiungi </button>
-              </div>
-            </>
-          ) : (<></>)}
         </div>
+      </div>
+      <div className='contact-options' id={'contact-options: ' + contact.userId}>
+        {addOption ? (
+          <>
+            <div className="feature-confirm-contact-button">
+              <button id="abort-add-contact-button" onClick={handleAbort}> Annulla </button>
+              <button id="confirm-add-contact-button" onClick={handleSend}> Aggiungi </button>
+            </div>
+          </>
+        )
+          : loading ? <Loading />
+            : success ?
+              <div id="confirm-success">
+                <p>Richiesta inviata con successo</p>
+                <button id="close-confirm-success" onClick={closeConfirmedSuccess}>Chiudi</button>
+              </div>
+              : error !== false ? <Error event={error} />
+                : <></>}
       </div>
     </div>
   );
