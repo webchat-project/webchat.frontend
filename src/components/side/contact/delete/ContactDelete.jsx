@@ -1,27 +1,75 @@
 import React, { useState, useEffect } from "react";
 
+import { backend } from '../../../../utils/Backend';
+import Loading from '../../../await/Loading';
+import Error from '../../../await/Error';
 
-export default function ContactDelete({ contact }) {
+export default function ContactDelete({ contact, jwt }) {
 
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   // Al click sul contatto appaiono due pulsanti per annullare o inviare la richiesta
-  const handleClick = (id) => {
-    setAddOption(true)
+  const handleClick = () => {
+
+    // Resetta lo stile dei contact button
+    let elements = document.getElementsByClassName('contact-button');
+    Array.from(elements).forEach(element => {
+      element.removeAttribute('style');
+    });
+
+    // Rende invisibili eventuali contact options
+    let options = document.getElementsByClassName("contact-options")
+    Array.from(options).forEach(option => {
+      option.setAttribute("style", "visibility: hidden;")
+    });
+
+    // Accentua il componente selezionato
+    let button = document.getElementById('contact: ' + contact.userId);
+    if (button) {
+      button.setAttribute("style", "background-color: var(--button-click); border: 1px solid var(--border); height: auto")
+    }
+    let option = document.getElementById("contact-options: " + contact.userId);
+    if (option) {
+      option.setAttribute("style", "visibility: visible;")
+    }
+    setAddOption(true);
   }
 
   // Metodo al click su annulla
   const handleAbort = () => {
+    setError(false)
     setTimeout(() => {
+      const button = document.getElementById('contact: ' + contact.userId);
+      button.style = 'height: normal';
       setAddOption(false);
     }, 10);
   }
+
+  // Configurazione token
+  const config = {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
   const handleSend = () => {
     console.log("Invio richiesta per eliminare " + contact.userId)
     handleAbort();
+  }
+
+  // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
+  const closeConfirmedSuccess = () => {
+    setSuccess(false)
+    const button = document.getElementById('contact: ' + contact.userId);
+    console.log('contact: ' + contact.userId)
+    if (button) {
+      button.parentNode.removeChild(button);
+    }
   }
 
   // Metodo per importare l'immagine di profilo default se l'account ne è privo
@@ -41,25 +89,32 @@ export default function ContactDelete({ contact }) {
 
 
   return (
-    <div id={"contact: " + contact.id} className="contact-button" onClick={handleClick}>
+    <div id={"contact: " + contact.userId} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
           <img alt="img" src={profile}></img>
         </div>
         <div className="text-container">
           <h3>{contact.firstName} {contact.lastName}</h3>
-          {addOption === true ? <>
-            <div className="feature-confirm-contact-button">
-              <button id="abort-delete-contact-button" onClick={handleAbort}>
-                Annulla
-              </button>
-              <button id="confirm-delete-contact-button" onClick={handleSend}>
-                Elimina
-              </button>
-            </div>
-          </> :
-            <></>}
         </div>
+      </div>
+      <div className='contact-options' id={'contact-options: ' + contact.userId}>
+        {addOption ? (
+          <>
+            <div className="feature-confirm-contact-button">
+              <button id="abort-delete-contact-button" onClick={handleAbort}> Annulla </button>
+              <button id="confirm-delete-contact-button" onClick={handleSend}> Aggiungi </button>
+            </div>
+          </>
+        )
+          : loading ? <Loading />
+            : success ?
+              <div id="confirm-success">
+                <p>Contatto eliminato con successo</p>
+                <button id="close-confirm-success" onClick={closeConfirmedSuccess}>Chiudi</button>
+              </div>
+              : error !== false ? <Error event={error} />
+                : <></>}
       </div>
     </div>
   );
