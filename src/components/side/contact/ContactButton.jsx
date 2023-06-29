@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 export default function ContactButton({ contact, handleClick }) {
-
+/*
   // Metodo per importare l'immagine di profilo default se l'account ne è privo
   const [profile, setProfile] = useState("profile.png")
 
@@ -17,12 +17,12 @@ export default function ContactButton({ contact, handleClick }) {
     handleProfile(contact);
   }, [contact]);
 
-
+*/
   return (
     <div id={"contact: " + contact.chatId} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
-          <img alt="img" src={profile}></img>
+          <img alt="img" src={contact.image}></img>
         </div>
         <div className="text-container">
           <h3>{contact.firstName} {contact.lastName}</h3>

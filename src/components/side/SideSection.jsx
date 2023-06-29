@@ -414,7 +414,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
                   ) : (
                     <>
                       <p id="second-feature-contact-message">Lista di tutti i contatti</p>
-                      <ContactContainer contactList={contactList} handleContactClick={handleContactClick} />
+                      <ContactContainer contactList={contactList} handleContactClick={handleContactClick} joinChat={joinChat} />
                     </>
                   )
             }
