@@ -49,9 +49,10 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
     try {
       const { data } = await axios.get(backend + '/users/profile', config);
       setProfile(data.body);
-      const base64String = btoa(String.fromCharCode(...new Uint8Array(data.body.image.data.data)));
+      const imageBlob = new Blob([new Uint8Array(data.body.image.data.data)], { type: 'image/png' });
+      const imageUrl = URL.createObjectURL(imageBlob);
       setProfile(prevValue => {
-        return { ...prevValue, image: `data:image/png;base64,${base64String}` };
+        return { ...prevValue, image: imageUrl };
       });
     } catch (error) {
       console.error(error);
@@ -66,8 +67,8 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       setChatsLoading(false)
       setChatList(
         data.body.map(chat => {
-          const base64String = btoa(String.fromCharCode(...new Uint8Array(chat.image.data.data)));
-          chat.image = `data:image/png;base64,${base64String}`;
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], { type: 'image/jpeg' });
+          chat.image = URL.createObjectURL(imageBlob);
           return chat;
         })
       );
@@ -86,10 +87,8 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       setContactsLoading(false)
       setContactList(
         data.body.map(chat => {
-          const base64String = btoa(
-            String.fromCharCode(...new Uint8Array(chat.image.data.data))
-          );
-          chat.image = `data:image/png;base64,${base64String}`;
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], { type: 'image/jpeg' });
+          chat.image = URL.createObjectURL(imageBlob);
           return chat;
         })
       );
