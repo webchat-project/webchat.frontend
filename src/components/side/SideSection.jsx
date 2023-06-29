@@ -19,6 +19,7 @@ import ProfileContainer from './profile/ProfileContainer';
 // Gestione propri contatti
 import ContactDeleteContainer from './contact/delete/ContactDeleteContainer';
 import ContactRequestContainer from './contact/request/ContactRequestContainer';
+import ContactRequestSentContainer from './contact/request/ContactRequestSentContainer';
 
 import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
@@ -105,6 +106,8 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       setContactsError(true)
       console.error(error);
     }
+
+    console.log(contactList)
   };
 
   // Metodo per ottenere la lista richieste contatti
@@ -450,7 +453,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
                 ) : (
                   <>
                     <p id="second-feature-contact-message">Richieste inviate</p>
-                    <ContactRequestContainer contactList={requestList.sent} jwt={jwt} />
+                    <ContactRequestSentContainer contactList={requestList.sent} />
                   </>
                 )}
               </>
