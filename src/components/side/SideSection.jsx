@@ -106,14 +106,14 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       setRequestList(data.body.requests);
       setRequestList({
         sent: data.body.requests.sent.map(s => {
-          const base64String = btoa(String.fromCharCode(...new Uint8Array(s.image.data.data)));
-          s.image = `data:image/png;base64,${base64String}`;
+          const imageBlob = new Blob([new Uint8Array(s.image.data.data)], { type: 'image/jpeg' });
+          s.image = URL.createObjectURL(imageBlob);
           return s;
         }),
 
         received: data.body.requests.received.map(r => {
-          const base64String = btoa(String.fromCharCode(...new Uint8Array(r.image.data.data)));
-          r.image = `data:image/png;base64,${base64String}`;
+          const imageBlob = new Blob([new Uint8Array(r.image.data.data)], { type: 'image/jpeg' });
+          r.image = URL.createObjectURL(imageBlob);
           return r;
         }),
       });
