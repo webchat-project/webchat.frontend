@@ -1,7 +1,7 @@
 import React from "react";
 import ChatButton from "./ChatButton";
 
-export default function ChatContainer({ chatList, handleChatClick, joinChat }) {
+export default function ChatContainer({ chatList, handleChatClick }) {
 
   const handleDisplay = () => {
 
@@ -18,7 +18,6 @@ export default function ChatContainer({ chatList, handleChatClick, joinChat }) {
 
   const handleClick = (id) => {
     handleChatClick(id);
-    joinChat();
     handleDisplay();
   }
 

@@ -17,11 +17,11 @@
     color: var(--text);
     align-self: flex-start;
     max-width: 70%;
-    margin: 7px 20px 7px 30px;
+    margin: 3px 20px 3px 30px;
     padding: 5px 15px 5px 15px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: -2px 1px 4px 0px rgba(0, 0, 0, 0.3);
     word-wrap: break-word;
 }
 
@@ -29,11 +29,11 @@
     background-color: var(--sent-message);
     align-self: flex-end;
     max-width: 70%;
-    margin: 7px 30px 7px 20px;
+    margin: 3px 30px 3px 20px;
     padding: 5px 15px 5px 15px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 1px 4px 0px rgba(0, 0, 0, 0.3);
     word-wrap: break-word;
 }
 
@@ -89,4 +89,15 @@
 #message-sender:disabled {
     visibility: hidden;
     display: none;
+}
+
+.sent-message-time {
+    text-align: end;
+    font-size: 10px;
+    margin: 0px;
+}
+
+.received-message-time {
+    font-size: 10px;
+    margin: 0px;
 }

@@ -1,8 +1,7 @@
 import React from "react";
 import ContactButton from "./ContactButton";
-import { Navigate } from "react-router-dom";
 
-export default function ContactContainer({ contactList, handleContactClick, joinChat }) {
+export default function ContactContainer({ contactList, handleContactClick }) {
 
 
 
@@ -17,10 +16,9 @@ export default function ContactContainer({ contactList, handleContactClick, join
   }
 
 
-  
+
   const handleClick = (id) => {
     handleContactClick(id);
-    joinChat(); // si unisce al chat
     handleDisplay();
   }
 

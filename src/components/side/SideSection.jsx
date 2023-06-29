@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
-// Axios
-import axios from 'axios';
-
-// Indirizzo backend
-import { backend } from '../../utils/Backend';
-
 // Componenti React
 import Loading from '../await/Loading';
 import Error from '../await/Error';
@@ -24,7 +18,13 @@ import ContactRequestSentContainer from './contact/request/ContactRequestSentCon
 import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
 
-export default function SideSection({ jwt, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, joinChat }) {
+// Axios
+import axios from 'axios';
+
+// Indirizzo backend
+import { backend } from '../../utils/Backend';
+
+export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages }) {
 
   // Liste chat e contatti
   const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: 'profile.png' });
@@ -37,8 +37,6 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
   const [chatsError, setChatsError] = useState();
   const [contactsLoading, setContactsLoading] = useState();
   const [contactsError, setContactsError] = useState();
-  const [requestLoading, setRequestLoading] = useState();
-  const [requestError, setRequestError] = useState();
 
   // Configurazione token
   const config = {
@@ -181,9 +179,9 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
   };
 
 
-
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = (id) => {
+
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName('chat-button');
     for (var i = 0; i < elements.length; i++) {
@@ -226,6 +224,9 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
         sentMessages[j].remove();
       }
     }
+
+    // Connessione socket
+    socket.emit("joinChat", id)
 
     // Caricamento messaggi
     getMessages(id);
@@ -295,6 +296,9 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
       }
     }
 
+    // Connessione socket
+    socket.emit("joinChat", id)
+
     // Caricamento messaggi
     getMessages(id);
 
@@ -338,7 +342,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
           <Route
             path="/contacts/*"
             element={
-              <SideFeature url={'/requests'} span={'mail'} text={'Richieste'} />
+              <SideFeature getRequestList={getRequestList} url={'/requests'} span={'mail'} text={'Richieste'} />
             }
           />
         </Routes>
@@ -372,7 +376,6 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
                       <ChatContainer
                         chatList={chatList}
                         handleChatClick={handleChatClick}
-                        joinChat={joinChat}
                       />
                     </>
 
@@ -392,7 +395,6 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
                       <ChatContainer
                         chatList={chatList}
                         handleChatClick={handleChatClick}
-                        joinChat={joinChat}
                       />
                     </>
                   )
@@ -408,7 +410,7 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
                   ) : (
                     <>
                       <p id="second-feature-contact-message">Lista di tutti i contatti</p>
-                      <ContactContainer contactList={contactList} handleContactClick={handleContactClick} joinChat={joinChat} />
+                      <ContactContainer contactList={contactList} handleContactClick={handleContactClick} />
                     </>
                   )
             }
