@@ -60,6 +60,7 @@
     height: 55px;
     flex-grow: 1;
     margin: 0px;
+    margin-left: 30px;
     border: 0px;
     padding: 0px;
     outline: none;
@@ -87,38 +88,5 @@
 
 #message-sender:disabled {
     visibility: hidden;
-    display: none;
-}
-
-#message-type-changer {
-    height: 40px;
-    width: 50px;
-    margin: 0px 7px 0px 10px;
-    border: 0px;
-    padding: 0px;
-    outline: none;
-    border-radius: 12px;
-    background-color: var(--back);
-    color: var(--text);
-}
-
-#message-type-changer:hover {
-    background-color: var(--button-hover);
-    border: 1px solid var(--border);
-}
-
-#image-input-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 7px 0px 8px 0px;
-    height: 40px;
-    max-width: 100%;
-    color: var(--text);
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#image-input {
     display: none;
 }
