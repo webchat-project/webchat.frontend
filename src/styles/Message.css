@@ -43,11 +43,17 @@
     width: auto;
     margin: 10px;
     margin-top: 0px;
-    padding: 0px 5px 0px 30px;
     background-color: var(--back);
     border: 1px solid var(--border);
     align-items: center;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+#form-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 #message-input {
@@ -84,7 +90,7 @@
     display: none;
 }
 
-#image-sender {
+#message-type-changer {
     height: 40px;
     width: 50px;
     margin: 0px 7px 0px 10px;
@@ -96,7 +102,23 @@
     color: var(--text);
 }
 
-#image-sender:hover {
+#message-type-changer:hover {
     background-color: var(--button-hover);
     border: 1px solid var(--border);
+}
+
+#image-input-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 0px 8px 0px;
+    height: 40px;
+    max-width: 100%;
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#image-input {
+    display: none;
 }

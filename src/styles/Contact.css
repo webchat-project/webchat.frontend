@@ -31,6 +31,12 @@
     margin: 0;
 }
 
+.contact-button p {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0;
+}
+
 .image-container {
     margin: 0;
     height: 70px;
@@ -97,6 +103,14 @@
     border: 1px solid var(--border);
     color: white;
     background-color: #C62828;
+    margin-top: 10px;
+    padding: 0px;
+}
+
+#abort-add-contact-button:hover {
+    background-color: #ff0000;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
 }
 
 #confirm-add-contact-button {
@@ -107,7 +121,16 @@
     border: 1px solid var(--border);
     color: white;
     background-color: #1976D2;
+    margin-top: 10px;
+    padding: 0px;
 }
+
+#confirm-add-contact-button:hover {
+    background-color: green;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
 
 #abort-delete-contact-button {
     height: 30px;
@@ -117,6 +140,7 @@
     border: 1px solid var(--border);
     color: black;
     background-color: #eeeeee;
+    
 }
 
 #confirm-delete-contact-button {
@@ -137,6 +161,7 @@
     border: 1px solid var(--border);
     color: black;
     background-color: #eeeeee;
+    
 }
 
 #send-request-contact-button {

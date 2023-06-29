@@ -17,7 +17,7 @@ export default function Home({ jwt }) {
 
 
     useEffect(() => {
-        console.log("msg changed");
+       // console.log("msg changed");
       }, [messageData,userData]);
 
 

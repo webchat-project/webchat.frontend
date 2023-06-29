@@ -53,6 +53,8 @@ export default function SideSearch({ jwt, id, placeholder }) {
         }
     }
 
+
+    
     return (
         <>
             <div id="side-search-container">
