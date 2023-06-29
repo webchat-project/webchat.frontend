@@ -30,7 +30,7 @@ export default function ProfileContainer({ profile }) {
     <div id="profile-container">
       {custom === false ? (
         <>
-          <div id="image-container">
+          <div id="profile-image-container">
             <img id="profile-image" alt="img" src={profile.image}></img>
           </div>
           <h3>

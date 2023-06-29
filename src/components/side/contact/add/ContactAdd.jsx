@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { backend } from '../../../../utils/Backend';
 import Loading from '../../../await/Loading';
@@ -77,10 +77,9 @@ export default function ContactAdd({ contact, jwt }) {
 
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
-    setSuccess(false)
     const button = document.getElementById('contact: ' + contact.userId);
     console.log('contact: ' + contact.userId)
-    if (button) {
+    if (button && button.parentNode) {
       button.parentNode.removeChild(button);
     }
   }

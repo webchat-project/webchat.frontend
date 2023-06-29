@@ -1,49 +1,32 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import SideSection from '../components/side/SideSection'
 import MainSection from '../components/main/MainSection'
+
+// Backend
 import { backend } from "../utils/Backend";
+
+// Socket
 import io from "socket.io-client";
-
-
 const socket = io.connect(backend);
 
 export default function Home({ jwt }) {
 
-
+    // Dati contatto selezionato
     const [userData, setUserData] = useState({ chatId: "", name: "", image: "profile.png", jwt: jwt })
     const [messageData, setMessageData] = useState([])
-
-    //console.log(messageData);
-
-
-    useEffect(() => {
-        // console.log("msg changed");
-    }, [messageData, userData]);
-
 
     // Use state per non mostrare lista messaggi
     const [firstMessage, setFirstMessage] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-
-
-
-    //etodo che viene chiammato dal componente ChatContainer al click del ChatButton
-    const joinChat = (id) => {
-
-        socket.emit("joinChat", id)
-    }
-
-
-
     return (
         <>
             <aside id="side-section">
-                <SideSection jwt={jwt} socket={socket} setUserData={setUserData} setFirstMessage={setFirstMessage} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} joinChat={joinChat} />
+                <SideSection jwt={jwt} socket={socket} setUserData={setUserData} setFirstMessage={setFirstMessage} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} />
             </aside>
             <main id="main-section">
-                <MainSection jwt={jwt} userData={userData} socket={socket} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} />
+                <MainSection socket={socket} userData={userData} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} />
             </main>
         </>
     )

@@ -103,7 +103,7 @@ export default function ContactDelete({ contact, jwt }) {
           <>
             <div className="feature-confirm-contact-button">
               <button id="abort-delete-contact-button" onClick={handleAbort}> Annulla </button>
-              <button id="confirm-delete-contact-button" onClick={handleSend}> Aggiungi </button>
+              <button id="confirm-delete-contact-button" onClick={handleSend}> Elimina </button>
             </div>
           </>
         )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Message({ message, owner }) {
+export default function Message({ message, time, owner }) {
 
   // Metodo per assegnare la tipologia messaggio (sent o received), necessario per lo stile
   let classType = ''
@@ -15,7 +15,7 @@ export default function Message({ message, owner }) {
 
   return (
     <div id={"UserId:" + owner} className={classType}>
-      <p className={classTime}>22:22</p>
+      <p className={classTime}>{time}</p>
       <p className="message-text">{message}</p>
     </div>
   )

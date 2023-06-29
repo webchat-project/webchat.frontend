@@ -12,29 +12,12 @@ import Loading from '../await/Loading'
 import Error from '../await/Error'
 
 
-// scrolla automaticamente  <ScrollToBottom className=""></ScrollToBottom>
-// eslint-disable-next-line 
-import ScrollToBottom from "react-scroll-to-bottom";
-
-
-export default function MainSection({ jwt, userData, socket, firstMessage, messageData, loading, error }) {
-
-
-  // Configurazione token
-  const config = {
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-    },
-  };
-
-
+export default function MainSection({ userData, socket, firstMessage, messageData, loading, error }) {
 
   // Metodo per inviare il messaggio appena digitato
   const sendMessage = async (input) => {
 
     let data = { description: input, chatId: userData.chatId, jwtToken: userData.jwt };
-
-    //IN BACKEND DOBBIAMO AGGIUNGERE L'ATTRIBUTO time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() 
 
     try {
       await socket.emit("sendMessage", data);
@@ -44,7 +27,6 @@ export default function MainSection({ jwt, userData, socket, firstMessage, messa
     }
 
   }
-
 
   useEffect(() => {
     socket.on("receivedMessage", (response) => {
@@ -58,7 +40,6 @@ export default function MainSection({ jwt, userData, socket, firstMessage, messa
       }
     })
   }, [socket])
-
 
   // Metodo per mostrare il messaggio ricevuto
   const handleReceivedMessage = (receivedText) => {
@@ -76,11 +57,9 @@ export default function MainSection({ jwt, userData, socket, firstMessage, messa
     messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
   }
 
-
-
-
   // Aggiunge il messaggio inviato al container dei messaggi
   const handleSubmit = (input) => {
+
     // Metodo per mostrare il messaggio appena digitato
     const messageContainer = document.getElementById('message-container');
     const sentMessage = document.createElement('div');
@@ -90,6 +69,16 @@ export default function MainSection({ jwt, userData, socket, firstMessage, messa
     const message = document.createElement('p');
     message.className = "message-text"
     message.innerText = input;
+
+    let oraCorrente = new Date();
+    let ore = String(oraCorrente.getHours()).padStart(2, '0');
+    let minuti = String(oraCorrente.getMinutes()).padStart(2, '0');
+    let oraFormattata = ore + ':' + minuti;
+
+    const time = document.createElement('p');
+    time.className = "sent-message-time"
+    time.innerText = oraFormattata;
+    sentMessage.appendChild(time)
     sentMessage.appendChild(message)
     messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
 
