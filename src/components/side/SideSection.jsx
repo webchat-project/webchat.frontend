@@ -52,17 +52,11 @@ export default function SideSection({ jwt, setUserData, setFirstMessage, setMess
     try {
       const { data } = await axios.get(backend + '/users/profile', config);
       setProfile(data.body);
-      if (data.body.image) {
-        const imageBlob = new Blob([new Uint8Array(data.body.image.data.data)], { type: 'image/png' });
-        const imageUrl = URL.createObjectURL(imageBlob);
-        setProfile(prevValue => {
-          return { ...prevValue, image: imageUrl };
-        });
-      } else {
-        setProfile(prevValue => {
-          return { ...prevValue, image: 'profile.png' };
-        });
-      }
+      const imageBlob = new Blob([new Uint8Array(data.body.image.data.data)], { type: 'image/png' });
+      const imageUrl = URL.createObjectURL(imageBlob);
+      setProfile(prevValue => {
+        return { ...prevValue, image: imageUrl };
+      });
     } catch (error) {
       console.error(error);
     }

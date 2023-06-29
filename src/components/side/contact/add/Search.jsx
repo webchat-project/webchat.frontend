@@ -41,12 +41,16 @@ export default function SideSearch({ jwt, id, placeholder }) {
     const handleSubmit = async () => {
         setLoading(true)
         try {
-            const response = await axios.get(backend + '/users/list', config);
-            setResultList(response.data);
+            const { data } = await axios.get(backend + '/users/list', config);
+            console.log('dnvjkefnvkjien')
+            console.log(data.body)
+            setResultList(data.body.map(user => {
+                const imageBlob = new Blob([new Uint8Array(user.image.data.data)], { type: 'image/jpeg' });
+                user.image = URL.createObjectURL(imageBlob);
+                return user;
+            }));
             setLoading(false)
             setError(false)
-
-            console.log(response.data)
         } catch (error) {
             setLoading(false)
             setError(true)
@@ -54,7 +58,7 @@ export default function SideSearch({ jwt, id, placeholder }) {
     }
 
 
-    
+
     return (
         <>
             <div id="side-search-container">
