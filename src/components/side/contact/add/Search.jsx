@@ -9,7 +9,7 @@ import Error from '../../../await/Error'
 export default function SideSearch({ jwt, id, placeholder }) {
 
     // Valore input
-    const [search, setSearch] = useState('')
+    const [queryString, setQueryString] = useState('')
 
     // Valori risultato ricerca
     const [resultList, setResultList] = useState([])
@@ -27,11 +27,11 @@ export default function SideSearch({ jwt, id, placeholder }) {
     // Click sul pulsante indietro
     const handleAbort = () => {
         setControlVisibility(false)
-        setSearch('')
+        setQueryString('')
     }
 
     // Configurazione token
-    const config = {
+    let config = {
         headers: {
             Authorization: `Bearer ${jwt}`,
         },
@@ -41,8 +41,8 @@ export default function SideSearch({ jwt, id, placeholder }) {
     const handleSubmit = async () => {
         setLoading(true)
         try {
-            const { data } = await axios.get(backend + '/users/list', config);
-            console.log(data.body)
+            config = {...config, params: {queryString: queryString} }
+            const { data } = await axios.get(backend + '/users/search', config);
             setResultList(data.body.map(user => {
                 const imageBlob = new Blob([new Uint8Array(user.image.data.data)], { type: 'image/jpeg' });
                 user.image = URL.createObjectURL(imageBlob);
@@ -64,10 +64,10 @@ export default function SideSearch({ jwt, id, placeholder }) {
                 <input
                     id={id}
                     type='text'
-                    value={search}
+                    value={queryString}
                     placeholder={placeholder}
                     onFocus={handleTyping}
-                    onChange={e => setSearch(e.target.value)}>
+                    onChange={e => setQueryString(e.target.value)}>
                 </input>
                 {controlVisibility === true ?
                     <>
