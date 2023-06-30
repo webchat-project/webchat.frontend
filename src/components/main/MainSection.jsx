@@ -26,15 +26,17 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
   }
 
   useEffect(() => {
-    socket.on("receivedMessage", (response) => {
+    if (socket) {
+      socket.on("receivedMessage", (response) => {
 
-      if (response.error) {
-        console.log(response.error)
-      } else {
-        // Mostra il messaggio ricevuto
-        handleReceivedMessage(response.body)
-      }
-    })
+        if (response.error) {
+          console.log(response.error)
+        } else {
+          // Mostra il messaggio ricevuto
+          handleReceivedMessage(response.body)
+        }
+      })
+    }
   }, [socket])
 
   // Metodo per mostrare il messaggio ricevuto
