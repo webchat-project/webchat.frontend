@@ -6,6 +6,25 @@
     padding: 15px 0px 5px 0px;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--button-click);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sent-message);
+}
+
 .message-text {
     margin: 0px;
     font-size: 15px;
@@ -21,19 +40,20 @@
     padding: 5px 15px 5px 15px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    box-shadow: -2px 1px 4px 0px rgba(0, 0, 0, 0.3);
+    border-bottom-left-radius: 0px;
     word-wrap: break-word;
 }
 
 .sent-message {
     background-color: var(--sent-message);
+    color: var(--text-message);
     align-self: flex-end;
     max-width: 70%;
     margin: 3px 30px 3px 20px;
     padding: 5px 15px 5px 15px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    box-shadow: 2px 1px 4px 0px rgba(0, 0, 0, 0.3);
+    border-bottom-right-radius: 0px;
     word-wrap: break-word;
 }
 
@@ -101,11 +121,11 @@
 }
 
 .received-time-date-container:hover {
-    cursor: pointer;
+    cursor: default;
 }
 
 .sent-time-date-container:hover {
-    cursor: pointer;
+    cursor: default;
 }
 
 .sent-time-date-container:hover .message-date {

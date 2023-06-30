@@ -117,6 +117,7 @@ var skyColor = {
   "--button-hover": "#a1e1fa",
   "--button-click": "#74bde0",
   "--sent-message": "#4a8db7",
+  "--text-message": "#ffffff",
   "--loading": "#3b7197"
 };
 
