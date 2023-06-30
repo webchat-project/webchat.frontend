@@ -26,14 +26,45 @@ import { backend } from '../../utils/Backend';
 // Axios
 import axios from 'axios';
 
-export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages }) {
+
+
+
+export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages}) {
 
   // Liste chat e contatti
-  const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: 'profile.png' });
-  const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '', online: false }]);
-  const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
-  const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
-  const [requestCount, setRequestCount] = useState("");
+  const [profile, setProfile] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    image: 'profile.png',
+  });
+  const [chatList, setChatList] = useState([
+    {
+      chatId: '',
+      userId: '',
+      firstName: '',
+      lastName: '',
+      image: 'profile.png',
+      lastMessage: '',
+      online: false,
+    },
+  ]);
+  const [contactList, setContactList] = useState([
+    {
+      chatId: '',
+      userId: '',
+      firstName: '',
+      lastName: '',
+      image: 'profile.png',
+    },
+  ]);
+  const [requestList, setRequestList] = useState({
+    sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }],
+    received: [
+      { userId: '', firstName: '', lastName: '', image: 'profile.png' },
+    ],
+  });
+  const [requestCount, setRequestCount] = useState('');
 
   // Caricamento e errore chat e contatti
   const [chatsLoading, setChatsLoading] = useState();
@@ -53,7 +84,9 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     try {
       const { data } = await axios.get(backend + '/users/profile', config);
       setProfile(data.body);
-      const imageBlob = new Blob([new Uint8Array(data.body.image.data.data)], { type: 'image/png' });
+      const imageBlob = new Blob([new Uint8Array(data.body.image.data.data)], {
+        type: 'image/png',
+      });
       const imageUrl = URL.createObjectURL(imageBlob);
       setProfile(prevValue => {
         return { ...prevValue, image: imageUrl };
@@ -65,40 +98,47 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
   // Metodo per ottenere la lista chat
   const getChatList = async () => {
-    setChatsLoading(true)
+    setChatsLoading(true);
     try {
       const { data } = await axios.get(backend + '/chats/list', config);
-      setChatsLoading(false)
+      setChatsLoading(false);
       setChatList(
         data.body.map(chat => {
-          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], { type: 'image/jpeg' });
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
+            type: 'image/jpeg',
+          });
           chat.image = URL.createObjectURL(imageBlob);
           return chat;
         })
       );
     } catch (error) {
-      setChatsLoading(false)
-      setChatsError(true)
+      setChatsLoading(false);
+      setChatsError(true);
       console.error(error);
     }
   };
 
   // Metodo per ottenere la lista contatti
   const getContactList = async () => {
-    setContactsLoading(true)
+    setContactsLoading(true);
     try {
-      const { data } = await axios.get(backend + '/users/contacts/list', config);
-      setContactsLoading(false)
+      const { data } = await axios.get(
+        backend + '/users/contacts/list',
+        config
+      );
+      setContactsLoading(false);
       setContactList(
         data.body.map(chat => {
-          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], { type: 'image/jpeg' });
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
+            type: 'image/jpeg',
+          });
           chat.image = URL.createObjectURL(imageBlob);
           return chat;
         })
       );
     } catch (error) {
-      setContactsLoading(false)
-      setContactsError(true)
+      setContactsLoading(false);
+      setContactsError(true);
       console.error(error);
     }
   };
@@ -106,30 +146,36 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
   // Metodo per ottenere la lista richieste contatti
   const getRequestList = async () => {
     try {
-      const { data } = await axios.get(backend + '/users/requests/list', config);
+      const { data } = await axios.get(
+        backend + '/users/requests/list',
+        config
+      );
       setRequestList(data.body.requests);
 
       // If per impostare il numero di richieste ricevute
       if (data.body.requests.received.length === 0) {
-        setRequestCount("")
+        setRequestCount('');
       } else if (data.body.requests.received.length > 0) {
-        setRequestCount(data.body.requests.received.length)
+        setRequestCount(data.body.requests.received.length);
       }
 
       setRequestList({
         sent: data.body.requests.sent.map(s => {
-          const imageBlob = new Blob([new Uint8Array(s.image.data.data)], { type: 'image/jpeg' });
+          const imageBlob = new Blob([new Uint8Array(s.image.data.data)], {
+            type: 'image/jpeg',
+          });
           s.image = URL.createObjectURL(imageBlob);
           return s;
         }),
 
         received: data.body.requests.received.map(r => {
-          const imageBlob = new Blob([new Uint8Array(r.image.data.data)], { type: 'image/jpeg' });
+          const imageBlob = new Blob([new Uint8Array(r.image.data.data)], {
+            type: 'image/jpeg',
+          });
           r.image = URL.createObjectURL(imageBlob);
           return r;
         }),
       });
-
     } catch (error) {
       console.error(error);
     }
@@ -149,53 +195,56 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
   // Metodo per selezionare il pulsante nella topbar al refresh
   const setTopBarOnLoad = () => {
-    if (location.pathname === '/') {
-      let element = document.getElementById('side-top-bar-button: Chat');
-      element.style.backgroundColor = 'var(--button-click)';
-      element.style.border = '1px solid var(--border)';
+    let element = null;
+
+    switch (location.pathname) {
+      case '/':
+      case '/chats':
+        element = document.getElementById('side-top-bar-button: Chat');
+        break;
+      case '/contacts':
+        element = document.getElementById('side-top-bar-button: Contatti');
+        break;
+      case '/profile':
+        element = document.getElementById('side-top-bar-button: Profilo');
+        break;
+      default:
+        break;
     }
-    if (location.pathname === '/chats') {
-      let element = document.getElementById('side-top-bar-button: Chat');
-      element.style.backgroundColor = 'var(--button-click)';
-      element.style.border = '1px solid var(--border)';
-    }
-    if (location.pathname === '/contacts') {
-      let element = document.getElementById('side-top-bar-button: Contatti');
-      element.style.backgroundColor = 'var(--button-click)';
-      element.style.border = '1px solid var(--border)';
-    }
-    if (location.pathname === '/profile') {
-      let element = document.getElementById('side-top-bar-button: Profilo');
+  
+    if (element) {
       element.style.backgroundColor = 'var(--button-click)';
       element.style.border = '1px solid var(--border)';
     }
   };
+  
+
+
 
   // Metodo per ottenere la lista messaggi
   const getMessages = async (id) => {
     try {
       const { data } = await axios.get(backend + '/chats/' + id, config);
       setMessageData(data.body.messages);
-      setLoadingMessages(false)
-      setErrorMessages(false)
+      setLoadingMessages(false);
+      setErrorMessages(false);
     } catch (error) {
       console.error(error);
-      setLoadingMessages(false)
-      setErrorMessages(error.response.data.error)
+      setLoadingMessages(false);
+      setErrorMessages(error.response.data.error);
     }
   };
 
   // Metodo che si attiva quando si clicca su una chat
-  const handleChatClick = (id) => {
-
-    localStorage.setItem("currentContactId", id);
+  const handleChatClick = id => {
+    localStorage.setItem('currentContactId', id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
-    var elements = document.getElementsByClassName('chat-button');
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute('style');
-    }
-
+    let elements = document.getElementsByClassName('chat-button');
+    elements.forEach(function(element) {
+      element.removeAttribute('style');
+    });
+    
     // Accentua il componente selezionato
     var element = document.getElementById('chat: ' + id);
     element.style.backgroundColor = 'var(--button-click)';
@@ -207,51 +256,50 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     let elementText = element.querySelectorAll('h3');
     let elementImg = element.querySelectorAll('img');
     elementText.forEach(e => {
-      let nameValue = e.innerText;
+      let nameValue = e.innerText.replace(/●/g, "");
       setUserData(prevValue => ({ ...prevValue, name: nameValue }));
     });
 
+    
+
     elementImg.forEach(e => {
       let imgSrc = e.src;
-      setUserData(prevValue => ({ ...prevValue, image: imgSrc })
-      );
+      setUserData(prevValue => ({ ...prevValue, image: imgSrc }));
     });
 
     // Primo messaggio
-    setFirstMessage(true)
+    setFirstMessage(true);
 
     // Loading
-    setLoadingMessages(true)
-    setErrorMessages(false)
+    setLoadingMessages(true);
+    setErrorMessages(false);
 
     // Metodo per eliminare i messaggi
     const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
     if (sentMessages.length > 0) {
-      for (var j = 0; j < sentMessages.length; j++) {
-        sentMessages[j].remove();
-      }
+      sentMessages.forEach(message => message.remove());
     }
-
+    
     // Connessione socket
-    socket.emit("joinChat", id)
+    socket.emit('joinChat', id);
 
     // Caricamento messaggi
     getMessages(id);
   };
 
   // Metodo che si attiva quando si clicca su un contatto
-  const handleContactClick = (id) => {
-
-    localStorage.setItem("currentContactId", id);
+  const handleContactClick = id => {
+    localStorage.setItem('currentContactId', id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
-    var elements = document.getElementsByClassName('contact-button');
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute('style');
-    }
+    let elements = document.getElementsByClassName('contact-button');
+    elements.forEach(function(element) {
+      element.removeAttribute('style');
+    });
+    
 
     // Accentua il componente selezionato
-    var element = document.getElementById('contact: ' + id);
+    let element = document.getElementById('contact: ' + id);
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
 
@@ -267,16 +315,15 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
     elementImg.forEach(e => {
       let imgSrc = e.src;
-      setUserData(prevValue => ({ ...prevValue, image: imgSrc })
-      );
+      setUserData(prevValue => ({ ...prevValue, image: imgSrc }));
     });
 
     // Primo messaggio
-    setFirstMessage(true)
+    setFirstMessage(true);
 
     // Loading
-    setLoadingMessages(true)
-    setErrorMessages(false)
+    setLoadingMessages(true);
+    setErrorMessages(false);
 
     // Metodo per eliminare i messaggi
     const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
@@ -287,16 +334,19 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     }
 
     // Connessione socket
-    socket.emit("joinChat", id)
+    socket.emit('joinChat', id);
 
     // Caricamento messaggi
     getMessages(id);
-
   };
 
   return (
     <>
-      <SideTopBar getChatList={getChatList} getContactList={getContactList} getProfile={getProfile} />
+      <SideTopBar
+        getChatList={getChatList}
+        getContactList={getContactList}
+        getProfile={getProfile}
+      />
 
       <div id="side-elements-container">
         <Routes>
@@ -332,7 +382,13 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
           <Route
             path="/contacts/*"
             element={
-              <SideFeature getRequestList={getRequestList} url={'/requests'} span={'mail'} text={'Richieste'} count={requestCount} />
+              <SideFeature
+                getRequestList={getRequestList}
+                url={'/requests'}
+                span={'mail'}
+                text={'Richieste'}
+                count={requestCount}
+              />
             }
           />
         </Routes>
@@ -356,53 +412,69 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
           <Route
             path="/"
             element={
-              chatsLoading === true ? <Loading />
-                : chatsError === true ? <Error />
-                  : chatList.length === 0 ? (
-                    <p id="first-feature-contact-message">Non sono presenti chat</p>
-                  ) : (
-                    <>
-                      <p id="first-feature-contact-message">Lista di tutte le chat</p>
-                      <ChatContainer
-                        chatList={chatList}
-                        handleChatClick={handleChatClick}
-                      />
-                    </>
-
-                  )
+              chatsLoading === true ? (
+                <Loading />
+              ) : chatsError === true ? (
+                <Error />
+              ) : chatList.length === 0 ? (
+                <p id="first-feature-contact-message">Non sono presenti chat</p>
+              ) : (
+                <>
+                  <p id="first-feature-contact-message">
+                    Lista di tutte le chat
+                  </p>
+                  <ChatContainer
+                    chatList={chatList}
+                    handleChatClick={handleChatClick}
+                  />
+                </>
+              )
             }
           />
           <Route
             path="/chats/*"
             element={
-              chatsLoading === true ? <Loading />
-                : chatsError === true ? <Error />
-                  : chatList.length === 0 ? (
-                    <p id="first-feature-contact-message">Non sono presenti chat</p>
-                  ) : (
-                    <>
-                      <p id="first-feature-contact-message">Lista di tutte le chat</p>
-                      <ChatContainer
-                        chatList={chatList}
-                        handleChatClick={handleChatClick}
-                      />
-                    </>
-                  )
+              chatsLoading === true ? (
+                <Loading />
+              ) : chatsError === true ? (
+                <Error />
+              ) : chatList.length === 0 ? (
+                <p id="first-feature-contact-message">Non sono presenti chat</p>
+              ) : (
+                <>
+                  <p id="first-feature-contact-message">
+                    Lista di tutte le chat
+                  </p>
+                  <ChatContainer
+                    chatList={chatList}
+                    handleChatClick={handleChatClick}
+                  />
+                </>
+              )
             }
           />
           <Route
             path="/contacts/*"
             element={
-              contactsLoading === true ? <Loading />
-                : contactsError === true ? <Error />
-                  : contactList.length === 0 ? (
-                    <p id="second-feature-contact-message">Non sono presenti contatti</p>
-                  ) : (
-                    <>
-                      <p id="second-feature-contact-message">Lista di tutti i contatti</p>
-                      <ContactContainer contactList={contactList} handleContactClick={handleContactClick} />
-                    </>
-                  )
+              contactsLoading === true ? (
+                <Loading />
+              ) : contactsError === true ? (
+                <Error />
+              ) : contactList.length === 0 ? (
+                <p id="second-feature-contact-message">
+                  Non sono presenti contatti
+                </p>
+              ) : (
+                <>
+                  <p id="second-feature-contact-message">
+                    Lista di tutti i contatti
+                  </p>
+                  <ContactContainer
+                    contactList={contactList}
+                    handleContactClick={handleContactClick}
+                  />
+                </>
+              )
             }
           />
 
@@ -411,7 +483,11 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
             element={
               <>
                 <p id="first-feature-contact-message">Elimina contatti</p>
-                <ContactDeleteContainer getContactList={getContactList} contactList={contactList} jwt={jwt} />
+                <ContactDeleteContainer
+                  getContactList={getContactList}
+                  contactList={contactList}
+                  jwt={jwt}
+                />
               </>
             }
           />
@@ -423,12 +499,18 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
                 {requestList.received.length === 0 ? (
                   <>
                     <p id="first-feature-contact-message">Richieste ricevute</p>
-                    <p id="side-text-message-info">Nessuna richiesta ricevuta</p>
+                    <p id="side-text-message-info">
+                      Nessuna richiesta ricevuta
+                    </p>
                   </>
                 ) : (
                   <>
                     <p id="first-feature-contact-message">Richieste ricevute</p>
-                    <ContactRequestContainer getRequestList={getRequestList} contactList={requestList.received} jwt={jwt} />
+                    <ContactRequestContainer
+                      getRequestList={getRequestList}
+                      contactList={requestList.received}
+                      jwt={jwt}
+                    />
                   </>
                 )}
                 {requestList.sent.length === 0 ? (
@@ -439,7 +521,11 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
                 ) : (
                   <>
                     <p id="second-feature-contact-message">Richieste inviate</p>
-                    <ContactRequestSentContainer getRequestList={getRequestList} contactList={requestList.sent} jwt={jwt} />
+                    <ContactRequestSentContainer
+                      getRequestList={getRequestList}
+                      contactList={requestList.sent}
+                      jwt={jwt}
+                    />
                   </>
                 )}
               </>

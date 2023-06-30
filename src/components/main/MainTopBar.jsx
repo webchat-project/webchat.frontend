@@ -20,7 +20,11 @@ export default function MainTopBar({ user }) {
         alt="profilo"
         id='main-top-bar-profile-picture'
       ></img>
-      <h3>{user.name}</h3>
+      <div>
+      <h3 id="main-top-bar-name">{user.name}</h3>
+      <p id="last-access">ultimo accesso || online </p>
+      </div>
+      
     </div>
   )
 }

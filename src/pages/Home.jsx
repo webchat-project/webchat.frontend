@@ -11,7 +11,8 @@ import io from "socket.io-client";
 export default function Home({ jwt }) {
 
     // Dati contatto selezionato
-    const [userData, setUserData] = useState({ chatId: "", name: "", image: "profile.png", jwt: jwt })
+    const [userData, setUserData] = useState({ chatId: "", name: "", image: "profile.png", jwt: jwt , online: false})
+
     const [messageData, setMessageData] = useState([])
 
     // Use state per non mostrare lista messaggi
@@ -22,10 +23,12 @@ export default function Home({ jwt }) {
     // Socket
     const [socket, setSocket] = useState(null);
 
+
     useEffect(() => {
         const newSocket = io.connect(backend, { query: "jwt=" + jwt });
         setSocket(newSocket);
     }, [jwt]);
+
 
     return (
         <>
