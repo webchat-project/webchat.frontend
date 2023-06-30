@@ -241,9 +241,9 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     let elements = document.getElementsByClassName('chat-button');
-    elements.forEach(function(element) {
-      element.removeAttribute('style');
-    });
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute('style');
+    }
     
     // Accentua il componente selezionato
     var element = document.getElementById('chat: ' + id);
@@ -277,9 +277,11 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     // Metodo per eliminare i messaggi
     const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
     if (sentMessages.length > 0) {
-      sentMessages.forEach(message => message.remove());
-    }
-    
+    for (let j = 0; j < sentMessages.length; j++) {
+      sentMessages[j].remove();
+    }}
+    //sentMessages.forEach(msg => msg.remove());
+  
     // Connessione socket
     socket.emit('joinChat', id);
 
@@ -293,9 +295,9 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     let elements = document.getElementsByClassName('contact-button');
-    elements.forEach(function(element) {
-      element.removeAttribute('style');
-    });
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute('style');
+    }
     
 
     // Accentua il componente selezionato
