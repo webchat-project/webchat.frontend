@@ -28,7 +28,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
   // Liste chat e contatti
   const [profile, setProfile] = useState({ firstName: '', lastName: '', email: '', image: 'profile.png' });
-  const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '' }]);
+  const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '', online: false }]);
   const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
   const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
   const [requestCount, setRequestCount] = useState("");

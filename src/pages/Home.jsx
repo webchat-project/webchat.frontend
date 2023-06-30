@@ -1,13 +1,12 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import SideSection from '../components/side/SideSection'
 import MainSection from '../components/main/MainSection'
 
 // Backend
 import { backend } from "../utils/Backend";
 
-// Socket
 import io from "socket.io-client";
-const socket = io.connect(backend);
+
 
 export default function Home({ jwt }) {
 
@@ -19,6 +18,14 @@ export default function Home({ jwt }) {
     const [firstMessage, setFirstMessage] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+
+    // Socket
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        const newSocket = io.connect(backend, { query: "jwt=" + jwt });
+        setSocket(newSocket);
+    }, [jwt]);
 
     return (
         <>
