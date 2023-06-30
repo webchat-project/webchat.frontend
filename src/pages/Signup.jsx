@@ -9,39 +9,25 @@ import Theme from "../components/theme/Theme";
 
 export default function Signup() {
 
+
+  
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    confirmEmail: "",
-    password: "",
-    confirmPassword: "",
-    image: "",
-  });
 
   // UseState per il caricamento immagine profilo
+  const [user, setUser] = useState({firstName: "", lastName: "", email: "", confirmEmail: "", password: "", confirmPassword: "",image: ""});
   const [showUploader, setShowUploader] = useState(false)
   const [profilePicture, setProfilePicture] = useState("/profile.png")
+  const [formErrors, setFormErrors] = useState({})
+  const [isSubmit, setSubmit] = useState(false);
 
-  /*async function handleSubmit(e) { 
-    e.preventDefault(); 
-    setStatus('submitting'); 
-    try { 
-      await sendForm(answer); 
-            setStatus('success'); 
-    }catch (err) {
-      setStatus('typing'); 
-      setError(err);
-    }
-}
-*/
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
 
-    if (handleValidation()) {
+    if (formErrors) {
       console.log(user);
 
       const { firstName, lastName, email, password } = user;
@@ -71,6 +57,17 @@ export default function Signup() {
 
   };
 
+
+  useEffect(() => {
+   
+    if(Object.keys(formErrors).length === 0 && isSubmit){
+      console.log(user)
+    }
+}, [formErrors])
+
+
+
+
   const handleChange = (event) => {
     event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
@@ -87,10 +84,21 @@ export default function Signup() {
     });
   };
 
+
   // Metodo per mostrare l'uploader
   const handleShowUploader = () => {
-    setShowUploader(true)
+    setSubmit(true);
+    setFormErrors(handleValidation(user))
+    
+    if(Object.keys(formErrors).length === 0 && isSubmit){
+      setShowUploader(true);
+    }
+    
+
   };
+
+
+
 
   // Metodo per nascondere l'uploader
   const handleHideUploader = () => {
@@ -120,6 +128,8 @@ export default function Signup() {
     setProfilePicture("/profile.png")
   };
 
+
+
   useEffect(() => {
     if (user.image) {
       const reader = new FileReader();
@@ -130,38 +140,46 @@ export default function Signup() {
     }
   }, [user.image])
 
+
+ 
+
+
+
+
+
   //VALIDATIONS
 
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 1000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
+  const handleValidation = (user) => {
 
-  const handleValidation = () => {
+    const errors = {};
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    //const regexPassword = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
     const { password, confirmPassword, email, confirmEmail } = user;
 
-    if (email !== confirmEmail) {
-      toast.error("Email non sono uguali!", toastOptions);
-      return false;
-    } else if (password !== confirmPassword) {
-      toast.error("Password non sono uguali!", toastOptions);
-      return false;
-    } else if (email.length < 13) {
-      toast.error("Email non valido!", toastOptions);
-      return false;
-    } else if (password.length < 8) {
-      toast.error("Password deve avere minimo 8 caratteri!", toastOptions);
-      return false;
-    } else if (email.trim() === "") {
-      toast.error("Email is required", toastOptions);
-      return false;
+    if (email.trim()==="") {
+      errors.email= "Email is required";
+    }else if (!regexEmail.test(email)) {
+      errors.emailValid = "Email non valido!";
+    }else if (email !== confirmEmail) {
+      errors.confrontEmail= "Email non sono uguali!";
+    }else if (password.trim()==="") {
+        errors.password= "Password is required";
+    }else if (password !== confirmPassword) {
+        errors.confrontPassword = "Password non sono uguali!";
+    }else if (password.length < 8) {
+      errors.passwordValid ="Password deve avere minimo 8 caratteri!";
     }
-
-    return true;
+     /*else if (!regexPassword.test(password)) {
+      errors.passwordValid ="Password deve avere minimo 8 caratteri!";
+    }*/  
+    return errors;
   };
+
+
+
+
+
 
 
   return (
@@ -220,7 +238,10 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
+                <p id="validations">{formErrors.email}</p>
+                <p id="validations">{formErrors.emailValid}</p>
                 </div>
+               
 
                 <div>
                   <label id="verify-email-input-title" htmlFor="verify-email-input">
@@ -235,8 +256,9 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
+                  <p id="validations">{formErrors.confrontEmail}</p>
                 </div>
-
+                
                 <div>
                   <label id="password-input-title" htmlFor="password-input">
                     Password
@@ -250,8 +272,10 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
+                <p id="validations">{formErrors.password}</p>
+                <p id="validations">{formErrors.passwordValid}</p>
                 </div>
-
+                
                 <div>
                   <label
                     id="verify-password-input-title"
@@ -267,7 +291,10 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
+                  
                 </div>
+                
+
               </div>
               <p id="login-question">
                 Hai un account? <Link to="/login">Accedi</Link>
@@ -304,7 +331,7 @@ export default function Signup() {
                   <button type="button" id="hide-uploader-button" onClick={handleHideUploader}>
                     Indietro
                   </button>
-                  <button id="signup-send-button" type="submit">
+                  <button id="signup-send-button" type="submit"  >
                     Registrati
                   </button>
                 </div>
@@ -317,6 +344,10 @@ export default function Signup() {
     </div>
   );
 }
+
+
+
+
 
 //************************************************************************************************************************************************* */
 /*
