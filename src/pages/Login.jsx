@@ -51,7 +51,7 @@ export default function Login({ jwt, setJwt }) {
     } catch (e) {
       setError(true); // Imposta l'errore
       console.error(e);
-      setError(e.response.data.error)
+      setError(e.message)
       //window.location.reload();
     }
 
