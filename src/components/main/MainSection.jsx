@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import MainTopBar from "./MainTopBar";
 
-import axios from "axios";
-import { backend } from "../../utils/Backend";
-
 import DefaultMessage from "./messages/DefaultMessage";
 import MessageContainer from "./messages/MessageContainer";
 import MessageInputBox from "./messages/MessageInputBox";
@@ -30,13 +27,12 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
 
   useEffect(() => {
     socket.on("receivedMessage", (response) => {
-      console.log(response);
 
       if (response.error) {
         console.log(response.error)
       } else {
         // Mostra il messaggio ricevuto
-        handleReceivedMessage(response.body.message)
+        handleReceivedMessage(response.body)
       }
     })
   }, [socket])
@@ -44,17 +40,29 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
   // Metodo per mostrare il messaggio ricevuto
   const handleReceivedMessage = (receivedText) => {
 
-    // Metodo per mostrare il messaggio appena ricevuto
-    const messageContainer = document.getElementById('message-container');
-    const receivedMessage = document.createElement('div');
-    receivedMessage.className = "received-message"
+    if (receivedText.chatId === localStorage.getItem("currentContactId")) {
 
-    receivedMessage.id = "CurrentSessionMessage"
-    const message = document.createElement('p');
-    message.className = "message-text"
-    message.innerText = receivedText;
-    receivedMessage.appendChild(message)
-    messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
+      // Metodo per mostrare il messaggio appena ricevuto solo se sono nella chat da cui proviene il messaggio
+      const messageContainer = document.getElementById('message-container');
+      const receivedMessage = document.createElement('div');
+      receivedMessage.className = "received-message"
+
+      receivedMessage.id = "CurrentSessionMessage"
+
+      const message = document.createElement('p');
+      message.className = "message-text"
+      message.innerText = receivedText.message;
+
+      const time = document.createElement('p');
+      time.className = "received-message-time"
+      time.innerText = receivedText.time;
+
+      receivedMessage.appendChild(time)
+      receivedMessage.appendChild(message)
+      messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
+    } else {
+      // Non viene mostrato nessun messaggio se la chatId è diversa dalla chatId della chat aperta
+    }
   }
 
   // Aggiunge il messaggio inviato al container dei messaggi
@@ -66,6 +74,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
     sentMessage.className = "sent-message"
 
     sentMessage.id = "CurrentSessionMessage"
+
     const message = document.createElement('p');
     message.className = "message-text"
     message.innerText = input;
@@ -78,6 +87,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
     const time = document.createElement('p');
     time.className = "sent-message-time"
     time.innerText = oraFormattata;
+
     sentMessage.appendChild(time)
     sentMessage.appendChild(message)
     messageContainer.insertBefore(sentMessage, messageContainer.firstChild);

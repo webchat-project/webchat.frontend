@@ -42,7 +42,6 @@ export default function SideSearch({ jwt, id, placeholder }) {
         setLoading(true)
         try {
             const { data } = await axios.get(backend + '/users/list', config);
-            console.log('dnvjkefnvkjien')
             console.log(data.body)
             setResultList(data.body.map(user => {
                 const imageBlob = new Blob([new Uint8Array(user.image.data.data)], { type: 'image/jpeg' });

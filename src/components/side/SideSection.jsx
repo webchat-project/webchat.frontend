@@ -98,8 +98,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
       setContactsError(true)
       console.error(error);
     }
-
-    console.log(contactList)
   };
 
   // Metodo per ottenere la lista richieste contatti
@@ -182,6 +180,8 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = (id) => {
 
+    localStorage.setItem("currentContactId", id);
+
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName('chat-button');
     for (var i = 0; i < elements.length; i++) {
@@ -252,6 +252,8 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = (id) => {
+
+    localStorage.setItem("currentContactId", id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     var elements = document.getElementsByClassName('contact-button');
@@ -421,7 +423,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
             element={
               <>
                 <p id="first-feature-contact-message">Elimina contatti</p>
-                <ContactDeleteContainer contactList={contactList} jwt={jwt} />
+                <ContactDeleteContainer getContactList={getContactList} contactList={contactList} jwt={jwt} />
               </>
             }
           />
@@ -438,7 +440,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
                 ) : (
                   <>
                     <p id="first-feature-contact-message">Richieste ricevute</p>
-                    <ContactRequestContainer contactList={requestList.received} jwt={jwt} />
+                    <ContactRequestContainer getRequestList={getRequestList} contactList={requestList.received} jwt={jwt} />
                   </>
                 )}
                 {requestList.sent.length === 0 ? (
@@ -449,7 +451,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
                 ) : (
                   <>
                     <p id="second-feature-contact-message">Richieste inviate</p>
-                    <ContactRequestSentContainer contactList={requestList.sent} />
+                    <ContactRequestSentContainer getRequestList={getRequestList} contactList={requestList.sent} />
                   </>
                 )}
               </>

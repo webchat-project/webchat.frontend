@@ -14,7 +14,7 @@ export default function Message({ message, time, owner }) {
   }
 
   return (
-    <div id={"UserId:" + owner} className={classType}>
+    <div className={classType}>
       <p className={classTime}>{time}</p>
       <p className="message-text">{message}</p>
     </div>

@@ -1,12 +1,13 @@
 import React from "react";
 import ContactRequest from "./ContactRequest";
 
-export default function ContactRequestContainer({ contactList, jwt }) {
+export default function ContactRequestContainer({ getRequestList, contactList, jwt }) {
 
   return contactList.map((c) => (
     <ContactRequest
+      getRequestList={getRequestList}
       contact={c}
-      key={c.chatId}
+      key={c.userId}
       jwt={jwt}
     />
   ));

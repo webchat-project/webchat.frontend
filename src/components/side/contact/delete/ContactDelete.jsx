@@ -4,7 +4,7 @@ import { backend } from '../../../../utils/Backend';
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
-export default function ContactDelete({ contact, jwt }) {
+export default function ContactDelete({ contact, jwt, getContactList }) {
 
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
@@ -65,11 +65,7 @@ export default function ContactDelete({ contact, jwt }) {
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
     setSuccess(false)
-    const button = document.getElementById('contact: ' + contact.userId);
-    console.log('contact: ' + contact.userId)
-    if (button) {
-      button.parentNode.removeChild(button);
-    }
+    getContactList()
   }
 
   // Metodo per importare l'immagine di profilo default se l'account ne è privo

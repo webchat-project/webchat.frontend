@@ -6,7 +6,7 @@ export default function ContactRequestSentContainer({ contactList }) {
   return contactList.map((c) => (
     <ContactRequestSent
       contact={c}
-      key={c.chatId}
+      key={c.userId}
     />
   ));
 }
