@@ -31,7 +31,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
   const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '' }]);
   const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
   const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
-  const [requestCount, setRequestCount] = useState();
+  const [requestCount, setRequestCount] = useState("");
 
   // Caricamento e errore chat e contatti
   const [chatsLoading, setChatsLoading] = useState();
