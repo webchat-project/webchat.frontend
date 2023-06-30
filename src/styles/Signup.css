@@ -52,6 +52,7 @@
 #surname-input {
     height: 40px;
     margin-top: 10px;
+    margin-bottom: 10px;
     width: calc(100% - 30px);
     background-color: var(--back);
     border: 1px solid var(--border);
@@ -69,6 +70,7 @@
 #verify-email-input {
     height: 40px;
     margin-top: 10px;
+    margin-bottom: 10px;
     width: calc(100% - 30px);
     background-color: var(--back);
     border: 1px solid var(--border);
@@ -86,6 +88,7 @@
 #verify-password-input {
     height: 40px;
     margin-top: 10px;
+    margin-bottom: 10px;
     width: calc(100% - 30px);
     background-color: var(--back);
     border: 1px solid var(--border);
@@ -248,11 +251,11 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-#validations{
+#validations {
     color: #d32f2f;
-    font-size: small;
-    margin-top: -2px;
-    margin-bottom: 8px;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 

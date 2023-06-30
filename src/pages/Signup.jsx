@@ -9,23 +9,18 @@ import Theme from "../components/theme/Theme";
 
 export default function Signup() {
 
-
-  
   const navigate = useNavigate();
 
 
   // UseState per il caricamento immagine profilo
-  const [user, setUser] = useState({firstName: "", lastName: "", email: "", confirmEmail: "", password: "", confirmPassword: "",image: ""});
+  const [user, setUser] = useState({ firstName: "", lastName: "", email: "", confirmEmail: "", password: "", confirmPassword: "", image: "" });
   const [showUploader, setShowUploader] = useState(false)
   const [profilePicture, setProfilePicture] = useState("/profile.png")
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setSubmit] = useState(false);
 
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
 
     if (formErrors) {
       console.log(user);
@@ -59,11 +54,11 @@ export default function Signup() {
 
 
   useEffect(() => {
-   
-    if(Object.keys(formErrors).length === 0 && isSubmit){
+
+    if (Object.keys(formErrors).length === 0) {
       console.log(user)
     }
-}, [formErrors])
+  }, [formErrors])
 
 
 
@@ -87,13 +82,13 @@ export default function Signup() {
 
   // Metodo per mostrare l'uploader
   const handleShowUploader = () => {
-    setSubmit(true);
+
     setFormErrors(handleValidation(user))
-    
-    if(Object.keys(formErrors).length === 0 && isSubmit){
+
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
       setShowUploader(true);
     }
-    
+
 
   };
 
@@ -141,7 +136,7 @@ export default function Signup() {
   }, [user.image])
 
 
- 
+
 
 
 
@@ -154,29 +149,29 @@ export default function Signup() {
     const errors = {};
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    //Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
-    const regexPassword = /^(?=.*[A-Z].*[A-Z])(?=.*[a-z].*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const { firstName, lastName, password, confirmPassword, email, confirmEmail } = user;
 
-;
-
-    const { password, confirmPassword, email, confirmEmail } = user;
-
-    if (email.trim()==="") {
-      errors.email= "Email is required";
-    }else if (!regexEmail.test(email)) {
-      errors.emailValid = "Email non valido!";
-    }else if (email !== confirmEmail) {
-      errors.confrontEmail= "Email non sono uguali!";
-    }else if (password.trim()==="") {
-        errors.password= "Password is required";
-    }/*else if (password.length < 8) {
-      errors.passwordValid ="Password deve avere minimo 8 caratteri!";
-    }*/else if (!regexPassword.test(password)) {
-      errors.passwordValid ="Minimo 2 lettera maiuscola, minuscola, 1 carattere speciale,minimo 8 caratteri";
-    }else if (password !== confirmPassword) {
-      errors.confrontPassword = "Password non sono uguali!";
+    if (firstName.trim() === "") {
+      errors.firstName = "Il nome è necessario";
     }
-
+    if (lastName.trim() === "") {
+      errors.lastName = "Il cognome è necessario";
+    }
+    if (email.trim() === "") {
+      errors.email = "L'email è necessaria";
+    } else if (!regexEmail.test(email)) {
+      errors.emailValid = "Email non valida";
+    }
+    if (email !== confirmEmail) {
+      errors.confrontEmail = "Le email non corrispondono";
+    }
+    if (password.trim() === "") {
+      errors.password = "La password è necessaria";
+    } else if (password !== confirmPassword) {
+      errors.confrontPassword = "Le password non corrispondono";
+    } else if (password.length < 8) {
+      errors.passwordValid = "La password deve avere minimo 8 caratteri";
+    }
     return errors;
   };
 
@@ -209,6 +204,7 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
+                  <p id="validations">{formErrors.firstName}</p>
                 </div>
 
                 <div>
@@ -224,6 +220,7 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
+                  <p id="validations">{formErrors.lastName}</p>
                 </div>
 
                 <div>
@@ -239,10 +236,9 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
-                <p id="validations">{formErrors.email}</p>
-                <p id="validations">{formErrors.emailValid}</p>
+                  <p id="validations">{formErrors.email}{formErrors.emailValid}</p>
                 </div>
-               
+
 
                 <div>
                   <label id="verify-email-input-title" htmlFor="verify-email-input">
@@ -259,7 +255,7 @@ export default function Signup() {
                   />
                   <p id="validations">{formErrors.confrontEmail}</p>
                 </div>
-                
+
                 <div>
                   <label id="password-input-title" htmlFor="password-input">
                     Password
@@ -273,10 +269,9 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
-                <p id="validations">{formErrors.password}</p>
-                <p id="validations" style={{fontSize:"9px"}}>{formErrors.passwordValid}</p>
-                </div>
-                
+                  <p id="validations">{formErrors.password}{formErrors.passwordValid}</p>
+                </div >
+
                 <div>
                   <label
                     id="verify-password-input-title"
@@ -293,10 +288,10 @@ export default function Signup() {
                     required
                   />
                   <p id="validations">{formErrors.confrontPassword}</p>
-                </div>
-                
+                </div >
 
-              </div>
+
+              </div >
               <p id="login-question">
                 Hai un account? <Link to="/login">Accedi</Link>
               </p>
@@ -340,11 +335,8 @@ export default function Signup() {
               <Theme />
             </>
           }
-        </form>
-      </div>
-    </div>
+        </form >
+      </div >
+    </div >
   );
 }
-
-
-//Pietro123.@
