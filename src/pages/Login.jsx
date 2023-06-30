@@ -26,11 +26,15 @@ export default function Login({ jwt, setJwt }) {
 
   const [loginUser, setLoginUser] = useState({ email: "", password: "" });
 
+  const [formErrors, setFormErrors] = useState({});
+  //const [isSubmit, setIsSubmit] = useState(false);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = loginUser; //destructure
 
     setLoading(true); // Imposta il caricamento su true
+
 
     try {
       const { data } = await axios.post(loginRoute, {
@@ -61,6 +65,8 @@ export default function Login({ jwt, setJwt }) {
   const handleChange = (event) => {
     event.preventDefault();
     setLoginUser({ ...loginUser, [event.target.name]: event.target.value });
+        setFormErrors(handleValidation(loginUser));
+
   };
 
   useEffect(() => {
@@ -73,6 +79,30 @@ export default function Login({ jwt, setJwt }) {
       localStorage.setItem("currentUserId", decodedToken.id)
     }
   }, [jwt]);
+
+
+
+
+  const handleValidation = (user) => {
+    const errors = {};
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+    const {
+      email,
+      password
+    } = user;
+    
+     if (email.trim() === '') {
+      errors.email = "L'email è necessaria";
+    } else if (!regexEmail.test(email)) {
+      errors.emailValid = 'Email non valida';
+    }if (password.trim() === '') {
+      errors.password = 'La password è necessaria';
+    } 
+
+    return errors;
+  };
+
 
 
   const handleClearForm = () => {
@@ -138,6 +168,10 @@ export default function Login({ jwt, setJwt }) {
                 onChange={(e) => handleChange(e)}
                 required
               />
+              <p id="validations">
+                    {formErrors.email}
+                    {formErrors.emailValid}
+              </p>
               <label id="password-input-title" htmlFor="password-input">
                 Password
               </label>
@@ -150,6 +184,9 @@ export default function Login({ jwt, setJwt }) {
                 onChange={(e) => handleChange(e)}
                 required
               />
+              <p id="validations">
+                    {formErrors.password}
+              </p>
               <p id="signup-question">
                 Non hai un account? <Link to="/signup">Registrati</Link>
               </p>
