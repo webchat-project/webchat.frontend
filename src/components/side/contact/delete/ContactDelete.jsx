@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { backend } from '../../../../utils/Backend';
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
+
+// Backend
+import { backend } from '../../../../utils/Backend';
+
+// Axios
+import axios from "axios";
 
 export default function ContactDelete({ contact, jwt, getContactList }) {
 
@@ -57,9 +62,22 @@ export default function ContactDelete({ contact, jwt, getContactList }) {
   };
 
   // Metodo al click su invia, procede ad inviare la richiesta al backend
-  const handleSend = () => {
-    console.log("Invio richiesta per eliminare " + contact.userId)
-    handleAbort();
+  const handleSend = async () => {
+    setTimeout(() => {
+      setAddOption(false);
+    }, 10);
+    setLoading(true);
+    let data = { userToDeleteId: contact.userId };
+    try {
+      const response = await axios.delete(backend + '/users/contacts/', data, config);
+      console.log(response.data)
+      setLoading(false)
+      setSuccess(true)
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      setError(error.response.data.error)
+    }
   }
 
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
@@ -68,27 +86,11 @@ export default function ContactDelete({ contact, jwt, getContactList }) {
     getContactList()
   }
 
-  // Metodo per importare l'immagine di profilo default se l'account ne è privo
-  const [profile, setProfile] = useState("profile.png")
-
-  const handleProfile = (contact) => {
-    if (contact.image === "") {
-      setProfile("profile.png")
-    } else {
-      setProfile(contact.image)
-    }
-  }
-
-  useEffect(() => {
-    handleProfile(contact);
-  }, [contact]);
-
-
   return (
     <div id={"contact: " + contact.userId} className="contact-button" onClick={handleClick}>
       <div className="contact-button-container">
         <div className="image-container">
-          <img alt="img" src={profile}></img>
+          <img alt="img" src={contact.image}></img>
         </div>
         <div className="text-container">
           <h3>{contact.firstName} {contact.lastName}</h3>
