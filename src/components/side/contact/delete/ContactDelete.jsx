@@ -67,9 +67,8 @@ export default function ContactDelete({ contact, jwt, getContactList }) {
       setAddOption(false);
     }, 10);
     setLoading(true);
-    let data = { userToDeleteId: contact.userId };
     try {
-      const response = await axios.delete(backend + '/users/contacts/', data, config);
+      const response = await axios.delete(backend + '/users/contacts/' + contact.userId, config);
       console.log(response.data)
       setLoading(false)
       setSuccess(true)
