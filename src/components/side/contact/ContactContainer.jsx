@@ -3,8 +3,7 @@ import ContactButton from "./ContactButton";
 
 export default function ContactContainer({ contactList, handleContactClick }) {
 
-
-
+  // Metodo per impostare il layout per smartphone
   const handleDisplay = () => {
     if (window.innerWidth <= 600) {
       document.getElementById("side-section").setAttribute("style", "visibility: hidden; display: none; width: 300px")
@@ -15,13 +14,11 @@ export default function ContactContainer({ contactList, handleContactClick }) {
     }
   }
 
-
-
+  // Metodo per gestire il click sul pulsante
   const handleClick = (id) => {
     handleContactClick(id);
     handleDisplay();
   }
-
 
   return contactList.map((c) => (
     <ContactButton

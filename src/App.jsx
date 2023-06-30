@@ -11,9 +11,6 @@ import "./styles/Profile.css";
 import "./styles/Message.css";
 import "./styles/Theme.css";
 
-// Socket
-//import io from "socket.io-client";
-
 // Cookies
 import UseCookie from "./utils/UseCookies";
 
@@ -25,12 +22,6 @@ import PrivateRoute from "./utils/PrivateRoute";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-
-// Toast
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-//const socket = io.connect("http://localhost:3001");
 
 // Impostazione tema app
 // Root element
@@ -158,16 +149,7 @@ switch (storedTheme) {
     break;
 }
 
-
-
-
-
-
-
-
-
-
-// DEFAULT
+// Default
 export default function App() {
 
   // Imposta un token vuoto nei cookie
@@ -187,10 +169,7 @@ export default function App() {
         <Route
           path="/signup"
           element={
-            <>
-              <ToastContainer />
-              <Signup />
-            </>
+            <Signup />
           }
         />
         <Route

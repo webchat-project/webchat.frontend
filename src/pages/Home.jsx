@@ -5,8 +5,8 @@ import MainSection from '../components/main/MainSection'
 // Backend
 import { backend } from "../utils/Backend";
 
+// Socket
 import io from "socket.io-client";
-
 
 export default function Home({ jwt }) {
 

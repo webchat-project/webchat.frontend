@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function SideFeature({ url, span, text, getRequestList, count }) {
 
+    // Componente mostrato nella sezione chat, personalizzato per gestire le richieste, l'aggiunta contatti e l'eliminazione contatti
+
     return (
         <div id="side-feature-button" onClick={getRequestList}>
             <Link to={url}>

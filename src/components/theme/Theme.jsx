@@ -101,7 +101,7 @@ export default function Theme() {
     var def = 'default';
     var gold = 'gold';
     var nature = 'nature';
-    var sky = 'sku';
+    var sky = 'sky';
 
     // Metodo per cambiare il tema
     const setColorTheme = (color, name) => {

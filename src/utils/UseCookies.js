@@ -15,10 +15,11 @@ export default function UseCookie(key, defaultValue) {
     if (value.trim() === "") {
       cookies.remove(key);
     } else {
-      //Decode jwt token
+
+      // Decodifica token
       const decodedToken = jwtDecode(value);
 
-      //set cookie
+      // Imposta cookie
       cookies.set(key, value, {
         expires: new Date(decodedToken.expires * 1000),
       });

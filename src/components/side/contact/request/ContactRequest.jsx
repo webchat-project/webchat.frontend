@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 
-import axios from "axios";
-import { backend } from "../../../../utils/Backend";
+// Componenti caricamento e errore
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
+
+// Backend
+import { backend } from '../../../../utils/Backend';
+
+// Axios
+import axios from "axios";
 
 
 export default function ContactRequest({ contact, jwt, getRequestList }) {
 
-  // Se true, vengono mostrati i due pulsanti annulla e invia
+  // Gestione stato pulsanti e caricamento dati
   const [addOption, setAddOption] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);

@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
-import axios from 'axios'
-import { backend } from '../../../../utils/Backend'
 import { Link } from 'react-router-dom'
+
 import ContactAddContainer from './ContactAddContainer'
-import Loading from '../../../await/Loading'
-import Error from '../../../await/Error'
+
+// Componenti caricamento e errore
+import Loading from '../../../await/Loading';
+import Error from '../../../await/Error';
+
+// Backend
+import { backend } from '../../../../utils/Backend';
+
+// Axios
+import axios from "axios";
+
 
 export default function SideSearch({ jwt, id, placeholder }) {
 
@@ -55,8 +63,6 @@ export default function SideSearch({ jwt, id, placeholder }) {
             setError(true)
         }
     }
-
-
 
     return (
         <>

@@ -32,6 +32,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
         if (response.error) {
           console.log(response.error)
         } else {
+
           // Mostra il messaggio ricevuto
           handleReceivedMessage(response.body)
         }
@@ -71,7 +72,9 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       receivedMessage.appendChild(receivedTimeDateContainer)
       receivedMessage.appendChild(message)
       messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
+
     } else {
+
       // Non viene mostrato nessun messaggio se la chatId è diversa dalla chatId della chat aperta
     }
   }

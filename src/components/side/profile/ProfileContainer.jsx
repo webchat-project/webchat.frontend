@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Theme from '../../theme/Theme';
 
 export default function ProfileContainer({ profile }) {
+
   // Elimina il cookie selezionato
   function deleteCookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -16,6 +17,8 @@ export default function ProfileContainer({ profile }) {
   function handleLogout() {
     deleteCookie('jwt');
     localStorage.removeItem('currentUserId');
+    localStorage.removeItem('currentContactId');
+    localStorage.removeItem('theme');
     reloadPage();
   }
 

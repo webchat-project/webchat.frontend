@@ -5,6 +5,7 @@ export default function MessageInputBox({ handleSubmit }) {
     // Messaggio di input
     const [messageInput, setMessageInput] = useState("")
 
+    // Metodo per l'invio del messaggio
     const handleFormSubmit = (event) => {
         event.preventDefault();
         handleSubmit(messageInput);

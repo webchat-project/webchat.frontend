@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
+// Componenti caricamento e errore
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
@@ -9,7 +10,7 @@ import { backend } from '../../../../utils/Backend';
 // Axios
 import axios from "axios";
 
-export default function ContactDelete({ contact, jwt, getContactList }) {
+export default function ContactDelete({ contact, jwt }) {
 
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);

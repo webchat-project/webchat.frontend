@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Componenti React
-import Loading from '../await/Loading';
-import Error from '../await/Error';
-
 import SideTopBar from './top/SideTopBar';
 import ChatContainer from './chat/ChatContainer';
 import ContactContainer from './contact/ContactContainer';
@@ -15,14 +12,19 @@ import ContactDeleteContainer from './contact/delete/ContactDeleteContainer';
 import ContactRequestContainer from './contact/request/ContactRequestContainer';
 import ContactRequestSentContainer from './contact/request/ContactRequestSentContainer';
 
+// Ricerca
 import Search from './contact/add/Search';
 import SideFeature from './SideFeature';
 
-// Axios
-import axios from 'axios';
+// Componenti di caricamento ed errore
+import Loading from '../await/Loading';
+import Error from '../await/Error';
 
 // Indirizzo backend
 import { backend } from '../../utils/Backend';
+
+// Axios
+import axios from 'axios';
 
 export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages }) {
 
@@ -107,7 +109,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
       const { data } = await axios.get(backend + '/users/requests/list', config);
       setRequestList(data.body.requests);
 
-      // If per importare il numero di richieste ricevute
+      // If per impostare il numero di richieste ricevute
       if (data.body.requests.received.length === 0) {
         setRequestCount("")
       } else if (data.body.requests.received.length > 0) {
@@ -131,17 +133,15 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     } catch (error) {
       console.error(error);
     }
-
   };
-
 
   // Ottengo i dati all'avvio e seleziono il pulsante chat nella topbar
   useEffect(() => {
-    getProfile();
-    getChatList();
-    getContactList();
-    getRequestList();
-    setTopBarOnLoad();
+    getProfile(); // eslint-disable-next-line
+    getChatList(); // eslint-disable-next-line
+    getContactList(); // eslint-disable-next-line
+    getRequestList(); // eslint-disable-next-line
+    setTopBarOnLoad(); // eslint-disable-next-line
   }, []);
 
   // Location
@@ -171,7 +171,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     }
   };
 
-
   // Metodo per ottenere la lista messaggi
   const getMessages = async (id) => {
     try {
@@ -185,7 +184,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
       setErrorMessages(error.response.data.error)
     }
   };
-
 
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = (id) => {
@@ -202,7 +200,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     var element = document.getElementById('chat: ' + id);
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
-
 
     // Imposta l'utente registrato
     setUserData(prevValue => ({ ...prevValue, chatId: id }));
@@ -242,24 +239,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     getMessages(id);
   };
 
-
-  // Metodo per rendirizzamento in chats
-  const navigate = useNavigate();
-  const redirectToChats = (id) => {
-    navigate("/chats")
-
-    // Ripristina il pulsante contatti
-    var topbarcontacts = document.getElementById("side-top-bar-button: Contatti");
-    topbarcontacts.removeAttribute("style");
-
-    // Accentua il pulsante chat
-    var topbarchats = document.getElementById("side-top-bar-button: Chat");
-    topbarchats.style.backgroundColor = 'var(--button-click)';
-    topbarchats.style.border = '1px solid var(--border)';
-
-  }
-
-
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = (id) => {
 
@@ -275,7 +254,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     var element = document.getElementById('contact: ' + id);
     element.style.backgroundColor = 'var(--button-click)';
     element.style.border = '1px solid var(--border)';
-
 
     // Imposta l'utente registrato
     setUserData(prevValue => ({ ...prevValue, chatId: id }));
