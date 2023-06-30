@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
+import axios from "axios";
 import { backend } from "../../../../utils/Backend";
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
@@ -58,13 +58,32 @@ export default function ContactRequest({ contact, jwt, getRequestList }) {
     },
   };
 
-  // Metodo al click su invia, procede ad inviare la richiesta al backend
-  const handleSend = async () => {
+  // Metodo per accettare la richiesta
+  const handleAccept = async () => {
     setTimeout(() => {
       setAddOption(false);
     }, 10);
     setLoading(true);
     let data = { userId: contact.userId, type: "accept" };
+    try {
+      const response = await axios.post(backend + '/users/requests/', data, config);
+      console.log(response.data)
+      setLoading(false)
+      setSuccess(true)
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      setError(error.response.data.error)
+    }
+  }
+
+  // Metodo per rifiutare la richiesta
+  const handleReject = async () => {
+    setTimeout(() => {
+      setAddOption(false);
+    }, 10);
+    setLoading(true);
+    let data = { userId: contact.userId, type: "reject" };
     try {
       const response = await axios.post(backend + '/users/requests/', data, config);
       console.log(response.data)
@@ -98,15 +117,15 @@ export default function ContactRequest({ contact, jwt, getRequestList }) {
           <>
             <div className="feature-confirm-contact-button">
               <button id="abort-request-contact-button" onClick={handleAbort}> Annulla </button>
-              <button id="accept-request-contact-button" onClick={handleSend}> Accetta </button>
-              <button id="reject-request-contact-button" onClick={handleAbort}> Rifiuta</button>
+              <button id="accept-request-contact-button" onClick={handleAccept}> Accetta </button>
+              <button id="reject-request-contact-button" onClick={handleReject}> Rifiuta</button>
             </div>
           </>
         )
           : loading ? <Loading />
             : success ?
               <div id="confirm-success">
-                <p>Richiesta accettata</p>
+                <p>Operazione completata</p>
                 <button id="close-confirm-success" onClick={closeConfirmedSuccess}>Chiudi</button>
               </div>
               : error !== false ? <Error event={error} />

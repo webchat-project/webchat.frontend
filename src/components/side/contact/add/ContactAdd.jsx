@@ -5,7 +5,7 @@ import { backend } from '../../../../utils/Backend';
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
-export default function ContactAdd({ contact, jwt }) {
+export default function ContactAdd({ contact, jwt, handleSubmit }) {
 
   // Se true, vengono mostrati i due pulsanti annulla e invia
   const [addOption, setAddOption] = useState(false);
@@ -77,11 +77,9 @@ export default function ContactAdd({ contact, jwt }) {
 
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
-    const button = document.getElementById('contact: ' + contact.userId);
-    console.log('contact: ' + contact.userId)
-    if (button && button.parentNode) {
-      button.parentNode.removeChild(button);
-    }
+    setAddOption(false)
+    setSuccess(false)
+    handleSubmit();
   }
 
   return (

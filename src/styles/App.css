@@ -15,6 +15,23 @@
   --loading: #8be9b9;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sent-message);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sent-message);
+}
+
 html,
 body {
   font-family: 'Poppins', sans-serif;

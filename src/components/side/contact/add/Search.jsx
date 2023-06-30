@@ -41,7 +41,7 @@ export default function SideSearch({ jwt, id, placeholder }) {
     const handleSubmit = async () => {
         setLoading(true)
         try {
-            config = {...config, params: {queryString: queryString} }
+            config = { ...config, params: { queryString: queryString } }
             const { data } = await axios.get(backend + '/users/search', config);
             setResultList(data.body.map(user => {
                 const imageBlob = new Blob([new Uint8Array(user.image.data.data)], { type: 'image/jpeg' });
@@ -88,7 +88,7 @@ export default function SideSearch({ jwt, id, placeholder }) {
             </div>
             {loading === true ? <Loading />
                 : error === true ? <Error />
-                    : resultList.length === 0 ? <></> : <ContactAddContainer jwt={jwt} resultList={resultList} />}
+                    : resultList.length === 0 ? <></> : <ContactAddContainer jwt={jwt} resultList={resultList} handleSubmit={handleSubmit} />}
         </>
     )
 }

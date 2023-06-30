@@ -31,6 +31,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
   const [chatList, setChatList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', lastMessage: '' }]);
   const [contactList, setContactList] = useState([{ chatId: '', userId: '', firstName: '', lastName: '', image: 'profile.png', },]);
   const [requestList, setRequestList] = useState({ sent: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }], received: [{ userId: '', firstName: '', lastName: '', image: 'profile.png' }] });
+  const [requestCount, setRequestCount] = useState();
 
   // Caricamento e errore chat e contatti
   const [chatsLoading, setChatsLoading] = useState();
@@ -105,6 +106,14 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     try {
       const { data } = await axios.get(backend + '/users/requests/list', config);
       setRequestList(data.body.requests);
+
+      // If per importare il numero di richieste ricevute
+      if (data.body.requests.received.length === 0) {
+        setRequestCount("")
+      } else if (data.body.requests.received.length > 0) {
+        setRequestCount(data.body.requests.received.length)
+      }
+
       setRequestList({
         sent: data.body.requests.sent.map(s => {
           const imageBlob = new Blob([new Uint8Array(s.image.data.data)], { type: 'image/jpeg' });
@@ -118,6 +127,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
           return r;
         }),
       });
+
     } catch (error) {
       console.error(error);
     }
@@ -344,7 +354,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
           <Route
             path="/contacts/*"
             element={
-              <SideFeature getRequestList={getRequestList} url={'/requests'} span={'mail'} text={'Richieste'} />
+              <SideFeature getRequestList={getRequestList} url={'/requests'} span={'mail'} text={'Richieste'} count={requestCount} />
             }
           />
         </Routes>
@@ -451,7 +461,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
                 ) : (
                   <>
                     <p id="second-feature-contact-message">Richieste inviate</p>
-                    <ContactRequestSentContainer getRequestList={getRequestList} contactList={requestList.sent} />
+                    <ContactRequestSentContainer getRequestList={getRequestList} contactList={requestList.sent} jwt={jwt} />
                   </>
                 )}
               </>
