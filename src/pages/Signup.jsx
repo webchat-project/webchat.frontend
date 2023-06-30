@@ -153,7 +153,11 @@ export default function Signup() {
 
     const errors = {};
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    //const regexPassword = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+    //Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
+    const regexPassword = /^(?=.*[A-Z].*[A-Z])(?=.*[a-z].*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+;
 
     const { password, confirmPassword, email, confirmEmail } = user;
 
@@ -165,19 +169,16 @@ export default function Signup() {
       errors.confrontEmail= "Email non sono uguali!";
     }else if (password.trim()==="") {
         errors.password= "Password is required";
+    }/*else if (password.length < 8) {
+      errors.passwordValid ="Password deve avere minimo 8 caratteri!";
+    }*/else if (!regexPassword.test(password)) {
+      errors.passwordValid ="Minimo 2 lettera maiuscola, minuscola, 1 carattere speciale,minimo 8 caratteri";
     }else if (password !== confirmPassword) {
-        errors.confrontPassword = "Password non sono uguali!";
-    }else if (password.length < 8) {
-      errors.passwordValid ="Password deve avere minimo 8 caratteri!";
+      errors.confrontPassword = "Password non sono uguali!";
     }
-     /*else if (!regexPassword.test(password)) {
-      errors.passwordValid ="Password deve avere minimo 8 caratteri!";
-    }*/  
+
     return errors;
   };
-
-
-
 
 
 
@@ -273,7 +274,7 @@ export default function Signup() {
                     required
                   />
                 <p id="validations">{formErrors.password}</p>
-                <p id="validations">{formErrors.passwordValid}</p>
+                <p id="validations" style={{fontSize:"9px"}}>{formErrors.passwordValid}</p>
                 </div>
                 
                 <div>
@@ -291,7 +292,7 @@ export default function Signup() {
                     onChange={(e) => handleChange(e)}
                     required
                   />
-                  
+                  <p id="validations">{formErrors.confrontPassword}</p>
                 </div>
                 
 
@@ -346,116 +347,4 @@ export default function Signup() {
 }
 
 
-
-
-
-//************************************************************************************************************************************************* */
-/*
-// Metodi per modifica stile
-const nameStyle = () => {
-  if (
-    (this.signupFormControl.name.touched || this.submitted1) &&
-    this.signupFormControl.name.invalid
-  ) {
-    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
-  } else {
-    if (this.signupFormControl.name.valid) {
-      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
-    } else {
-      return {};
-    }
-  }
-}
-
-const surnameStyle=()=> {
-  if (
-    (this.signupFormControl.surname.touched || this.submitted1) &&
-    this.signupFormControl.surname.invalid
-  ) {
-    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
-  } else {
-    if (this.signupFormControl.surname.valid) {
-      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
-    } else {
-      return {};
-    }
-  }
-}
-
-const birthStyle=()=> {
-  if (
-    (this.signupFormControl.birth.touched || this.submitted1) &&
-    this.signupFormControl.birth.invalid
-  ) {
-    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
-  } else {
-    if (this.signupFormControl.birth.valid) {
-      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
-    } else {
-      return {};
-    }
-  }
-}
-
-
-const emailStyle = ()=> {
-  if (
-    (this.signupFormControl.email.touched || this.submitted2) &&
-    this.signupFormControl.email.invalid
-  ) {
-    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
-  } else {
-    if (this.signupFormControl.email.valid) {
-      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
-    } else {
-      return {};
-    }
-  }
-}
-
-const emailCheckStyle = ()=> {
-  if (
-    (this.signupFormControl.emailcheck.touched || this.submitted2) &&
-    (this.signupFormControl.emailcheck.value !== this.signupFormControl.email.value)
-  ) {
-    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
-  } else {
-    if (this.signupFormControl.emailcheck.valid) {
-      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
-    } else {
-      return {};
-    }
-  }
-}
-
-const passwordStyle=()=> {
-  if (
-    (this.signupFormControl.password.touched || this.submitted2) &&
-    this.signupFormControl.password.invalid
-  ) {
-    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
-  } else {
-    if (this.signupFormControl.password.valid) {
-      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
-    } else {
-      return {};
-    }
-  }
-}
-
-const passwordCheckStyle = ()=> {
-  if (
-    (this.signupFormControl.passwordcheck.touched || this.submitted2) &&
-    (this.signupFormControl.passwordcheck.value !== this.signupFormControl.password.value)
-  ) {
-    return { 'background-color': '#ffebee', border: '1px solid #ffcdd2' };
-  } else {
-    if (this.signupFormControl.passwordcheck.valid) {
-      return { 'background-color': '#e8f5e9', border: '1px solid #c8e6c9' };
-    } else {
-      return {};
-    }
-  }
-}
-
-*/
+//Pietro123.@
