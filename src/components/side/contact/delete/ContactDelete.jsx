@@ -81,8 +81,9 @@ export default function ContactDelete({ contact, jwt, getContactList }) {
 
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
+    setAddOption(false)
     setSuccess(false)
-    getContactList()
+    window.location.reload()
   }
 
   return (

@@ -172,7 +172,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     } catch (error) {
       console.error(error);
       setLoadingMessages(false)
-      setErrorMessages(true)
+      setErrorMessages(error.response.data.error)
     }
   };
 

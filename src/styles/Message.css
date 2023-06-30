@@ -91,13 +91,39 @@
     display: none;
 }
 
-.sent-message-time {
-    text-align: end;
+.sent-time-date-container {
+    display: flex;
+    justify-content: end;
+}
+
+.received-time-date-container {
+    display: flex;
+}
+
+.received-time-date-container:hover {
+    cursor: pointer;
+}
+
+.sent-time-date-container:hover {
+    cursor: pointer;
+}
+
+.sent-time-date-container:hover .message-date {
+    display: block;
+}
+
+.received-time-date-container:hover .message-date {
+    display: block;
+}
+
+.message-time {
     font-size: 10px;
     margin: 0px;
 }
 
-.received-message-time {
+.message-date {
     font-size: 10px;
     margin: 0px;
+    margin-left: 10px;
+    display: none;
 }

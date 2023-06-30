@@ -47,6 +47,9 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       const receivedMessage = document.createElement('div');
       receivedMessage.className = "received-message"
 
+      const receivedTimeDateContainer = document.createElement('div');
+      receivedTimeDateContainer.className = "received-time-date-container"
+
       receivedMessage.id = "CurrentSessionMessage"
 
       const message = document.createElement('p');
@@ -54,10 +57,16 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       message.innerText = receivedText.message;
 
       const time = document.createElement('p');
-      time.className = "received-message-time"
+      time.className = "message-time"
       time.innerText = receivedText.time;
 
-      receivedMessage.appendChild(time)
+      const date = document.createElement('p');
+      date.className = "message-date"
+      date.innerText = receivedText.date;
+
+      receivedTimeDateContainer.appendChild(time)
+      receivedTimeDateContainer.appendChild(date)
+      receivedMessage.appendChild(receivedTimeDateContainer)
       receivedMessage.appendChild(message)
       messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
     } else {
@@ -73,6 +82,9 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
     const sentMessage = document.createElement('div');
     sentMessage.className = "sent-message"
 
+    const sentTimeDateContainer = document.createElement('div');
+    sentTimeDateContainer.className = "sent-time-date-container"
+
     sentMessage.id = "CurrentSessionMessage"
 
     const message = document.createElement('p');
@@ -85,10 +97,18 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
     let oraFormattata = ore + ':' + minuti;
 
     const time = document.createElement('p');
-    time.className = "sent-message-time"
+    time.className = "message-time"
     time.innerText = oraFormattata;
 
-    sentMessage.appendChild(time)
+    let dataCorrente = new Date().toLocaleDateString();
+
+    const date = document.createElement('p');
+    date.className = "message-date"
+    date.innerText = dataCorrente;
+
+    sentTimeDateContainer.appendChild(time)
+    sentTimeDateContainer.appendChild(date)
+    sentMessage.appendChild(sentTimeDateContainer)
     sentMessage.appendChild(message)
     messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
 
@@ -100,7 +120,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
     <>
       {firstMessage === false ? <DefaultMessage />
         : loading === true ? <Loading />
-          : error === true ? <Error />
+          : error !== false ? <Error event={error} />
             : <>
               <MainTopBar user={userData} />
               <div id="message-container">
