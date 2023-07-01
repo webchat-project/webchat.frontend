@@ -67,10 +67,10 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
     };
 
     socket.emit("sendMessage", data, (response) => {
-      if (!response) {
+      if (!response.error) {
         handleSuccess();
-        handleError(new Error(response.error));
       } else {
+        handleError(new Error(response.error));
       }
     });
 
