@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Message({ message, time, date, owner }) {
+export default function Message({ message, time, owner }) {
 
   // Metodo per assegnare la tipologia messaggio (sent o received), necessario per lo stile
   let classType = ''
@@ -12,6 +12,12 @@ export default function Message({ message, time, date, owner }) {
     classType = "received-message"
     classTime = "received-time-date-container"
   }
+
+  let date = new Date(time);
+
+  time = date.toLocaleTimeString().slice(0,5);
+  date = date.toLocaleDateString()
+
 
   return (
     <div className={classType}>
