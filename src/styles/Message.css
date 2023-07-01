@@ -103,7 +103,6 @@
 }
 
 #emoji-picker {
-    display: absolute;
     margin-left: 10px;
     margin-bottom: 10px;
 }
@@ -151,4 +150,10 @@
     margin: 0px;
     margin-left: 10px;
     display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .emoji-button {
+        display: none;
+    }
 }

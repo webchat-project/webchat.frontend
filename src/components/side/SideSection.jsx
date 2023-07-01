@@ -231,6 +231,10 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
   // Metodo che si attiva quando si clicca su una chat
   const handleChatClick = id => {
+
+    // Riaggiorna la lista chat per sincronizzare ultimo accesso e ultimo messaggio
+    getContactList();
+
     localStorage.setItem('currentContactId', id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -284,6 +288,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = id => {
+
     localStorage.setItem('currentContactId', id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe

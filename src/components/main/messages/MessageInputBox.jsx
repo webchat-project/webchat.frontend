@@ -5,7 +5,7 @@ import { BsEmojiSmileFill } from 'react-icons/bs';
 export default function MessageInputBox({ handleSubmit }) {
   // Messaggio di input
   const [messageInput, setMessageInput] = useState('');
-  const [showEmojiPicker, setShowEmojiPicker] = useState(true);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // Metodo per l'invio del messaggio
   const handleFormSubmit = event => {
@@ -14,10 +14,12 @@ export default function MessageInputBox({ handleSubmit }) {
     setMessageInput('');
   };
 
+  // Metodo per mostrare o nascondere emoji picker
   const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   }
 
+  // Metodo per aggiungere l'emoji in input
   const handleEmojiClick = (event) => {
     setMessageInput(preValue => preValue += event.emoji);
   }
