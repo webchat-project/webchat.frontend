@@ -74,13 +74,6 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       });
     } else if (messageInput === "") {
 
-      const formData = new FormData();
-      formData.append('image', imageInput);
-      formData.append('chatId', userData.chatId);
-      formData.append('jwtToken', userData.jwt);
-
-      console.warn(formData)
-
       const handleSuccess = () => {
         console.log("Siusssss4")
       };
@@ -90,7 +83,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
         console.log("Errorrrrrr4")
       };
 
-      socket.emit("sendMessage", formData, (response) => {
+      socket.emit("sendMessage", { image: imageInput, chatId: userData.chatId, jwtToken: userData.jwt }, (response) => {
         if (!response.error) {
           handleSuccess();
         } else {
