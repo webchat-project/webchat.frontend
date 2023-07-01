@@ -1,110 +1,92 @@
 import React, { useEffect, useState } from "react";
-
-import Loading from "../components/await/Loading";
-import Error from "../components/await/Error";
-
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-
-// import useCookie from "../util/useCookies";
-//import {useNavigate } from "react-router-dom";
-
 import { Link, Navigate } from "react-router-dom";
 import { loginRoute } from "../utils/ApiRoutes";
 
+// Componenti di caricamento e errore
+import Loading from "../components/await/Loading";
+import Error from "../components/await/Error";
+
+// Jwt e Axios
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+
+// Login Google
 import { GoogleLogin } from '@react-oauth/google'
 
 export default function Login({ jwt, setJwt }) {
 
-  //inizializzare il cookie //const [jwt, setJwt] = useCookie("jwt", ""); //const navigate = useNavigate();
-
-  //Inizializza user state
+  // Inizializza user state utente loggato
   const [loggedUser, setloggedUser] = useState(null);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const [loginUser, setLoginUser] = useState({ email: "", password: "" });
 
+  // Stato errori input per validazione
   const [formErrors, setFormErrors] = useState({});
-  //const [isSubmit, setIsSubmit] = useState(false);
 
+  // Metodo invio dati
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password } = loginUser; //destructure
-
-    setLoading(true); // Imposta il caricamento su true
-
-
+    const { email, password } = loginUser;
+    setLoading(true);
     try {
       const { data } = await axios.post(loginRoute, {
         email,
         password,
       });
-
-
-      console.log(data);
-
       if (!data.error) {
         setJwt(data.body.jwtToken);
-        //navigate("/");
       } else {
         console.log(data.body.jwtToken);
-        //window.location.reload();
       }
     } catch (e) {
-      setError(true); // Imposta l'errore
       console.error(e);
       setError(e.message)
-      //window.location.reload();
     }
-
-    setLoading(false); // Imposta il caricamento su false dopo che la chiamata è completata
+    setLoading(false);
   };
 
+  // Gestione cambiamento input
   const handleChange = (event) => {
     event.preventDefault();
     setLoginUser({ ...loginUser, [event.target.name]: event.target.value });
-        setFormErrors(handleValidation(loginUser));
-
+    setFormErrors(handleValidation(loginUser));
   };
 
   useEffect(() => {
     if (jwt.trim() !== "") {
+
       //Decode jwt token
       const decodedToken = jwtDecode(jwt);
+
       //Set user state
       setloggedUser(decodedToken);
-      //console.log(decodedToken);
+
+      // Imposta id utente loggato in localStorage
       localStorage.setItem("currentUserId", decodedToken.id)
     }
   }, [jwt]);
 
-
-
-
+  // Metodo per validare l'input
   const handleValidation = (user) => {
     const errors = {};
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-
     const {
       email,
       password
     } = user;
-    
-     if (email.trim() === '') {
+    if (email.trim() === '') {
       errors.email = "L'email è necessaria";
     } else if (!regexEmail.test(email)) {
       errors.emailValid = 'Email non valida';
-    }if (password.trim() === '') {
+    } if (password.trim() === '') {
       errors.password = 'La password è necessaria';
-    } 
-
+    }
     return errors;
   };
 
-
-
+  // Metodo per la pulizia form
   const handleClearForm = () => {
     setLoginUser({
       email: "",
@@ -112,31 +94,25 @@ export default function Login({ jwt, setJwt }) {
     });
   };
 
+  // Metodo per ritornare alla pagina di login
   const handleBackToLogin = () => {
     window.location.reload();
   }
 
-  const handleCredentialResponse = async response => {
-
-    setLoading(true); // Imposta il caricamento su true
-
+  // Metodo per accesso con Google
+  const handleCredentialResponse = async (response) => {
+    setLoading(true);
     try {
-
       const { data } = await axios.post(`${loginRoute}/google`, response)
-
       if (!data.error) {
         setJwt(data.body.jwtToken);
-        //navigate("/");
       } else {
         console.log(data.body.jwtToken);
-        //window.location.reload();
       }
     } catch (e) {
-      setError(true); // Imposta l'errore
+      setError(true);
       console.error(e);
-      //window.location.reload();
     }
-
     setLoading(false);
   }
 
@@ -169,8 +145,8 @@ export default function Login({ jwt, setJwt }) {
                 required
               />
               <p id="validations">
-                    {formErrors.email}
-                    {formErrors.emailValid}
+                {formErrors.email}
+                {formErrors.emailValid}
               </p>
               <label id="password-input-title" htmlFor="password-input">
                 Password
@@ -185,7 +161,7 @@ export default function Login({ jwt, setJwt }) {
                 required
               />
               <p id="validations">
-                    {formErrors.password}
+                {formErrors.password}
               </p>
               <p id="signup-question">
                 Non hai un account? <Link to="/signup">Registrati</Link>
@@ -215,11 +191,3 @@ export default function Login({ jwt, setJwt }) {
     </div>
   );
 }
-
-/*// DOPO IL CONTROLLO NEL BACKEND PER L'ESISTENZA DEL TOKEN VIENE MANDATO IL TOKEN COME JSON E POI VIENE PASATTO A LOGIN
-// Pass a function reference to onClick instead of invoking the function directly
-const handleLogin = () => {
-  const jwtToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0OTM4MjI5ODUiLCJuYW1lIjoiR2xlZGlNZXRhIiwiaWF0IjoxNTE2MjM5MDIyNTU1NX0.z4Cgxch0FiYY9suwwY5kO03TYD8JuXQnMbmHZjkdN0Q";
-  setJwt(jwtToken);
-};*/

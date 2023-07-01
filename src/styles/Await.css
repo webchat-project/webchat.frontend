@@ -33,3 +33,14 @@
   color: #B71C1C;
   text-align: center;
 }
+
+.success span {
+  font-size: 50px;
+}
+
+.success {
+  margin: 40px;
+  margin-top: 20px;
+  color: #004D40;
+  text-align: center;
+}
