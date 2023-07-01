@@ -255,9 +255,6 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     // Riaggiorna la lista chat per sincronizzare ultimo accesso e ultimo messaggio
     getChatListNoLoad();
 
-
-    localStorage.setItem('currentContactId', id);
-
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     let elements = document.getElementsByClassName('chat-button');
     for (var i = 0; i < elements.length; i++) {
@@ -301,7 +298,15 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     //sentMessages.forEach(msg => msg.remove());
 
     // Connessione socket
-    socket.emit('joinChat', id);
+    const previousChatId = localStorage.getItem('currentContactId');
+    if (previousChatId) {
+      // Disconnessione dalla chat precedente e connessione alla nuova
+      socket.emit('joinChat', { previousChatId, id });
+    } else {
+      socket.emit('joinChat', { id });
+    }
+
+    localStorage.setItem('currentContactId', id);
 
     // Caricamento messaggi
     getMessages(id);
