@@ -26,7 +26,7 @@ import { backend } from '../../utils/Backend';
 // Axios
 import axios from 'axios';
 
-export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, setLastAccess }) {
+export default function SideSection({ jwt, setJwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, setLastAccess }) {
 
   // Liste chat e contatti
   const [profile, setProfile] = useState({
@@ -254,6 +254,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     // Riaggiorna la lista chat per sincronizzare ultimo accesso e ultimo messaggio
     getChatListNoLoad();
 
+    
     localStorage.setItem('currentContactId', id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -553,7 +554,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
 
           <Route
             path="/profile/*"
-            element={<ProfileContainer profile={profile} />}
+            element={<ProfileContainer profile={profile} setJwt={setJwt} />}
           />
         </Routes>
       </div>

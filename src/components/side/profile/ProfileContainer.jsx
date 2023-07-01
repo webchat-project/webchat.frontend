@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Theme from '../../theme/Theme';
 
-export default function ProfileContainer({ profile }) {
+export default function ProfileContainer({ profile, setJwt }) {
 
   // Elimina il cookie selezionato
-  function deleteCookie(name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
+  /*function deleteCookie(name) {
+    //setJwt("")
+    //document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }*/
 
   // Ricarica la pagina
   function reloadPage() {
@@ -15,7 +16,8 @@ export default function ProfileContainer({ profile }) {
 
   // Effettua il logout eliminando il token dai cookie ed effettua il ricaricamento della pagina
   function handleLogout() {
-    deleteCookie('jwt');
+    //deleteCookie('jwt');
+    setJwt("");
     localStorage.removeItem('currentUserId');
     localStorage.removeItem('currentContactId');
     localStorage.removeItem('theme');

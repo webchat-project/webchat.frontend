@@ -1,3 +1,4 @@
+
 // File Stile CSS
 import "./styles/App.css";
 import "./styles/Await.css";
@@ -22,6 +23,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+
 
 // Impostazione tema app
 // Root element
@@ -124,6 +126,8 @@ const setColorTheme = (color) => {
   });
 }
 
+
+
 // Controllo impostazione salvata in LocalStorage, se si, applico quella, altrimenti applico il tema di default
 const storedTheme = localStorage.getItem("theme");
 
@@ -152,8 +156,10 @@ switch (storedTheme) {
 // Default
 export default function App() {
 
+
   // Imposta un token vuoto nei cookie
   const [jwtToken, setJwtToken] = UseCookie("jwt", "");
+
 
   return (
     <>
@@ -162,7 +168,7 @@ export default function App() {
           path="*"
           element={
             <PrivateRoute jwt={jwtToken}>
-              <Home jwt={jwtToken} />
+              <Home jwt={jwtToken} setJwt={setJwtToken} />
             </PrivateRoute>
           }
         />
