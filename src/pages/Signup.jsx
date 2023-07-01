@@ -37,7 +37,6 @@ export default function Signup() {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-
   // Metodo invio submit
   const handleSubmit = async event => {
     event.preventDefault();
@@ -51,8 +50,8 @@ export default function Signup() {
     setLoading(true);
     try {
       const { data } = await axios.post(signupRoute, formData);
-      if (data.status) {setSuccess("Registrazione completata con successo")}
-     
+      if (data.status) { setSuccess("Registrazione completata con successo") }
+
     } catch (error) {
       console.log(error);
       setError(error.message)
@@ -65,12 +64,11 @@ export default function Signup() {
     event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
     setFormErrors(handleValidation(user));
-    
+
     if (Object.keys(formErrors).length === 0) {
       setIsSubmit(true);
     }
   };
-
 
   // Metodo per svuotare tutti gli input
   const handleClearForm = () => {
@@ -143,7 +141,7 @@ export default function Signup() {
     }
     if (lastName.trim() === '') {
       errors.lastName = 'Il cognome è necessario';
-    } 
+    }
     if (email.trim() === '') {
       errors.email = "L'email è necessaria";
     } else if (!regexEmail.test(email)) {
@@ -153,12 +151,11 @@ export default function Signup() {
     }
     if (password.trim() === '') {
       errors.password = 'La password è necessaria';
-    }if (password !== confirmPassword) {
+    } if (password !== confirmPassword) {
       errors.confrontPassword = 'Le password non corrispondono';
     } else if (password.length < 8) {
       errors.passwordValid = 'La password deve avere minimo 8 caratteri';
     }
-
     return errors;
   };
 

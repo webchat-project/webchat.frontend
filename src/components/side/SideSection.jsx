@@ -297,7 +297,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
       elements[i].removeAttribute('style');
     }
 
-
     // Accentua il componente selezionato
     let element = document.getElementById('contact: ' + id);
     element.style.backgroundColor = 'var(--button-click)';

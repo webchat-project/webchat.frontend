@@ -112,12 +112,11 @@
     justify-content: flex-end;
 }
 
-.sent-time-date-container::after {
-    content: "√√";
-    font-size: 9.5px;
-    font-weight: 1000;
-    color: rgb(0, 119, 255);
-    margin-left: 4px;
+.message-status {
+    margin: 0px;
+    font-size: 10px;
+    margin-left: 5px;
+    color: var(--text);
 }
 
 .received-time-date-container {
@@ -148,7 +147,7 @@
 .message-date {
     font-size: 10px;
     margin: 0px;
-    margin-left: 10px;
+    margin-left: 5px;
     display: none;
 }
 

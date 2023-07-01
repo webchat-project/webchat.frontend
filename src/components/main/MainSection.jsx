@@ -8,37 +8,73 @@ import MessageInputBox from "./messages/MessageInputBox";
 import Loading from '../await/Loading'
 import Error from '../await/Error'
 
-
 export default function MainSection({ userData, socket, firstMessage, messageData, loading, error }) {
 
   // Metodo per inviare il messaggio appena digitato
   const sendMessage = async (input) => {
 
+    // Metodo per mostrare il messaggio appena digitato
+    const messageContainer = document.getElementById('message-container');
+    const sentMessage = document.createElement('div');
+    sentMessage.className = "sent-message"
+
+    const sentTimeDateContainer = document.createElement('div');
+    sentTimeDateContainer.className = "sent-time-date-container"
+
+    sentMessage.id = "CurrentSessionMessage"
+
+    const message = document.createElement('p');
+    message.className = "message-text"
+    message.innerText = input;
+
+    let oraCorrente = new Date();
+    let ore = String(oraCorrente.getHours()).padStart(2, '0');
+    let minuti = String(oraCorrente.getMinutes()).padStart(2, '0');
+    let oraFormattata = ore + ':' + minuti;
+
+    const time = document.createElement('p');
+    time.className = "message-time"
+    time.innerText = oraFormattata;
+
+    let dataCorrente = new Date().toLocaleDateString();
+
+    const date = document.createElement('p');
+    date.className = "message-date"
+    date.innerText = dataCorrente;
+
+    let messageStatus = document.createElement('p');
+    messageStatus.className = "message-status"
+    messageStatus.innerText = "· · ·"
+
+    sentTimeDateContainer.appendChild(time)
+    sentTimeDateContainer.appendChild(date)
+    sentTimeDateContainer.appendChild(messageStatus)
+    sentMessage.appendChild(sentTimeDateContainer)
+    sentMessage.appendChild(message)
+    messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
+
     let data = { description: input, chatId: userData.chatId, jwtToken: userData.jwt };
 
-    try {
-      await socket.emit("sendMessage", data);
+    const handleSuccess = () => {
+      messageStatus.innerText = "✓";
+      console.log("Messaggio inviato con successo");
+    };
 
-    } catch (error) {
+    const handleError = (error) => {
+      messageStatus.innerText = "✗";
       console.error(error);
-    }
+      console.log("Errore nell'invio del messaggio");
+    };
+
+    socket.emit("sendMessage", data, (response) => {
+      if (!response) {
+        handleSuccess();
+        handleError(new Error(response.error));
+      } else {
+      }
+    });
 
   }
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("receivedMessage", (response) => {
-
-        if (response.error) {
-          console.log(response.error)
-        } else {
-
-          // Mostra il messaggio ricevuto
-          handleReceivedMessage(response.body)
-        }
-      })
-    }
-  }, [socket])
 
   // Metodo per mostrare il messaggio ricevuto
   const handleReceivedMessage = (receivedText) => {
@@ -84,47 +120,20 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
     }
   }
 
-  // Aggiunge il messaggio inviato al container dei messaggi
-  const handleSubmit = (input) => {
+  useEffect(() => {
+    if (socket) {
+      socket.on("receivedMessage", (response) => {
 
-    // Metodo per mostrare il messaggio appena digitato
-    const messageContainer = document.getElementById('message-container');
-    const sentMessage = document.createElement('div');
-    sentMessage.className = "sent-message"
+        if (response.error) {
+          console.log(response.error)
+        } else {
 
-    const sentTimeDateContainer = document.createElement('div');
-    sentTimeDateContainer.className = "sent-time-date-container"
-
-    sentMessage.id = "CurrentSessionMessage"
-
-    const message = document.createElement('p');
-    message.className = "message-text"
-    message.innerText = input;
-
-    let oraCorrente = new Date();
-    let ore = String(oraCorrente.getHours()).padStart(2, '0');
-    let minuti = String(oraCorrente.getMinutes()).padStart(2, '0');
-    let oraFormattata = ore + ':' + minuti;
-
-    const time = document.createElement('p');
-    time.className = "message-time"
-    time.innerText = oraFormattata;
-
-    let dataCorrente = new Date().toLocaleDateString();
-
-    const date = document.createElement('p');
-    date.className = "message-date"
-    date.innerText = dataCorrente;
-
-    sentTimeDateContainer.appendChild(time)
-    sentTimeDateContainer.appendChild(date)
-    sentMessage.appendChild(sentTimeDateContainer)
-    sentMessage.appendChild(message)
-    messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
-
-    // Invio messaggio
-    sendMessage(input);
-  }
+          // Mostra il messaggio ricevuto
+          handleReceivedMessage(response.body)
+        }
+      })
+    }
+  }, [socket])
 
   return (
     <>
@@ -136,7 +145,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
               <div id="message-container">
                 <MessageContainer messageList={messageData} />
               </div>
-              <MessageInputBox handleSubmit={handleSubmit} />
+              <MessageInputBox handleSubmit={sendMessage} />
             </>
       }
     </>
