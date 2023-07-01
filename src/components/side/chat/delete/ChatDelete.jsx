@@ -82,8 +82,6 @@ export default function ChatDelete({ chat, jwt }) {
 
   // Metodo per eliminare il pulsante chat button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
-    setAddOption(false)
-    setSuccess(false)
     window.location.reload()
   }
 

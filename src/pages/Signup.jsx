@@ -38,7 +38,7 @@ export default function Signup() {
   const [success, setSuccess] = useState(false);
 
   // Metodo invio submit
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const { firstName, lastName, email, password } = user;
     const formData = new FormData();
@@ -51,7 +51,6 @@ export default function Signup() {
     try {
       const { data } = await axios.post(signupRoute, formData);
       if (data.status) { setSuccess("Registrazione completata con successo") }
-
     } catch (error) {
       console.log(error);
       setError(error.message)

@@ -82,8 +82,6 @@ export default function ContactAdd({ contact, jwt, handleSubmit }) {
 
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
-    setAddOption(false)
-    setSuccess(false)
     handleSubmit();
   }
 

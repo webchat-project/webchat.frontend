@@ -17,7 +17,7 @@ export default function MessageInputBox({ handleSubmit }) {
   const handleFormSubmit = event => {
     event.preventDefault();
     setShowEmojiPicker(false);
-    handleSubmit(messageInput);
+    handleSubmit(messageInput, imagePreview);
     setMessageInput('');
   };
 
@@ -35,8 +35,6 @@ export default function MessageInputBox({ handleSubmit }) {
   const handleEmojiClick = (event) => {
     setMessageInput(preValue => preValue += event.emoji);
   }
-
-
 
   // Metodo per impostare l'immagine
   const handleImageChange = event => {
@@ -74,9 +72,7 @@ export default function MessageInputBox({ handleSubmit }) {
             <button
               type="button"
               id="remove-image-preview"
-              onClick={handleRemoveImage}
-            >
-              Rimuovi immagine
+              onClick={handleRemoveImage}>Elimina
             </button>
           ) : (
             <></>
@@ -110,7 +106,7 @@ export default function MessageInputBox({ handleSubmit }) {
             onChange={e => setMessageInput(e.target.value)}>
           </input>
 
-          <button id="message-sender" disabled={messageInput.trim() === ""}>
+          <button id="message-sender" disabled={messageInput.trim() === "" && imageInput === ""}>
             <span className="material-symbols-outlined">
               send
             </span>

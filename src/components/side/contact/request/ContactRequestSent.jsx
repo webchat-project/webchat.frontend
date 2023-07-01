@@ -83,7 +83,6 @@ export default function ContactRequestSent({ contact, jwt, getRequestList }) {
 
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
-    setSuccess(false)
     getRequestList()
   }
 

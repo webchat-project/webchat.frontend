@@ -11,66 +11,93 @@ import Error from '../await/Error'
 export default function MainSection({ userData, socket, firstMessage, messageData, loading, error, lastAccess }) {
 
   // Metodo per inviare il messaggio appena digitato
-  const sendMessage = async (input) => {
+  const sendMessage = async (messageInput, imageInput) => {
 
-    // Metodo per mostrare il messaggio appena digitato
-    const messageContainer = document.getElementById('message-container');
-    const sentMessage = document.createElement('div');
-    sentMessage.className = "sent-message"
+    if (imageInput === "") {
+      // Metodo per mostrare il messaggio appena digitato
+      const messageContainer = document.getElementById('message-container');
+      const sentMessage = document.createElement('div');
+      sentMessage.className = "sent-message"
 
-    const sentTimeDateContainer = document.createElement('div');
-    sentTimeDateContainer.className = "sent-time-date-container"
+      const sentTimeDateContainer = document.createElement('div');
+      sentTimeDateContainer.className = "sent-time-date-container"
 
-    sentMessage.id = "CurrentSessionMessage"
+      sentMessage.id = "CurrentSessionMessage"
 
-    const message = document.createElement('p');
-    message.className = "message-text"
-    message.innerText = input;
+      const message = document.createElement('p');
+      message.className = "message-text"
+      message.innerText = messageInput;
 
-    let oraCorrente = new Date();
-    let ore = String(oraCorrente.getHours()).padStart(2, '0');
-    let minuti = String(oraCorrente.getMinutes()).padStart(2, '0');
-    let oraFormattata = ore + ':' + minuti;
+      let oraCorrente = new Date();
+      let ore = String(oraCorrente.getHours()).padStart(2, '0');
+      let minuti = String(oraCorrente.getMinutes()).padStart(2, '0');
+      let oraFormattata = ore + ':' + minuti;
 
-    const time = document.createElement('p');
-    time.className = "message-time"
-    time.innerText = oraFormattata;
+      const time = document.createElement('p');
+      time.className = "message-time"
+      time.innerText = oraFormattata;
 
-    let dataCorrente = new Date().toLocaleDateString();
+      let dataCorrente = new Date().toLocaleDateString();
 
-    const date = document.createElement('p');
-    date.className = "message-date"
-    date.innerText = dataCorrente;
+      const date = document.createElement('p');
+      date.className = "message-date"
+      date.innerText = dataCorrente;
 
-    let messageStatus = document.createElement('p');
-    messageStatus.className = "message-status"
-    messageStatus.innerText = "· · ·"
+      let messageStatus = document.createElement('p');
+      messageStatus.className = "message-status"
+      messageStatus.innerText = "· · ·"
 
-    sentTimeDateContainer.appendChild(time)
-    sentTimeDateContainer.appendChild(date)
-    sentTimeDateContainer.appendChild(messageStatus)
-    sentMessage.appendChild(sentTimeDateContainer)
-    sentMessage.appendChild(message)
-    messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
+      sentTimeDateContainer.appendChild(time)
+      sentTimeDateContainer.appendChild(date)
+      sentTimeDateContainer.appendChild(messageStatus)
+      sentMessage.appendChild(sentTimeDateContainer)
+      sentMessage.appendChild(message)
+      messageContainer.insertBefore(sentMessage, messageContainer.firstChild);
 
-    let data = { description: input, chatId: userData.chatId, jwtToken: userData.jwt };
+      let data = { description: messageInput, chatId: userData.chatId, jwtToken: userData.jwt };
 
-    const handleSuccess = () => {
-      messageStatus.innerText = "✓";
-    };
+      const handleSuccess = () => {
+        messageStatus.innerText = "✓";
+      };
 
-    const handleError = (error) => {
-      messageStatus.innerText = "✗";
-      console.error(error);
-    };
+      const handleError = (error) => {
+        messageStatus.innerText = "✗";
+        console.error(error);
+      };
 
-    socket.emit("sendMessage", data, (response) => {
-      if (!response.error) {
-        handleSuccess();
-      } else {
-        handleError(new Error(response.error));
-      }
-    });
+      socket.emit("sendMessage", data, (response) => {
+        if (!response.error) {
+          handleSuccess();
+        } else {
+          handleError(new Error(response.error));
+        }
+      });
+    } else if (messageInput === "") {
+
+      const formData = new FormData();
+      formData.append('image', imageInput);
+      formData.append('chatId', userData.chatId);
+      formData.append('jwtToken', userData.jwt);
+
+      console.warn(formData)
+
+      const handleSuccess = () => {
+        console.log("Siusssss4")
+      };
+
+      const handleError = (error) => {
+        console.error(error);
+        console.log("Errorrrrrr4")
+      };
+
+      socket.emit("sendMessage", formData, (response) => {
+        if (!response.error) {
+          handleSuccess();
+        } else {
+          handleError(new Error(response.error));
+        }
+      });
+    }
 
   }
 
