@@ -301,9 +301,9 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     const previousChatId = localStorage.getItem('currentContactId');
     if (previousChatId) {
       // Disconnessione dalla chat precedente e connessione alla nuova
-      socket.emit('joinChat', { previousChatId, id });
+      socket.emit('joinChat', { previousChatId: previousChatId, id: id });
     } else {
-      socket.emit('joinChat', { id });
+      socket.emit('joinChat', { id: id });
     }
 
     localStorage.setItem('currentContactId', id);
@@ -314,8 +314,6 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
 
   // Metodo che si attiva quando si clicca su un contatto
   const handleContactClick = id => {
-
-    localStorage.setItem('currentContactId', id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
     let elements = document.getElementsByClassName('contact-button');
@@ -359,8 +357,16 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     }
 
     // Connessione socket
-    socket.emit('joinChat', id);
+    const previousChatId = localStorage.getItem('currentContactId');
+    if (previousChatId) {
+      // Disconnessione dalla chat precedente e connessione alla nuova
+      socket.emit('joinChat', { previousChatId: previousChatId, id: id });
+    } else {
+      socket.emit('joinChat', { id: id });
+    }
 
+    localStorage.setItem('currentContactId', id);
+    
     // Caricamento messaggi
     getMessages(id);
   };
