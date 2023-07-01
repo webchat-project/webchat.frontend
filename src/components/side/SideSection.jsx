@@ -239,6 +239,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     try {
       const { data } = await axios.get(backend + '/chats/' + id, config);
       setMessageData(data.body.messages);
+      console.log(data.body.messages)
       setLastAccess(data.body.lastAccess)
       setLoadingMessages(false);
       setErrorMessages(false);
@@ -366,7 +367,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     }
 
     localStorage.setItem('currentContactId', id);
-    
+
     // Caricamento messaggi
     getMessages(id);
   };

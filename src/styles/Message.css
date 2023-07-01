@@ -12,11 +12,18 @@
     font-weight: 300;
 }
 
+.message-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
 .received-message {
     background-color: var(--back);
     color: var(--text);
     align-self: flex-start;
-    max-width: 70%;
+    max-width: 60%;
     margin: 3px 20px 3px 30px;
     padding: 5px 15px 5px 15px;
     border: 1px solid var(--border);
@@ -29,7 +36,7 @@
     background-color: var(--sent-message);
     color: var(--text-message);
     align-self: flex-end;
-    max-width: 70%;
+    max-width: 60%;
     margin: 3px 30px 3px 20px;
     padding: 5px 15px 5px 15px;
     border: 1px solid var(--border);
@@ -191,12 +198,6 @@
     margin: 0px;
     visibility: hidden;
     display: none;
-}
-
-@media screen and (max-width: 600px) {
-    .emoji-button {
-        display: none;
-    }
 }
 
 #image-preview-container {

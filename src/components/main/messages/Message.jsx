@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function Message({ message, time, owner }) {
+export default function Message({ message, image, time, owner }) {
+
+  // Stato per mostrare foto o messaggio, oppure entrambi
+  const [isMessage, setIsMessage] = useState(false);
+  const [isImage, setIsImage] = useState(false);
 
   // Metodo per assegnare la tipologia messaggio (sent o received), necessario per lo stile
   let classType = ''
@@ -21,14 +25,23 @@ export default function Message({ message, time, owner }) {
   time = date.toLocaleTimeString().slice(0, 5);
   date = date.toLocaleDateString()
 
+  // Controllo tipologie messaggi
+  useEffect(() => {
+    setIsImage(!!image);
+    setIsMessage(!!message);
+  }, [image, message]);
+
   return (
     <div className={classType}>
+
       <div className={classTime}>
         <p className="message-time">{time}</p>
         <p className="message-date">{date}</p>
         <p className="message-status">{content}</p>
       </div>
-      <p className="message-text">{message}</p>
+
+      {isImage ? <img alt='img' className='message-image' src={`data:${image.contentType};base64,${image.data}`}></img> : <></>}
+      {isMessage ? <p className="message-text">{message}</p> : <></>}
     </div>
   )
 }
