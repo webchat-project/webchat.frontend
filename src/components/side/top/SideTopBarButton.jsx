@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function SideTopBarButton({ material, name, route, getChatList, getContactList, getProfile }) {
+export default function SideTopBarButton({ material, name, route, getChatList, getContactList, getProfile, getRequestList }) {
 
   // Al click riaggiorna da backend le rispettive liste chat, contatti o dati profilo
   const handleClick = (name) => {
@@ -11,6 +11,7 @@ export default function SideTopBarButton({ material, name, route, getChatList, g
         break
       case "Contatti":
         getContactList()
+        getRequestList()
         break
       case "Profilo":
         getProfile()

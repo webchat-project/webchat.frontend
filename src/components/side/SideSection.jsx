@@ -26,9 +26,6 @@ import { backend } from '../../utils/Backend';
 // Axios
 import axios from 'axios';
 
-
-
-
 export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages }) {
 
   // Liste chat e contatti
@@ -343,6 +340,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
       <SideTopBar
         getChatList={getChatList}
         getContactList={getContactList}
+        getRequestList={getRequestList}
         getProfile={getProfile}
       />
 

@@ -13,7 +13,8 @@ export default function SideFeature({ url, span, text, getRequestList, count }) 
                     <span className="material-symbols-outlined" id='side-feature-button-icon'>
                         {span}
                     </span>
-                    <h3>{text} {count}</h3>
+                    <h3>{text}</h3>
+                    <h3 id="requests-count">{count}</h3>
                 </div>
             </Link>
         </div>

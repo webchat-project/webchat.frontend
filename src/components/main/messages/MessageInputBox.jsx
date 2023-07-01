@@ -5,7 +5,7 @@ import { BsEmojiSmileFill } from 'react-icons/bs';
 export default function MessageInputBox({ handleSubmit }) {
   // Messaggio di input
   const [messageInput, setMessageInput] = useState('');
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(true);
 
   // Metodo per l'invio del messaggio
   const handleFormSubmit = event => {
@@ -14,37 +14,31 @@ export default function MessageInputBox({ handleSubmit }) {
     setMessageInput('');
   };
 
-  const handleEmojiPickerHideShow=()=>{
+  const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   }
 
-  const handleEmojiClick = (event)=>{
-    //let message = messageInput;
-   // message += event.emoji;
-    setMessageInput(preValue => preValue += event.emoji );
+  const handleEmojiClick = (event) => {
+    setMessageInput(preValue => preValue += event.emoji);
   }
 
-
   return (
-    
-    
-    <div id="message-input-container">
-        
-      <form onSubmit={handleFormSubmit} id="form-input-container">
-      <BsEmojiSmileFill className="emoji-button" onClick={handleEmojiPickerHideShow}/>
-      {showEmojiPicker &&  <Picker className="emoji-picker"  onEmojiClick={handleEmojiClick} /> }
-        <input
-          id="message-input"
-          type="text"
-          value={messageInput}
-          placeholder="Scrivi un messaggio"
-          onChange={e => setMessageInput(e.target.value)}
-        ></input>
-        <button id="message-sender" disabled={messageInput.trim() === ''}>
-          <span className="material-symbols-outlined">send</span>
-        </button>
-      </form>
-    </div>
-
+    <>
+      {showEmojiPicker ? <div id="emoji-picker"><Picker onEmojiClick={handleEmojiClick} /></div> : <></>}
+      <div id="message-input-container">
+        <form onSubmit={handleFormSubmit} id="form-input-container">
+          <BsEmojiSmileFill className="emoji-button" onClick={handleEmojiPickerHideShow} />
+          <input
+            id="message-input"
+            type="text"
+            value={messageInput}
+            placeholder="Scrivi un messaggio"
+            onChange={e => setMessageInput(e.target.value)}></input>
+          <button id="message-sender" disabled={messageInput.trim() === ''}>
+            <span className="material-symbols-outlined">send</span>
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
