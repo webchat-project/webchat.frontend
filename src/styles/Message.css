@@ -92,6 +92,42 @@
     display: none;
 }
 
+.emoji-button {
+    background-color: black;
+    color: yellow;
+    border: none;
+    margin-left: 10px;
+    padding: 0.4px;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.emoji-picker{
+    position: absolute;
+    height: 500px;
+
+}
+
+
+  
+/*
+.emoji-picker-react{
+    position:absolute;
+    top: -350px;
+    background-color: red;
+    box-shadow: 0 5px 10px red;
+    border-color: red;
+
+    .emoji-categories{
+        button{
+            filter: contrast(0);
+        }
+    }
+    /*.emoji-search
+}*/
+
+
+
 .sent-time-date-container {
     display: flex;
     justify-content: flex-end;
