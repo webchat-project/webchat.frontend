@@ -21,15 +21,15 @@
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-#main-top-bar-name{
+#main-top-bar-name {
   margin: 0px;
-
-}
-#last-access{
-margin: 0px;
-font-size: 10px;
 }
 
+#last-access {
+  margin: 0px;
+  font-size: 14px;
+  white-space: pre;
+}
 
 #side-menu {
   height: 40px;

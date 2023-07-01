@@ -11,8 +11,8 @@ import io from "socket.io-client";
 export default function Home({ jwt }) {
 
     // Dati contatto selezionato
-    const [userData, setUserData] = useState({ chatId: "", name: "", image: "profile.png", jwt: jwt , online: false})
-
+    const [userData, setUserData] = useState({ chatId: "", name: "", image: "profile.png", jwt: jwt, online: false })
+    const [lastAccess, setLastAccess] = useState('')
     const [messageData, setMessageData] = useState([])
 
     // Use state per non mostrare lista messaggi
@@ -33,10 +33,10 @@ export default function Home({ jwt }) {
     return (
         <>
             <aside id="side-section">
-                <SideSection jwt={jwt} socket={socket} setUserData={setUserData} setFirstMessage={setFirstMessage} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} />
+                <SideSection jwt={jwt} socket={socket} setUserData={setUserData} setFirstMessage={setFirstMessage} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} setLastAccess={setLastAccess} />
             </aside>
             <main id="main-section">
-                <MainSection socket={socket} userData={userData} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} />
+                <MainSection socket={socket} userData={userData} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} lastAccess={lastAccess} />
             </main>
         </>
     )

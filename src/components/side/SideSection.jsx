@@ -26,7 +26,7 @@ import { backend } from '../../utils/Backend';
 // Axios
 import axios from 'axios';
 
-export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages }) {
+export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, setLastAccess }) {
 
   // Liste chat e contatti
   const [profile, setProfile] = useState({
@@ -111,6 +111,24 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     } catch (error) {
       setChatsLoading(false);
       setChatsError(true);
+      console.error(error);
+    }
+  };
+
+  // Metodo per ottenere la lista chat senza loading e gestione errore, per aggiornare stato online e ultimo messaggio
+  const getChatListNoLoad = async () => {
+    try {
+      const { data } = await axios.get(backend + '/chats/list', config);
+      setChatList(
+        data.body.map(chat => {
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
+            type: 'image/jpeg',
+          });
+          chat.image = URL.createObjectURL(imageBlob);
+          return chat;
+        })
+      );
+    } catch (error) {
       console.error(error);
     }
   };
@@ -220,6 +238,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     try {
       const { data } = await axios.get(backend + '/chats/' + id, config);
       setMessageData(data.body.messages);
+      setLastAccess(data.body.lastAccess)
       setLoadingMessages(false);
       setErrorMessages(false);
     } catch (error) {
@@ -233,7 +252,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
   const handleChatClick = id => {
 
     // Riaggiorna la lista chat per sincronizzare ultimo accesso e ultimo messaggio
-    getContactList();
+    getChatListNoLoad();
 
     localStorage.setItem('currentContactId', id);
 

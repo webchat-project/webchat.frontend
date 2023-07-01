@@ -8,7 +8,7 @@ import MessageInputBox from "./messages/MessageInputBox";
 import Loading from '../await/Loading'
 import Error from '../await/Error'
 
-export default function MainSection({ userData, socket, firstMessage, messageData, loading, error }) {
+export default function MainSection({ userData, socket, firstMessage, messageData, loading, error, lastAccess }) {
 
   // Metodo per inviare il messaggio appena digitato
   const sendMessage = async (input) => {
@@ -57,13 +57,11 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
 
     const handleSuccess = () => {
       messageStatus.innerText = "✓";
-      console.log("Messaggio inviato con successo");
     };
 
     const handleError = (error) => {
       messageStatus.innerText = "✗";
       console.error(error);
-      console.log("Errore nell'invio del messaggio");
     };
 
     socket.emit("sendMessage", data, (response) => {
@@ -141,7 +139,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
         : loading === true ? <Loading />
           : error !== false ? <Error event={error} />
             : <>
-              <MainTopBar user={userData} />
+              <MainTopBar user={userData} lastAccess={lastAccess} />
               <div id="message-container">
                 <MessageContainer messageList={messageData} />
               </div>
