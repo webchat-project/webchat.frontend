@@ -51,12 +51,8 @@ export default function Signup() {
     setLoading(true);
     try {
       const { data } = await axios.post(signupRoute, formData);
-      if (data.status) {
-        setSuccess("Registrazione completata con successo")
-        console.log(data.msg);
-      } else {
-        console.log(data.msg);
-      }
+      if (data.status) {setSuccess("Registrazione completata con successo")}
+     
     } catch (error) {
       console.log(error);
       setError(error.message)
@@ -69,14 +65,12 @@ export default function Signup() {
     event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
     setFormErrors(handleValidation(user));
-  };
-
-
-  useEffect(() => {
+    
     if (Object.keys(formErrors).length === 0) {
       setIsSubmit(true);
     }
-  }, [formErrors]);
+  };
+
 
   // Metodo per svuotare tutti gli input
   const handleClearForm = () => {
@@ -146,21 +140,25 @@ export default function Signup() {
     } = user;
     if (firstName.trim() === '') {
       errors.firstName = 'Il nome è necessario';
-    } else if (lastName.trim() === '') {
+    }
+    if (lastName.trim() === '') {
       errors.lastName = 'Il cognome è necessario';
-    } else if (email.trim() === '') {
+    } 
+    if (email.trim() === '') {
       errors.email = "L'email è necessaria";
     } else if (!regexEmail.test(email)) {
       errors.emailValid = 'Email non valida';
-    } else if (email !== confirmEmail) {
+    } if (email !== confirmEmail) {
       errors.confrontEmail = 'Le email non corrispondono';
-    } else if (password.trim() === '') {
+    }
+    if (password.trim() === '') {
       errors.password = 'La password è necessaria';
-    } else if (password !== confirmPassword) {
+    }if (password !== confirmPassword) {
       errors.confrontPassword = 'Le password non corrispondono';
     } else if (password.length < 8) {
       errors.passwordValid = 'La password deve avere minimo 8 caratteri';
     }
+
     return errors;
   };
 
@@ -308,6 +306,7 @@ export default function Signup() {
                           type="button"
                           id="show-uploader-button"
                           onClick={handleShowUploader}
+                          disabled={!isSubmit}
                         >
                           Avanti
                         </button>
