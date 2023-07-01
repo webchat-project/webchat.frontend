@@ -13,11 +13,10 @@ export default function Message({ message, time, owner }) {
     classTime = "received-time-date-container"
   }
 
+  // Conversione data
   let date = new Date(time);
-
-  time = date.toLocaleTimeString().slice(0,5);
+  time = date.toLocaleTimeString().slice(0, 5);
   date = date.toLocaleDateString()
-
 
   return (
     <div className={classType}>

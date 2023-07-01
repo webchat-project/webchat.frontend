@@ -29,7 +29,7 @@ import axios from 'axios';
 
 
 
-export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages}) {
+export default function SideSection({ jwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages }) {
 
   // Liste chat e contatti
   const [profile, setProfile] = useState({
@@ -211,15 +211,12 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
       default:
         break;
     }
-  
+
     if (element) {
       element.style.backgroundColor = 'var(--button-click)';
       element.style.border = '1px solid var(--border)';
     }
   };
-  
-
-
 
   // Metodo per ottenere la lista messaggi
   const getMessages = async (id) => {
@@ -244,7 +241,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     for (var i = 0; i < elements.length; i++) {
       elements[i].removeAttribute('style');
     }
-    
+
     // Accentua il componente selezionato
     var element = document.getElementById('chat: ' + id);
     element.style.backgroundColor = 'var(--button-click)';
@@ -259,8 +256,6 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
       let nameValue = e.innerText.replace(/●/g, "");
       setUserData(prevValue => ({ ...prevValue, name: nameValue }));
     });
-
-    
 
     elementImg.forEach(e => {
       let imgSrc = e.src;
@@ -277,11 +272,12 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     // Metodo per eliminare i messaggi
     const sentMessages = document.querySelectorAll('#CurrentSessionMessage');
     if (sentMessages.length > 0) {
-    for (let j = 0; j < sentMessages.length; j++) {
-      sentMessages[j].remove();
-    }}
+      for (let j = 0; j < sentMessages.length; j++) {
+        sentMessages[j].remove();
+      }
+    }
     //sentMessages.forEach(msg => msg.remove());
-  
+
     // Connessione socket
     socket.emit('joinChat', id);
 
@@ -298,7 +294,7 @@ export default function SideSection({ jwt, socket, setUserData, setFirstMessage,
     for (var i = 0; i < elements.length; i++) {
       elements[i].removeAttribute('style');
     }
-    
+
 
     // Accentua il componente selezionato
     let element = document.getElementById('contact: ' + id);

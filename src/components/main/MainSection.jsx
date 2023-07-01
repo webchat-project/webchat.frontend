@@ -59,13 +59,18 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       message.className = "message-text"
       message.innerText = receivedText.message;
 
+      // Conversione data
+      let dateVal = new Date(receivedText.time);
+      let timeVal = dateVal.toLocaleTimeString().slice(0, 5);
+      dateVal = dateVal.toLocaleDateString()
+
       const time = document.createElement('p');
       time.className = "message-time"
-      time.innerText = receivedText.time;
+      time.innerText = timeVal;
 
       const date = document.createElement('p');
       date.className = "message-date"
-      date.innerText = receivedText.date;
+      date.innerText = dateVal;
 
       receivedTimeDateContainer.appendChild(time)
       receivedTimeDateContainer.appendChild(date)
