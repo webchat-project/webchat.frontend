@@ -1,11 +1,14 @@
 import React from 'react'
 
-export default function MainTopBar({ user, lastAccess }) {
+export default function MainTopBar({ user, lastAccess, getChatListNoLoad }) {
 
   // Metodo per mostrare la sidebar quando la larghezza dello schermo è inferiore a 600px
   const handleDisplay = () => {
     document.getElementById("side-section").setAttribute("style", "visibility: visible; display: block; width: 100%")
     document.getElementById("main-section").setAttribute("style", "visibility: hidden; display: none;")
+
+    // Riaggiorna le chat
+    getChatListNoLoad();
   }
 
   // Conversione data per ultimo accesso

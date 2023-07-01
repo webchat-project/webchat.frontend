@@ -7,7 +7,8 @@ import ChatContainer from './chat/ChatContainer';
 import ContactContainer from './contact/ContactContainer';
 import ProfileContainer from './profile/ProfileContainer';
 
-// Gestione propri contatti
+// Gestione chat e contatti
+import ChatDeleteContainer from './chat/delete/ChatDeleteContainer';
 import ContactDeleteContainer from './contact/delete/ContactDeleteContainer';
 import ContactRequestContainer from './contact/request/ContactRequestContainer';
 import ContactRequestSentContainer from './contact/request/ContactRequestSentContainer';
@@ -254,7 +255,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     // Riaggiorna la lista chat per sincronizzare ultimo accesso e ultimo messaggio
     getChatListNoLoad();
 
-    
+
     localStorage.setItem('currentContactId', id);
 
     // Resetta lo stile di tutti i componenti che hanno la stessa classe
@@ -371,6 +372,50 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       <div id="side-elements-container">
         <Routes>
           <Route
+            path="/"
+            element={
+              <>
+                {
+                  chatList.length !== 0 ?
+                    <>
+                      <p id="first-feature-contact-message">Gestione chat</p>
+                      <SideFeature
+                        url={'/deleteChat'}
+                        span={'delete'}
+                        text={'Elimina chat'}
+                      />
+                    </>
+                    : <></>
+                }
+              </>
+            }
+          />
+        </Routes>
+
+        <Routes>
+          <Route
+            path="/chats/*"
+            element={
+              <>
+                {
+                  chatList.length !== 0 ?
+                    <>
+                      <p id="first-feature-contact-message">Gestione chat</p>
+                      <SideFeature
+                        url={'/deletechat'}
+                        span={'delete'}
+                        text={'Elimina chat'}
+                      />
+                    </>
+                    : <></>
+                }
+              </>
+            }
+          />
+        </Routes>
+
+        <Routes>
+          <Route
             path="/contacts/*"
             element={
               <>
@@ -440,7 +485,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
                 <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
                 <>
-                  <p id="first-feature-contact-message">
+                  <p id="second-feature-contact-message">
                     Lista di tutte le chat
                   </p>
                   <ChatContainer
@@ -462,7 +507,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
                 <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
                 <>
-                  <p id="first-feature-contact-message">
+                  <p id="second-feature-contact-message">
                     Lista di tutte le chat
                   </p>
                   <ChatContainer
@@ -495,6 +540,20 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
                   />
                 </>
               )
+            }
+          />
+
+          <Route
+            path="/deletechat/*"
+            element={
+              <>
+                <p id="first-feature-contact-message">Elimina chat</p>
+                <ChatDeleteContainer
+                  getChatList={getChatList}
+                  chatList={chatList}
+                  jwt={jwt}
+                />
+              </>
             }
           />
 

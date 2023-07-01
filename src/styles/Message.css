@@ -61,7 +61,7 @@
     height: 55px;
     flex-grow: 1;
     margin: 0px;
-    margin-left: 30px;
+    margin-left: 10px;
     border: 0px;
     padding: 0px;
     outline: none;
@@ -92,19 +92,11 @@
     display: none;
 }
 
-.emoji-button {
-    background-color: black;
-    color: gold;
-    border: none;
-    margin-left: 30px;
-    padding: 0.4px;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
 #emoji-picker {
     margin-left: 10px;
-    margin-bottom: 10px;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 75px;
 }
 
 .sent-time-date-container {
@@ -151,8 +143,98 @@
     display: none;
 }
 
+#emoji-sender {
+    height: 40px;
+    width: 50px;
+    border: 1px solid transparent;
+    padding: 0px;
+    outline: none;
+    border-radius: 12px;
+    background-color: var(--back);
+    color: var(--text);
+}
+
+#emoji-sender:hover {
+    background-color: var(--button-hover);
+    border: 1px solid var(--border);
+}
+
+#image-sender {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(40px - 3px);
+    width: 50px;
+    margin: 0px;
+    margin-left: 10px;
+    margin-right: 2px;
+    padding: 0px;
+    border: 1px solid transparent;
+    outline: none;
+    border-radius: 12px;
+    background-color: var(--back);
+    color: var(--text);
+}
+
+#image-sender span {
+    margin: 0px;
+    margin-top: 3px;
+    padding: 0px;
+}
+
+#image-sender:hover {
+    background-color: var(--button-hover);
+    border: 1px solid var(--border);
+}
+
+#image-input {
+    margin: 0px;
+    visibility: hidden;
+    display: none;
+}
+
 @media screen and (max-width: 600px) {
     .emoji-button {
         display: none;
     }
+}
+
+#image-preview-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    margin-left: 10px;
+    margin-bottom: 75px;
+    width: 300px;
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--back);
+    border: 1px solid var(--border);
+}
+
+#image-preview {
+    height: 100%;
+    width: 100%;
+    border-radius: 7px;
+}
+
+#remove-image-preview {
+    position: absolute;
+    height: 40px;
+    width: 180px;
+    border: 0px;
+    outline: 0px;
+    cursor: pointer;
+    border-radius: 12px;
+    color: white;
+    background-color: #d32f2f;
+    margin-top: 150px;
+    transition: all 0.3s;
+}
+
+#remove-image-preview:hover {
+    background-color: #b71c1c;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }

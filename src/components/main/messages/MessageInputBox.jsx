@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Picker from 'emoji-picker-react';
-import { BsEmojiSmileFill } from 'react-icons/bs';
 
 export default function MessageInputBox({ handleSubmit }) {
+
   // Messaggio di input
-  const [messageInput, setMessageInput] = useState('');
+  const [messageInput, setMessageInput] = useState("");
+
+  // Immagine come input
+  const [imageInput, setImageInput] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+
+
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // Metodo per l'invio del messaggio
   const handleFormSubmit = event => {
     event.preventDefault();
+    setShowEmojiPicker(false);
     handleSubmit(messageInput);
     setMessageInput('');
   };
@@ -19,25 +26,94 @@ export default function MessageInputBox({ handleSubmit }) {
     setShowEmojiPicker(!showEmojiPicker);
   }
 
+  // Metodo per nascondere emoji picker
+  const hideEmojiPicker = () => {
+    setShowEmojiPicker(false);
+  }
+
   // Metodo per aggiungere l'emoji in input
   const handleEmojiClick = (event) => {
     setMessageInput(preValue => preValue += event.emoji);
   }
 
+
+
+  // Metodo per impostare l'immagine
+  const handleImageChange = event => {
+    let file = event.target.files[0];
+    setImageInput(file);
+    setImagePreview(file);
+  };
+
+  // Metodo per rimuovere l'immagine
+  const handleRemoveImage = () => {
+    setImageInput("")
+    setImagePreview("");
+  };
+
+  useEffect(() => {
+    if (imageInput) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(imageInput);
+    }
+  }, [imageInput]);
+
+
+
   return (
     <>
       {showEmojiPicker ? <div id="emoji-picker"><Picker onEmojiClick={handleEmojiClick} /></div> : <></>}
+
+      {imagePreview !== "" ?
+        <div id="image-preview-container">
+          <img id="image-preview" src={imagePreview} alt="img" />
+          {imagePreview !== '' ? (
+            <button
+              type="button"
+              id="remove-image-preview"
+              onClick={handleRemoveImage}
+            >
+              Rimuovi immagine
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
+        : <></>}
+
       <div id="message-input-container">
+
+        <div id="image-sender" onClick={hideEmojiPicker}>
+          <label htmlFor="image-input">
+            <span className="material-symbols-outlined">
+              image
+            </span>
+          </label>
+          <input id="image-input" type="file" accept="image/*" onChange={handleImageChange} />
+        </div>
+
+        <button id="emoji-sender" onClick={handleEmojiPickerHideShow}>
+          <span className="material-symbols-outlined">
+            mood
+          </span>
+        </button>
+
         <form onSubmit={handleFormSubmit} id="form-input-container">
-          <BsEmojiSmileFill className="emoji-button" onClick={handleEmojiPickerHideShow} />
           <input
             id="message-input"
-            type="text"
+            type='text'
             value={messageInput}
-            placeholder="Scrivi un messaggio"
-            onChange={e => setMessageInput(e.target.value)}></input>
-          <button id="message-sender" disabled={messageInput.trim() === ''}>
-            <span className="material-symbols-outlined">send</span>
+            placeholder='Scrivi un messaggio'
+            onChange={e => setMessageInput(e.target.value)}>
+          </input>
+
+          <button id="message-sender" disabled={messageInput.trim() === ""}>
+            <span className="material-symbols-outlined">
+              send
+            </span>
           </button>
         </form>
       </div>
