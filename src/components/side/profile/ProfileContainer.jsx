@@ -10,9 +10,9 @@ export default function ProfileContainer({ profile, setJwt }) {
   }*/
 
   // Ricarica la pagina
-  function reloadPage() {
+  /*function reloadPage() {
     window.location.reload();
-  }
+  }*/
 
   // Effettua il logout eliminando il token dai cookie ed effettua il ricaricamento della pagina
   function handleLogout() {
@@ -21,7 +21,7 @@ export default function ProfileContainer({ profile, setJwt }) {
     localStorage.removeItem('currentUserId');
     localStorage.removeItem('currentContactId');
     localStorage.removeItem('theme');
-    reloadPage();
+    window.location.reload();
   }
 
   // UseState per mostrare info utente o schermata di personalizzazione
