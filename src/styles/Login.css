@@ -87,6 +87,7 @@
 }
 
 #login-clear-button:hover {
+    cursor: pointer;
     background-color: #b71c1c;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -106,6 +107,7 @@
 
 
 #login-send-button:hover {
+    cursor: pointer;
     background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -123,6 +125,7 @@
 }
 
 #reset-login-button:hover {
+    cursor: pointer;
     background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }

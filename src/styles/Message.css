@@ -91,6 +91,7 @@
 }
 
 #message-sender:hover {
+    cursor: pointer;
     background-color: var(--button-hover);
     border: 1px solid var(--border);
 }
@@ -163,6 +164,7 @@
 }
 
 #emoji-sender:hover {
+    cursor: pointer;
     background-color: var(--button-hover);
     border: 1px solid var(--border);
 }
@@ -196,6 +198,7 @@
 }
 
 #image-input {
+    cursor: pointer;
     margin: 0px;
     visibility: hidden;
     display: none;
@@ -239,6 +242,7 @@
 }
 
 #remove-image-preview:hover {
+    cursor: pointer;
     background-color: #b71c1c;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }

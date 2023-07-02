@@ -128,6 +128,7 @@
 }
 
 #signup-clear-button:hover {
+    cursor: pointer;
     background-color: #b71c1c;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -146,6 +147,7 @@
 }
 
 #show-uploader-button:hover {
+    cursor: pointer;
     background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -212,6 +214,7 @@
 }
 
 #remove-signup-picture:hover {
+    cursor: pointer;
     background-color: #b71c1c;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -230,6 +233,7 @@
 }
 
 #hide-uploader-button:hover {
+    cursor: pointer;
     background-color: #e0e0e0;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
@@ -247,6 +251,7 @@
 }
 
 #signup-send-button:hover {
+    cursor: pointer;
     background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -264,6 +269,7 @@
 }
 
 #reset-signup-button:hover {
+    cursor: pointer;
     background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -281,6 +287,7 @@
 }
 
 #go-login-button:hover {
+    cursor: pointer;
     background-color: #0d47a1;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }

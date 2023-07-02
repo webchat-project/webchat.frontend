@@ -45,6 +45,7 @@
 }
 
 #side-menu:hover {
+  cursor: pointer;
   background-color: var(--button-hover);
   border: 1px solid var(--border);
 }
