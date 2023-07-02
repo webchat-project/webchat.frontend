@@ -13,7 +13,6 @@ import { backend } from '../../../../utils/Backend';
 // Axios
 import axios from "axios";
 
-
 export default function SideSearch({ jwt, id, placeholder }) {
 
     // Valore input
@@ -68,6 +67,7 @@ export default function SideSearch({ jwt, id, placeholder }) {
         <>
             <div id="side-search-container">
                 <input
+                    autocomplete="off"
                     id={id}
                     type='text'
                     value={queryString}
