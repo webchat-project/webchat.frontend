@@ -71,8 +71,7 @@ export default function ContactRequest({ contact, jwt, getRequestList }) {
     setLoading(true);
     let data = { userId: contact.userId, type: "accept" };
     try {
-      const response = await axios.post(addRequestRoute, data, config);
-      console.log(response.data)
+      await axios.post(addRequestRoute, data, config);
       setLoading(false)
       setSuccess(true)
     } catch (error) {
@@ -90,8 +89,7 @@ export default function ContactRequest({ contact, jwt, getRequestList }) {
     setLoading(true);
     let data = { userId: contact.userId, type: "reject" };
     try {
-      const response = await axios.post(addRequestRoute, data, config);
-      console.log(response.data)
+      await axios.post(addRequestRoute, data, config);
       setLoading(false)
       setSuccess(true)
     } catch (error) {

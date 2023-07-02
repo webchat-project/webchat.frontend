@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
-import {deleteChatRoute} from '../../../../utils/ApiRoutes'
+import { deleteChatRoute } from '../../../../utils/ApiRoutes'
 // Axios
 import axios from "axios";
 
@@ -68,8 +68,7 @@ export default function ChatDelete({ chat, jwt }) {
     }, 10);
     setLoading(true);
     try {
-      const response = await axios.delete(deleteChatRoute + chat.chatId, config);
-      console.log(response.data)
+      await axios.delete(deleteChatRoute + chat.chatId, config);
       setLoading(false)
       setSuccess(true)
     } catch (error) {

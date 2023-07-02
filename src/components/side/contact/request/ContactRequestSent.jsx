@@ -70,8 +70,7 @@ export default function ContactRequestSent({ contact, jwt, getRequestList }) {
     setLoading(true);
     let data = { userId: contact.userId, type: "cancel" };
     try {
-      const response = await axios.post(addRequestRoute, data, config);
-      console.log(response.data)
+      await axios.post(addRequestRoute, data, config);
       setLoading(false)
       setSuccess(true)
     } catch (error) {

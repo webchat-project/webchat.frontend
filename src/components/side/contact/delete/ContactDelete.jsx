@@ -69,8 +69,7 @@ export default function ContactDelete({ contact, jwt }) {
     }, 10);
     setLoading(true);
     try {
-      const response = await axios.delete(deleteContactRoute + contact.userId, config);
-      console.log(response.data)
+      await axios.delete(deleteContactRoute + contact.userId, config);
       setLoading(false)
       setSuccess(true)
     } catch (error) {

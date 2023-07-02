@@ -69,8 +69,7 @@ export default function ContactAdd({ contact, jwt, setQueryString, setResultList
     }, 10);
     setLoading(true);
     try {
-      const { data } = await axios.post(addRequestRoute, { userId: contact.userId, type: 'send' }, config);
-      console.log(data);
+      await axios.post(addRequestRoute, { userId: contact.userId, type: 'send' }, config);
       setLoading(false)
       setSuccess(true)
     } catch (error) {
