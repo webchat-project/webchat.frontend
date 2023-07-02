@@ -50,7 +50,8 @@ export default function Signup() {
     setLoading(true);
     try {
       const { data } = await axios.post(signupRoute, formData);
-      if (data.status) { setSuccess("Registrazione completata con successo") }
+      if (data.status) { 
+        setSuccess("Registrazione completata con successo") }
 
     } catch (error) {
       console.log(error);

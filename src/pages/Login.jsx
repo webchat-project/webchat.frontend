@@ -37,12 +37,9 @@ export default function Login({ jwt, setJwt }) {
       });
       if (!data.error) {
         setJwt(data.body.jwtToken);
-      } else {
-        console.log(data.body.jwtToken);
-      }
+      } 
     } catch (e) {
-      console.error(e);
-      setError(e.message)
+      setError(e.response.data.error)
     }
     setLoading(false);
   };
@@ -106,12 +103,9 @@ export default function Login({ jwt, setJwt }) {
       const { data } = await axios.post(`${loginRoute}/google`, response)
       if (!data.error) {
         setJwt(data.body.jwtToken);
-      } else {
-        console.log(data.body.jwtToken);
-      }
+      } 
     } catch (e) {
-      setError(true);
-      console.error(e);
+      setError(e.response.data.error);
     }
     setLoading(false);
   }
