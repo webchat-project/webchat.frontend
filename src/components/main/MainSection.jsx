@@ -282,7 +282,10 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
 
       const image = document.createElement('img');
       image.className = "message-image"
-      image.src = `data:image/jpeg;base64,${btoa(String.fromCharCode.apply(null, new Uint8Array(receivedText.image.data)))}`
+      const imageBlob = new Blob([new Uint8Array(receivedText.image.data)], {
+        type: 'image/png',
+      });
+      image.src = URL.createObjectURL(imageBlob);
 
       // Conversione data
       let dateVal = new Date(receivedText.time);
@@ -331,7 +334,11 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
 
       const image = document.createElement('img');
       image.className = "message-image"
-      image.src = `data:image/jpeg;base64,${btoa(String.fromCharCode.apply(null, new Uint8Array(receivedText.image.data)))}`;
+      const imageBlob = new Blob([new Uint8Array(receivedText.image.data)], {
+        type: 'image/png',
+      });
+      const imageUrl = URL.createObjectURL(imageBlob);
+      image.src = imageUrl;
 
       // Conversione data
       let dateVal = new Date(receivedText.time);

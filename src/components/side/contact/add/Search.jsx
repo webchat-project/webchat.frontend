@@ -36,7 +36,7 @@ export default function SideSearch({ jwt, id, placeholder }) {
             config = { ...config, params: { queryString: queryString } }
             const { data } = await axios.get(backend + '/users/search', config);
             setResultList(data.body.map(user => {
-                const imageBlob = new Blob([new Uint8Array(user.image.data.data)], { type: 'image/jpeg' });
+                const imageBlob = new Blob([new Uint8Array(user.image.data.data)], { type: user.image.contentType });
                 user.image = URL.createObjectURL(imageBlob);
                 return user;
             }));

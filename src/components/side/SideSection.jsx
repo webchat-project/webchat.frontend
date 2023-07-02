@@ -83,7 +83,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       const { data } = await axios.get(backend + '/users/profile', config);
       setProfile(data.body);
       const imageBlob = new Blob([new Uint8Array(data.body.image.data.data)], {
-        type: 'image/png',
+        type: data.body.image.contentType,
       });
       const imageUrl = URL.createObjectURL(imageBlob);
       setProfile(prevValue => {
@@ -103,7 +103,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       setChatList(
         data.body.map(chat => {
           const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
-            type: 'image/jpeg',
+            type: chat.image.contentType,
           });
           chat.image = URL.createObjectURL(imageBlob);
           return chat;
@@ -123,7 +123,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       setChatList(
         data.body.map(chat => {
           const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
-            type: 'image/jpeg',
+            type: chat.image.contentType,
           });
           chat.image = URL.createObjectURL(imageBlob);
           return chat;
@@ -146,7 +146,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       setContactList(
         data.body.map(chat => {
           const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
-            type: 'image/jpeg',
+            type: chat.image.contentType,
           });
           chat.image = URL.createObjectURL(imageBlob);
           return chat;
@@ -169,7 +169,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       setContactList(
         data.body.map(chat => {
           const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
-            type: 'image/jpeg',
+            type: chat.image.contentType,
           });
           chat.image = URL.createObjectURL(imageBlob);
           return chat;
@@ -199,7 +199,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       setRequestList({
         sent: data.body.requests.sent.map(s => {
           const imageBlob = new Blob([new Uint8Array(s.image.data.data)], {
-            type: 'image/jpeg',
+            type: s.image.contentType,
           });
           s.image = URL.createObjectURL(imageBlob);
           return s;
@@ -207,7 +207,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
 
         received: data.body.requests.received.map(r => {
           const imageBlob = new Blob([new Uint8Array(r.image.data.data)], {
-            type: 'image/jpeg',
+            type: r.image.contentType,
           });
           r.image = URL.createObjectURL(imageBlob);
           return r;
