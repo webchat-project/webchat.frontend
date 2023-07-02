@@ -498,7 +498,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
                 <Search
                   id={'side-search'}
                   jwt={jwt}
-                  placeholder={'Cerca contatto online'}
+                  placeholder={'Cerca un contatto online'}
                 />
               </>
             }

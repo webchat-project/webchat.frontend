@@ -10,7 +10,7 @@ import { backend } from '../../../../utils/Backend';
 // Axios
 import axios from "axios";
 
-export default function ContactAdd({ contact, jwt, handleSubmit }) {
+export default function ContactAdd({ contact, jwt, setQueryString, setResultList }) {
 
   // Gestione stato pulsanti e caricamento
   const [addOption, setAddOption] = useState(false);
@@ -82,7 +82,8 @@ export default function ContactAdd({ contact, jwt, handleSubmit }) {
 
   // Metodo per eliminare il pulsante contact button, una volta inviata la richiesta
   const closeConfirmedSuccess = () => {
-    handleSubmit();
+    setQueryString("")
+    setResultList([])
   }
 
   return (
