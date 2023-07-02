@@ -1,4 +1,3 @@
-
 // File Stile CSS
 import "./styles/App.css";
 import "./styles/Await.css";
@@ -126,8 +125,6 @@ const setColorTheme = (color) => {
   });
 }
 
-
-
 // Controllo impostazione salvata in LocalStorage, se si, applico quella, altrimenti applico il tema di default
 const storedTheme = localStorage.getItem("theme");
 
@@ -156,10 +153,8 @@ switch (storedTheme) {
 // Default
 export default function App() {
 
-
   // Imposta un token vuoto nei cookie
   const [jwtToken, setJwtToken] = UseCookie("jwt", "");
-
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 // Componenti React
 import SideTopBar from './top/SideTopBar';
@@ -70,6 +70,16 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   const [contactsLoading, setContactsLoading] = useState(false);
   const [contactsError, setContactsError] = useState(false);
 
+  // Metodo per effettuare il logout
+  const navigate = useNavigate();
+  function handleLogout() {
+    setJwt("");
+    localStorage.removeItem('currentUserId');
+    localStorage.removeItem('currentContactId');
+    localStorage.removeItem('theme');
+    navigate("/login")
+  }
+
   // Configurazione token
   const config = {
     headers: {
@@ -91,6 +101,9 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       });
     } catch (error) {
       console.error(error);
+
+      // In caso di errore effettua il logout
+      handleLogout();
     }
   };
 

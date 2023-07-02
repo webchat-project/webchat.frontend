@@ -259,7 +259,16 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       receivedMessage.appendChild(message)
       messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
 
+      // Aggiorna l'ultimo messaggio nella sidebar
       updateLastMessage(receivedText.message);
+
+      // Aggiorna lo stato
+      const currentUserAccess = document.getElementById("last-access")
+
+      if (currentUserAccess.innerText !== "Online") {
+        currentUserAccess.innerText = "Online"
+      }
+
     } else {
       // Non viene mostrato nessun messaggio se la chatId è diversa dalla chatId della chat aperta
     }
@@ -306,8 +315,17 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       receivedMessage.appendChild(image)
       messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
 
+      // Aggiorna l'ultimo messaggio nella sidebar
       let text = "📷Foto"
       updateLastMessage(userData.chatId, text)
+
+      // Aggiorna lo stato
+      const currentUserAccess = document.getElementById("last-access")
+
+      if (currentUserAccess.innerText !== "Online") {
+        currentUserAccess.innerText = "Online"
+      }
+
     } else {
       // Non viene mostrato nessun messaggio se la chatId è diversa dalla chatId della chat aperta
     }
@@ -360,8 +378,17 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
       receivedMessage.appendChild(message)
       messageContainer.insertBefore(receivedMessage, messageContainer.firstChild);
 
+      // Aggiorna l'ultimo messaggio nella sidebar
       let text = "📷Foto"
       updateLastMessage(userData.chatId, text)
+
+      // Aggiorna lo stato
+      const currentUserAccess = document.getElementById("last-access")
+
+      if (currentUserAccess.innerText !== "Online") {
+        currentUserAccess.innerText = "Online"
+      }
+
     } else {
       // Non viene mostrato nessun messaggio se la chatId è diversa dalla chatId della chat aperta
     }
