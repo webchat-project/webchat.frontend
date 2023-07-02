@@ -5,7 +5,6 @@ export default function ProfileContainer({ profile, setJwt }) {
 
   // Effettua il logout eliminando il token dai cookie ed effettua il ricaricamento della pagina
   function handleLogout() {
-    //deleteCookie('jwt');
     setJwt("");
     localStorage.removeItem('currentUserId');
     localStorage.removeItem('currentContactId');
