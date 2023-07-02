@@ -215,3 +215,7 @@
     color: white;
     background-color: #C62828;
 }
+
+#reject-request-contact-button:hover {
+   cursor: pointer;
+}
