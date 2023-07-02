@@ -9,7 +9,7 @@ export default function ChatButton({ chat, handleClick }) {
           <img alt="img" src={chat.image} />
         </div>
         <div className="text-container">
-          <h3>{chat.firstName} {chat.lastName} <span hidden={!chat.online} style={{ color: 'green', fontSize: '20px' }}>●</span></h3>
+          <h3>{chat.firstName} {chat.lastName} <span hidden={!chat.online} style={{ color: '#0fd931', fontSize: '20px' }}>●</span></h3>
           <p id={"last-message: " + chat.chatId}>{chat.lastMessage}</p>
         </div>
       </div>

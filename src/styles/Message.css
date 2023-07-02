@@ -193,10 +193,13 @@
 }
 
 #image-sender:hover {
+    cursor: pointer;
     background-color: var(--button-hover);
     border: 1px solid var(--border);
 }
-
+.material-symbols-outlined:hover{
+    cursor: pointer;
+}
 #image-input {
     cursor: pointer;
     margin: 0px;

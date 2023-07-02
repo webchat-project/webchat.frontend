@@ -119,6 +119,10 @@
     padding: 0px;
 }
 
+#abort-add-contact-button:hover {
+    cursor: pointer;
+}
+
 #confirm-add-contact-button {
     height: 30px;
     border: 0px;
@@ -128,6 +132,10 @@
     color: white;
     background-color: #1976D2;
     padding: 0px;
+}
+
+#confirm-add-contact-button:hover {
+    cursor: pointer;
 }
 
 #abort-delete-contact-button {
@@ -141,6 +149,10 @@
 
 }
 
+#abort-delete-contact-button:hover {
+    cursor: pointer;
+}
+
 #confirm-delete-contact-button {
     height: 30px;
     border: 0px;
@@ -149,6 +161,10 @@
     border: 1px solid var(--border);
     color: white;
     background-color: #C62828;
+}
+
+#confirm-delete-contact-button:hover {
+    cursor: pointer;
 }
 
 #abort-request-contact-button {
@@ -162,6 +178,10 @@
 
 }
 
+#abort-request-contact-button:hover {
+    cursor: pointer;
+}
+
 #send-request-contact-button {
     height: 30px;
     border: 0px;
@@ -170,6 +190,10 @@
     border: 1px solid var(--border);
     color: white;
     background-color: #1976D2;
+}
+
+#send-request-contact-button:hover {
+    cursor: pointer;
 }
 
 #accept-request-contact-button {
