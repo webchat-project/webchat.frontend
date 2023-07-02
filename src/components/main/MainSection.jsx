@@ -282,7 +282,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
 
       const image = document.createElement('img');
       image.className = "message-image"
-      image.src = receivedText.image.data;
+      image.src = `data:image/jpeg;base64,${btoa(String.fromCharCode.apply(null, new Uint8Array(receivedText.image.data)))}`
 
       // Conversione data
       let dateVal = new Date(receivedText.time);
@@ -331,7 +331,7 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
 
       const image = document.createElement('img');
       image.className = "message-image"
-      image.src = receivedText.image.data;
+      image.src = `data:image/jpeg;base64,${btoa(String.fromCharCode.apply(null, new Uint8Array(receivedText.image.data)))}`;
 
       // Conversione data
       let dateVal = new Date(receivedText.time);
@@ -367,7 +367,6 @@ export default function MainSection({ userData, socket, firstMessage, messageDat
         if (response.error) {
           console.log(response.error)
         } else {
-
           // Mostra il messaggio ricevuto
           if (response.body.message && !response.body.image)
             handleReceivedOnlyMessage(response.body)
