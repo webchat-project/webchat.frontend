@@ -27,6 +27,9 @@ import axios from 'axios';
 //routes
 import {profileRoute, chatListRoute, contactListRoute, requestListRoute, messagesRoute } from "../../utils/ApiRoutes";
 
+
+
+
 export default function SideSection({ jwt, setJwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, setLastAccess }) {
 
   // Liste chat e contatti

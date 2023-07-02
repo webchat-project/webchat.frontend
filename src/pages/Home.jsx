@@ -32,7 +32,7 @@ export default function Home({ jwt, setJwt }) {
         <>
             <aside id="side-section"><SideSection jwt={jwt} setJwt={setJwt} socket={socket} setUserData={setUserData} setFirstMessage={setFirstMessage} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} setLastAccess={setLastAccess} />
             </aside>
-            <main id="main-section"><MainSection socket={socket} userData={userData} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} lastAccess={lastAccess} />
+            <main id="main-section"><MainSection socket={socket} userData={userData} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} lastAccess={lastAccess} setLastAccess={setLastAccess}/>
             </main>
         </>
     )

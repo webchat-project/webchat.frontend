@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function Message({ message, image, time, owner }) {
+export default function Message({ message, image, time, owner, lastAccess }) {
 
   // Stato per mostrare foto o messaggio, oppure entrambi
   const [isMessage, setIsMessage] = useState(false);
@@ -13,7 +13,13 @@ export default function Message({ message, image, time, owner }) {
   if (owner === localStorage.getItem("currentUserId")) {
     classType = "sent-message"
     classTime = "sent-time-date-container"
-    content = '✓'
+   
+    if(lastAccess === -1){
+      content = '✓✓'
+    }else{
+      content = '✓'
+    }
+    
   } else {
     classType = "received-message"
     classTime = "received-time-date-container"
