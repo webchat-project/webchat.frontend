@@ -60,16 +60,17 @@ export default function Signup() {
     setLoading(false);
   };
 
+
+
   // Metodo per gestione cambiamento input
   const handleChange = event => {
     event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
-    setFormErrors(handleValidation(user));
-
-    if (Object.keys(formErrors).length === 0) {
-      setIsSubmit(true);
-    }
   };
+
+useEffect(()=>{setFormErrors(handleValidation(user));},[user])
+useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},[formErrors])
+
 
   // Metodo per svuotare tutti gli input
   const handleClearForm = () => {
@@ -83,12 +84,11 @@ export default function Signup() {
     });
   };
 
+
+
   // Metodo per mostrare l'uploader
   const handleShowUploader = () => {
-    setFormErrors(handleValidation(user));
-    if (isSubmit) {
       setShowUploader(true);
-    }
   };
 
   // Metodo per nascondere l'uploader
@@ -112,8 +112,10 @@ export default function Signup() {
       ...prevUser,
       image: '',
     }));
-    setProfilePicture('/profile.png');
+    setProfilePicture(()=>{ return '/profile.png' });
   };
+
+
 
   useEffect(() => {
     if (user.image) {
@@ -125,18 +127,18 @@ export default function Signup() {
     }
   }, [user.image]);
 
+
+
+
   // Metodo per la validazione input
   const handleValidation = (user) => {
-    const errors = {};
+    let errors = {};
+
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const {
-      firstName,
-      lastName,
-      password,
-      confirmPassword,
-      email,
-      confirmEmail,
-    } = user;
+    const regexPassword =/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+    
+    const {firstName,lastName,password,confirmPassword,email,confirmEmail,} = user;
+    
     if (firstName.trim() === '') {
       errors.firstName = 'Il nome è necessario';
     }
@@ -147,18 +149,23 @@ export default function Signup() {
       errors.email = "L'email è necessaria";
     } else if (!regexEmail.test(email)) {
       errors.emailValid = 'Email non valida';
-    } if (email !== confirmEmail) {
+    } 
+    if (email !== confirmEmail) {
       errors.confrontEmail = 'Le email non corrispondono';
     }
     if (password.trim() === '') {
       errors.password = 'La password è necessaria';
-    } if (password !== confirmPassword) {
+    }else if (!regexPassword.test(password)) {
+      errors.passwordValid = 'La password deve contenere almeno 8 caratteri di cui uno maiuscolo, uno minuscolo, un numero e uno speciale.';
+    }
+    if (password !== confirmPassword) {
       errors.confrontPassword = 'Le password non corrispondono';
-    } else if (password.length.trim() < 8) {
-      errors.passwordValid = 'La password deve avere minimo 8 caratteri';
     }
     return errors;
   };
+
+
+
 
   // Metodo per ritornare a signup in caso di errore
   const handleBackToSignup = () => {
@@ -265,8 +272,11 @@ export default function Signup() {
                             onChange={e => handleChange(e)}
                             required
                           />
-                          <p id="validations">
+                          <p id="validations"style={{marginTop:"0px"}}>
                             {formErrors.password}
+                          </p>
+                          <p id="validations" style={{fontSize:"10px"}}>
+                            {formErrors.passwordValid}
                           </p>
                         </div>
 

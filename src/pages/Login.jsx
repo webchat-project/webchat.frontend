@@ -24,6 +24,7 @@ export default function Login({ jwt, setJwt }) {
 
   // Stato errori input per validazione
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
   // Metodo invio dati
   const handleSubmit = async (event) => {
@@ -31,18 +32,16 @@ export default function Login({ jwt, setJwt }) {
     const { email, password } = loginUser;
     setLoading(true);
     try {
-      const { data } = await axios.post(loginRoute, {
-        email,
-        password,
-      });
+      const { data } = await axios.post(loginRoute, {email,password});
       if (!data.error) {
-        setJwt(data.body.jwtToken);
+      setJwt(data.body.jwtToken);
       } 
     } catch (e) {
       setError(e.response.data.error)
     }
     setLoading(false);
   };
+
 
   // Gestione cambiamento input
   const handleChange = (event) => {
@@ -51,28 +50,27 @@ export default function Login({ jwt, setJwt }) {
     setFormErrors(handleValidation(loginUser));
   };
 
+  useEffect(()=>{setFormErrors(handleValidation(loginUser));},[loginUser])
+  useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},[formErrors])
+
   useEffect(() => {
     if (jwt.trim() !== "") {
-
       //Decode jwt token
       const decodedToken = jwtDecode(jwt);
-
       //Set user state
       setloggedUser(decodedToken);
-
       // Imposta id utente loggato in localStorage
       localStorage.setItem("currentUserId", decodedToken.id)
     }
   }, [jwt]);
 
+
   // Metodo per validare l'input
   const handleValidation = (user) => {
     const errors = {};
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const {
-      email,
-      password
-    } = user;
+    const {email,password} = user;
+
     if (email.trim() === '') {
       errors.email = "L'email è necessaria";
     } else if (!regexEmail.test(email)) {
@@ -82,6 +80,8 @@ export default function Login({ jwt, setJwt }) {
     }
     return errors;
   };
+
+
 
   // Metodo per la pulizia form
   const handleClearForm = () => {
@@ -164,7 +164,7 @@ export default function Login({ jwt, setJwt }) {
                 <button id="login-clear-button" onClick={handleClearForm}>
                   Svuota
                 </button>
-                <button id="login-send-button" type="submit">
+                <button id="login-send-button" type="submit" disabled={!isSubmit}>
                   Accedi
                 </button>
               </div>
