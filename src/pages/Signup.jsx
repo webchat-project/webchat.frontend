@@ -154,7 +154,7 @@ export default function Signup() {
       errors.password = 'La password è necessaria';
     } if (password !== confirmPassword) {
       errors.confrontPassword = 'Le password non corrispondono';
-    } else if (password.length < 8) {
+    } else if (password.length.trim() < 8) {
       errors.passwordValid = 'La password deve avere minimo 8 caratteri';
     }
     return errors;
