@@ -25,10 +25,7 @@ import Error from '../await/Error';
 import axios from 'axios';
 
 //routes
-import {profileRoute, chatListRoute, contactListRoute, requestListRoute, messagesRoute } from "../../utils/ApiRoutes";
-
-
-
+import { profileRoute, chatListRoute, contactListRoute, requestListRoute, messagesRoute } from "../../utils/ApiRoutes";
 
 export default function SideSection({ jwt, setJwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, setLastAccess }) {
 
@@ -154,7 +151,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   const getContactList = async () => {
     setContactsLoading(true);
     try {
-      const { data } = await axios.get(contactListRoute,config);
+      const { data } = await axios.get(contactListRoute, config);
       setContactsLoading(false);
       setContactList(
         data.body.map(chat => {
@@ -175,7 +172,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   // Metodo per ottenere la lista contatti senza loading e gestione errore, per aggiornare i contatti al click su contatti
   const getContactListNoLoad = async () => {
     try {
-      const { data } = await axios.get(contactListRoute,config);
+      const { data } = await axios.get(contactListRoute, config);
       setContactList(
         data.body.map(chat => {
           const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
@@ -193,7 +190,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   // Metodo per ottenere la lista richieste contatti
   const getRequestList = async () => {
     try {
-      const { data } = await axios.get(requestListRoute,config);
+      const { data } = await axios.get(requestListRoute, config);
       setRequestList(data.body.requests);
 
       // If per impostare il numero di richieste ricevute

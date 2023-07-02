@@ -50,8 +50,9 @@ export default function Signup() {
     setLoading(true);
     try {
       const { data } = await axios.post(signupRoute, formData);
-      if (data.status) { 
-        setSuccess("Registrazione completata con successo") }
+      if (data.status) {
+        setSuccess("Registrazione completata con successo")
+      }
 
     } catch (error) {
       console.log(error);
@@ -60,16 +61,14 @@ export default function Signup() {
     setLoading(false);
   };
 
-
-
   // Metodo per gestione cambiamento input
   const handleChange = event => {
     event.preventDefault();
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-useEffect(()=>{setFormErrors(handleValidation(user));},[user])
-useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},[formErrors])
+  useEffect(() => { setFormErrors(handleValidation(user)); }, [user])
+  useEffect(() => { if (Object.keys(formErrors).length === 0) { setIsSubmit(true); } }, [formErrors])
 
 
   // Metodo per svuotare tutti gli input
@@ -84,11 +83,9 @@ useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},
     });
   };
 
-
-
   // Metodo per mostrare l'uploader
   const handleShowUploader = () => {
-      setShowUploader(true);
+    setShowUploader(true);
   };
 
   // Metodo per nascondere l'uploader
@@ -112,10 +109,8 @@ useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},
       ...prevUser,
       image: '',
     }));
-    setProfilePicture(()=>{ return '/profile.png' });
+    setProfilePicture(() => { return '/profile.png' });
   };
-
-
 
   useEffect(() => {
     if (user.image) {
@@ -127,18 +122,15 @@ useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},
     }
   }, [user.image]);
 
-
-
-
   // Metodo per la validazione input
   const handleValidation = (user) => {
     let errors = {};
 
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const regexPassword =/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
-    
-    const {firstName,lastName,password,confirmPassword,email,confirmEmail,} = user;
-    
+    const regexPassword = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+
+    const { firstName, lastName, password, confirmPassword, email, confirmEmail, } = user;
+
     if (firstName.trim() === '') {
       errors.firstName = 'Il nome è necessario';
     }
@@ -149,13 +141,13 @@ useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},
       errors.email = "L'email è necessaria";
     } else if (!regexEmail.test(email)) {
       errors.emailValid = 'Email non valida';
-    } 
+    }
     if (email !== confirmEmail) {
       errors.confrontEmail = 'Le email non corrispondono';
     }
     if (password.trim() === '') {
       errors.password = 'La password è necessaria';
-    }else if (!regexPassword.test(password)) {
+    } else if (!regexPassword.test(password)) {
       errors.passwordValid = 'La password deve contenere almeno 8 caratteri di cui uno maiuscolo, uno minuscolo, un numero e uno speciale.';
     }
     if (password !== confirmPassword) {
@@ -163,9 +155,6 @@ useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},
     }
     return errors;
   };
-
-
-
 
   // Metodo per ritornare a signup in caso di errore
   const handleBackToSignup = () => {
@@ -272,10 +261,10 @@ useEffect(()=>{ if (Object.keys(formErrors).length === 0) {setIsSubmit(true);}},
                             onChange={e => handleChange(e)}
                             required
                           />
-                          <p id="validations"style={{marginTop:"0px"}}>
+                          <p id="validations">
                             {formErrors.password}
                           </p>
-                          <p id="validations" style={{fontSize:"10px"}}>
+                          <p id="validations-pass">
                             {formErrors.passwordValid}
                           </p>
                         </div>
