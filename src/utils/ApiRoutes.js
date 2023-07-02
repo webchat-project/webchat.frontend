@@ -1,5 +1,5 @@
 
-export const backend = "http://localhost:5000"
+export const backend = "https://web-chat-messenger.onrender.com"
 
 //SignUp
 export const signupRoute = `${backend}/auth/signup`
