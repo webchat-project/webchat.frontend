@@ -186,7 +186,6 @@ export default function Signup() {
                             Nome
                           </label>
                           <input
-                            autocomplete="off"
                             id="name-input"
                             type="text"
                             value={user.firstName}
@@ -203,7 +202,6 @@ export default function Signup() {
                             Cognome
                           </label>
                           <input
-                            autocomplete="off"
                             id="surname-input"
                             type="text"
                             value={user.lastName}
@@ -220,7 +218,6 @@ export default function Signup() {
                             Email
                           </label>
                           <input
-                            autocomplete="off"
                             id="email-input"
                             type="email"
                             value={user.email}
@@ -243,7 +240,6 @@ export default function Signup() {
                             Verifica email
                           </label>
                           <input
-                            autocomplete="off"
                             id="verify-email-input"
                             type="email"
                             value={user.confirmEmail}
@@ -260,7 +256,6 @@ export default function Signup() {
                             Password
                           </label>
                           <input
-                            autocomplete="off"
                             id="password-input"
                             type="password"
                             value={user.password}
@@ -282,7 +277,6 @@ export default function Signup() {
                             Verifica password
                           </label>
                           <input
-                            autocomplete="off"
                             id="verify-password-input"
                             type="password"
                             value={user.confirmPassword}

@@ -48,7 +48,6 @@ export default function SideSearch({ jwt, id, placeholder }) {
         <>
             <div id="side-search-container">
                 <input
-                    autoComplete="off"
                     id={id}
                     type='text'
                     value={queryString}

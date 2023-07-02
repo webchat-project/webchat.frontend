@@ -89,7 +89,7 @@ export default function MessageInputBox({ handleSubmit }) {
               image
             </span>
           </label>
-          <input autocomplete="off" id="image-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />
+          <input id="image-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />
         </div>
 
         <button id="emoji-sender" onClick={handleEmojiPickerHideShow}>
