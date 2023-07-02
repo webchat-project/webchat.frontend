@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import ContactAddContainer from './ContactAddContainer'
 
 // Backend
-import { backend } from '../../../../utils/Backend';
+import { searchRoute } from '../../../../utils/ApiRoutes';
 
 // Axios
 import axios from "axios";
@@ -34,7 +34,7 @@ export default function SideSearch({ jwt, id, placeholder }) {
     const handleSubmit = async () => {
         try {
             config = { ...config, params: { queryString: queryString } }
-            const { data } = await axios.get(backend + '/users/search', config);
+            const { data } = await axios.get(searchRoute, config);
             setResultList(data.body.map(user => {
                 const imageBlob = new Blob([new Uint8Array(user.image.data.data)], { type: user.image.contentType });
                 user.image = URL.createObjectURL(imageBlob);

@@ -3,7 +3,7 @@ import SideSection from '../components/side/SideSection'
 import MainSection from '../components/main/MainSection'
 
 // Backend
-import { backend } from "../utils/Backend";
+import { backend } from "../utils/ApiRoutes";
 
 // Socket
 import io from "socket.io-client";

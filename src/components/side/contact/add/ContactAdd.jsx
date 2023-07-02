@@ -5,7 +5,7 @@ import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
 // Backend
-import { backend } from '../../../../utils/Backend';
+import { addRequestRoute } from '../../../../utils/ApiRoutes';
 
 // Axios
 import axios from "axios";
@@ -69,7 +69,7 @@ export default function ContactAdd({ contact, jwt, setQueryString, setResultList
     }, 10);
     setLoading(true);
     try {
-      const { data } = await axios.post(backend + '/users/requests/', { userId: contact.userId, type: 'send' }, config);
+      const { data } = await axios.post(addRequestRoute, { userId: contact.userId, type: 'send' }, config);
       console.log(data);
       setLoading(false)
       setSuccess(true)

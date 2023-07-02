@@ -4,9 +4,7 @@ import React, { useState } from "react";
 import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
-// Backend
-import { backend } from '../../../../utils/Backend';
-
+import {deleteChatRoute} from '../../../../utils/ApiRoutes'
 // Axios
 import axios from "axios";
 
@@ -62,6 +60,7 @@ export default function ChatDelete({ chat, jwt }) {
     },
   };
 
+
   // Metodo al click su invia, procede ad inviare la richiesta al backend
   const handleSend = async () => {
     setTimeout(() => {
@@ -69,7 +68,7 @@ export default function ChatDelete({ chat, jwt }) {
     }, 10);
     setLoading(true);
     try {
-      const response = await axios.delete(backend + '/chats/' + chat.chatId, config);
+      const response = await axios.delete(deleteChatRoute + chat.chatId, config);
       console.log(response.data)
       setLoading(false)
       setSuccess(true)

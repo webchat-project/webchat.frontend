@@ -5,7 +5,7 @@ import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
 // Backend
-import { backend } from '../../../../utils/Backend';
+import { addRequestRoute } from '../../../../utils/ApiRoutes';
 
 // Axios
 import axios from "axios";
@@ -70,7 +70,7 @@ export default function ContactRequestSent({ contact, jwt, getRequestList }) {
     setLoading(true);
     let data = { userId: contact.userId, type: "cancel" };
     try {
-      const response = await axios.post(backend + '/users/requests/', data, config);
+      const response = await axios.post(addRequestRoute, data, config);
       console.log(response.data)
       setLoading(false)
       setSuccess(true)

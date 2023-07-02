@@ -5,7 +5,7 @@ import Loading from '../../../await/Loading';
 import Error from '../../../await/Error';
 
 // Backend
-import { backend } from '../../../../utils/Backend';
+import { deleteContactRoute } from '../../../../utils/ApiRoutes';
 
 // Axios
 import axios from "axios";
@@ -69,7 +69,7 @@ export default function ContactDelete({ contact, jwt }) {
     }, 10);
     setLoading(true);
     try {
-      const response = await axios.delete(backend + '/users/contacts/' + contact.userId, config);
+      const response = await axios.delete(deleteContactRoute + contact.userId, config);
       console.log(response.data)
       setLoading(false)
       setSuccess(true)

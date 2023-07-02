@@ -21,11 +21,11 @@ import SideFeature from './SideFeature';
 import Loading from '../await/Loading';
 import Error from '../await/Error';
 
-// Indirizzo backend
-import { backend } from '../../utils/Backend';
-
 // Axios
 import axios from 'axios';
+
+//routes
+import {profileRoute, chatListRoute, contactListRoute, requestListRoute, messagesRoute } from "../../utils/ApiRoutes";
 
 export default function SideSection({ jwt, setJwt, socket, setUserData, setFirstMessage, setMessageData, setLoadingMessages, setErrorMessages, setLastAccess }) {
 
@@ -90,7 +90,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   // Metodo per ottenere i dati del profilo
   const getProfile = async () => {
     try {
-      const { data } = await axios.get(backend + '/users/profile', config);
+      const { data } = await axios.get(profileRoute, config);
       setProfile(data.body);
       const imageBlob = new Blob([new Uint8Array(data.body.image.data.data)], {
         type: data.body.image.contentType,
@@ -111,7 +111,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   const getChatList = async () => {
     setChatsLoading(true);
     try {
-      const { data } = await axios.get(backend + '/chats/list', config);
+      const { data } = await axios.get(chatListRoute, config);
       setChatsLoading(false);
       setChatList(
         data.body.map(chat => {
@@ -132,7 +132,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   // Metodo per ottenere la lista chat senza loading e gestione errore, per aggiornare stato online e ultimo messaggio
   const getChatListNoLoad = async () => {
     try {
-      const { data } = await axios.get(backend + '/chats/list', config);
+      const { data } = await axios.get(chatListRoute, config);
       setChatList(
         data.body.map(chat => {
           const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
@@ -151,10 +151,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   const getContactList = async () => {
     setContactsLoading(true);
     try {
-      const { data } = await axios.get(
-        backend + '/users/contacts/list',
-        config
-      );
+      const { data } = await axios.get(contactListRoute,config);
       setContactsLoading(false);
       setContactList(
         data.body.map(chat => {
@@ -175,10 +172,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   // Metodo per ottenere la lista contatti senza loading e gestione errore, per aggiornare i contatti al click su contatti
   const getContactListNoLoad = async () => {
     try {
-      const { data } = await axios.get(
-        backend + '/users/contacts/list',
-        config
-      );
+      const { data } = await axios.get(contactListRoute,config);
       setContactList(
         data.body.map(chat => {
           const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
@@ -196,10 +190,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   // Metodo per ottenere la lista richieste contatti
   const getRequestList = async () => {
     try {
-      const { data } = await axios.get(
-        backend + '/users/requests/list',
-        config
-      );
+      const { data } = await axios.get(requestListRoute,config);
       setRequestList(data.body.requests);
 
       // If per impostare il numero di richieste ricevute
@@ -271,7 +262,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   // Metodo per ottenere la lista messaggi
   const getMessages = async (id) => {
     try {
-      const { data } = await axios.get(backend + '/chats/' + id, config);
+      const { data } = await axios.get(messagesRoute + id, config);
       setMessageData(data.body.messages);
       setLastAccess(data.body.lastAccess)
       setLoadingMessages(false);
@@ -284,7 +275,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   };
 
   // Metodo che si attiva quando si clicca su una chat
-  const handleChatClick = id => {
+  const handleChatClick = (id) => {
 
     // Riaggiorna la lista chat per sincronizzare ultimo accesso e ultimo messaggio
     getChatListNoLoad();
