@@ -65,10 +65,10 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   const [requestCount, setRequestCount] = useState('');
 
   // Caricamento e errore chat e contatti
-  const [chatsLoading, setChatsLoading] = useState();
-  const [chatsError, setChatsError] = useState();
-  const [contactsLoading, setContactsLoading] = useState();
-  const [contactsError, setContactsError] = useState();
+  const [chatsLoading, setChatsLoading] = useState(false);
+  const [chatsError, setChatsError] = useState(false);
+  const [contactsLoading, setContactsLoading] = useState(false);
+  const [contactsError, setContactsError] = useState(false);
 
   // Configurazione token
   const config = {
@@ -111,7 +111,7 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       );
     } catch (error) {
       setChatsLoading(false);
-      setChatsError(true);
+      setChatsError(error.message);
       console.error(error);
     }
   };
@@ -154,7 +154,28 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
       );
     } catch (error) {
       setContactsLoading(false);
-      setContactsError(true);
+      setContactsError(error.message);
+      console.error(error);
+    }
+  };
+
+  // Metodo per ottenere la lista contatti senza loading e gestione errore, per aggiornare i contatti al click su contatti
+  const getContactListNoLoad = async () => {
+    try {
+      const { data } = await axios.get(
+        backend + '/users/contacts/list',
+        config
+      );
+      setContactList(
+        data.body.map(chat => {
+          const imageBlob = new Blob([new Uint8Array(chat.image.data.data)], {
+            type: 'image/jpeg',
+          });
+          chat.image = URL.createObjectURL(imageBlob);
+          return chat;
+        })
+      );
+    } catch (error) {
       console.error(error);
     }
   };
@@ -239,7 +260,6 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
     try {
       const { data } = await axios.get(backend + '/chats/' + id, config);
       setMessageData(data.body.messages);
-      console.log(data.body.messages)
       setLastAccess(data.body.lastAccess)
       setLoadingMessages(false);
       setErrorMessages(false);
@@ -375,8 +395,8 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
   return (
     <>
       <SideTopBar
-        getChatList={getChatList}
-        getContactList={getContactList}
+        getChatList={getChatListNoLoad}
+        getContactList={getContactListNoLoad}
         getRequestList={getRequestList}
         getProfile={getProfile}
       />
@@ -491,8 +511,8 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
             element={
               chatsLoading === true ? (
                 <Loading />
-              ) : chatsError === true ? (
-                <Error />
+              ) : chatsError !== false ? (
+                <Error event={chatsError} />
               ) : chatList.length === 0 ? (
                 <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
@@ -513,8 +533,8 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
             element={
               chatsLoading === true ? (
                 <Loading />
-              ) : chatsError === true ? (
-                <Error />
+              ) : chatsError !== false ? (
+                <Error event={chatsError} />
               ) : chatList.length === 0 ? (
                 <p id="first-feature-contact-message">Non sono presenti chat</p>
               ) : (
@@ -535,8 +555,8 @@ export default function SideSection({ jwt, setJwt, socket, setUserData, setFirst
             element={
               contactsLoading === true ? (
                 <Loading />
-              ) : contactsError === true ? (
-                <Error />
+              ) : contactsError !== false ? (
+                <Error event={contactsError} />
               ) : contactList.length === 0 ? (
                 <p id="second-feature-contact-message">
                   Non sono presenti contatti

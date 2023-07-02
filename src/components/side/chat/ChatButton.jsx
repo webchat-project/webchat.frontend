@@ -10,7 +10,7 @@ export default function ChatButton({ chat, handleClick }) {
         </div>
         <div className="text-container">
           <h3>{chat.firstName} {chat.lastName} <span hidden={!chat.online} style={{ color: 'green', fontSize: '20px' }}>●</span></h3>
-          <p>{chat.lastMessage}</p>
+          <p id={"last-message: " + chat.chatId}>{chat.lastMessage}</p>
         </div>
       </div>
     </div>

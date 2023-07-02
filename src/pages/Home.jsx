@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import SideSection from '../components/side/SideSection'
 import MainSection from '../components/main/MainSection'
-import jwtDecode from "jwt-decode";
 
 // Backend
 import { backend } from "../utils/Backend";
@@ -24,44 +23,16 @@ export default function Home({ jwt, setJwt }) {
     // Socket
     const [socket, setSocket] = useState(null);
 
-/*
-    console.log(jwtDecode(jwt).exp * 1000);
-    console.log(new Date().getTime());
-
-
-    
-    localStorage.setItem('jwtExpire', jwtDecode(jwt).exp * 1000);
-
-    useEffect(() => {
-        console.log(localStorage.getItem('jwtExpire') < (new Date().getTime()));
-
-        if( localStorage.getItem('jwtExpire') < (new Date().getTime()) ){
-            setJwt("");
-            localStorage.removeItem('jwtExpire');
-            window.location.reload();
-          
-        }
-      },[]);
-      */
-
-
-
     useEffect(() => {
         const newSocket = io.connect(backend, { query: "jwt=" + jwt });
         setSocket(newSocket);
     }, [jwt]);
 
-
-
- 
-
     return (
         <>
-            <aside id="side-section">
-                <SideSection jwt={jwt} setJwt={setJwt} socket={socket} setUserData={setUserData} setFirstMessage={setFirstMessage} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} setLastAccess={setLastAccess} />
+            <aside id="side-section"><SideSection jwt={jwt} setJwt={setJwt} socket={socket} setUserData={setUserData} setFirstMessage={setFirstMessage} setMessageData={setMessageData} setLoadingMessages={setLoading} setErrorMessages={setError} setLastAccess={setLastAccess} />
             </aside>
-            <main id="main-section">
-                <MainSection socket={socket} userData={userData} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} lastAccess={lastAccess} />
+            <main id="main-section"><MainSection socket={socket} userData={userData} firstMessage={firstMessage} messageData={messageData} loading={loading} error={error} lastAccess={lastAccess} />
             </main>
         </>
     )

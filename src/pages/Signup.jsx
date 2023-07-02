@@ -340,7 +340,7 @@ export default function Signup() {
                           <input
                             id="input-profile-picture"
                             type="file"
-                            accept="image/*"
+                            accept="image/png, image/jpeg"
                             onChange={handlePhotoChange}
                           />
                         </div>

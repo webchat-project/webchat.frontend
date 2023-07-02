@@ -10,15 +10,16 @@ export default function MessageInputBox({ handleSubmit }) {
   const [imageInput, setImageInput] = useState("");
   const [imagePreview, setImagePreview] = useState("");
 
-
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // Metodo per l'invio del messaggio
-  const handleFormSubmit = event => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     setShowEmojiPicker(false);
     handleSubmit(messageInput, imagePreview);
-    setMessageInput('');
+    handleRemoveImage();
+    setImageInput("");
+    setMessageInput("");
   };
 
   // Metodo per mostrare o nascondere emoji picker
@@ -88,7 +89,7 @@ export default function MessageInputBox({ handleSubmit }) {
               image
             </span>
           </label>
-          <input id="image-input" type="file" accept="image/*" onChange={handleImageChange} />
+          <input id="image-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />
         </div>
 
         <button id="emoji-sender" onClick={handleEmojiPickerHideShow}>
