@@ -1,7 +1,9 @@
 
 export const backend = "http://localhost:5000"
 
+//SignUp
 export const signupRoute = `${backend}/auth/signup`
+//Login
 export const loginRoute = `${backend}/auth/login`
 
 //SideSection
