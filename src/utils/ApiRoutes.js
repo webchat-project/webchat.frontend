@@ -1,27 +1,27 @@
 
-export const backend = "http://localhost:5000"
+export const backend = "http://localhost:5000";
 
 //SignUp
-export const signupRoute = `${backend}/auth/signup`
+export const signupRoute = `${backend}/auth/signup`;
 //Login
-export const loginRoute = `${backend}/auth/login`
+export const loginRoute = `${backend}/auth/login`;
 
 //SideSection
-export const profileRoute = `${backend}/users/profile`
-export const chatListRoute = `${backend}/chats/list` //anche chatListNoLoadRoute 
-export const contactListRoute = `${backend}/users/contacts/list` //anche ContactListNoLoad
-export const requestListRoute = `${backend}/users/requests/list` 
-export const messagesRoute = `${backend}/chats/` 
+export const profileRoute = `${backend}/users/profile`;
+export const chatListRoute = `${backend}/chats/list`; //anche chatListNoLoadRoute 
+export const contactListRoute = `${backend}/users/contacts/list`; //anche ContactListNoLoad
+export const requestListRoute = `${backend}/users/requests/list`;
+export const messagesRoute = `${backend}/chats/`;
 
 //ChatDelete
-export const deleteChatRoute = `${backend}/chats/` 
+export const deleteChatRoute = `${backend}/chats/`;
 
 //ContactAdd & //ContactRequest
-export const addRequestRoute = `${backend}/users/requests/`
+export const addRequestRoute = `${backend}/users/requests/`;
 
 //Search
-export const searchRoute = `${backend}/users/search`
+export const searchRoute = `${backend}/users/search`;
 
-//ContactDelete
+//ContactDelete  2.0
 export const deleteContactRoute = `${backend}/users/contacts/`
 
