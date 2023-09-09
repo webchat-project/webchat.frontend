@@ -22,3 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 src/utils/ApiRoutes.js
+.scannerwork/report-task.txt
+sonar-project.properties
+sonar-project.properties
+.scannerwork/report-task.txt
