@@ -26,3 +26,5 @@ src/utils/ApiRoutes.js
 sonar-project.properties
 sonar-project.properties
 .scannerwork/report-task.txt
+sonar-project.properties
+.scannerwork/report-task.txt
