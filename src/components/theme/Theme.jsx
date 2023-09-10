@@ -3,10 +3,10 @@ import React from "react";
 export default function Theme() {
 
     // Root element
-    let rootElement = document.documentElement;
+    var rootElement = document.documentElement;
 
     // Light Theme
-    let lightTheme = {
+    var lightTheme = {
         "--back": "#ffffff",
         "--text": "#000000",
         "--main": "rgba(255, 255, 255, 0.8)",
@@ -21,7 +21,7 @@ export default function Theme() {
     }
 
     // Dark Theme
-    let darkTheme = {
+    var darkTheme = {
         "--back": "#212121",
         "--text": "#9E9E9E",
         "--main": "rgba(0, 0, 0, 0.9)",
@@ -36,7 +36,7 @@ export default function Theme() {
     }
 
     // Default color
-    let defaultColor = {
+    var defaultColor = {
         "--back": "#ffffff",
         "--text": "#000000",
         "--main": "rgba(255, 255, 255, 0.8)",
@@ -51,7 +51,7 @@ export default function Theme() {
     };
 
     // Gold color
-    let goldColor = {
+    var goldColor = {
         "--back": "#ffffff",
         "--text": "#000000",
         "--main": "rgba(255, 255, 255, 0.8)",
@@ -66,7 +66,7 @@ export default function Theme() {
     };
 
     // Nature color
-    let natureColor = {
+    var natureColor = {
         "--back": "#ffffff",
         "--text": "#000000",
         "--main": "rgba(255, 255, 255, 0.8)",
@@ -81,7 +81,7 @@ export default function Theme() {
     };
 
     // Sky color
-    let skyColor = {
+    var skyColor = {
         "--back": "#ffffff",
         "--text": "#000000",
         "--main": "rgba(255, 255, 255, 0.8)",
@@ -96,12 +96,12 @@ export default function Theme() {
     };
 
     // Tutti i nomi dei temi
-    let light = 'light';
-    let dark = 'dark';
-    let def = 'default';
-    let gold = 'gold';
-    let nature = 'nature';
-    let sky = 'sky';
+    var light = 'light';
+    var dark = 'dark';
+    var def = 'default';
+    var gold = 'gold';
+    var nature = 'nature';
+    var sky = 'sky';
 
     // Metodo per cambiare il tema
     const setColorTheme = (color, name) => {

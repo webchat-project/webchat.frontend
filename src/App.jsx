@@ -26,10 +26,10 @@ import Home from "./pages/Home";
 
 // Impostazione tema app
 // Root element
-let rootElement = document.documentElement;
+var rootElement = document.documentElement;
 
 // Light Theme
-let lightTheme = {
+var lightTheme = {
   "--back": "#ffffff",
   "--text": "#000000",
   "--main": "rgba(255, 255, 255, 0.8)",
@@ -44,7 +44,7 @@ let lightTheme = {
 }
 
 // Dark Theme
-let darkTheme = {
+var darkTheme = {
   "--back": "#212121",
   "--text": "#9E9E9E",
   "--main": "rgba(0, 0, 0, 0.9)",
@@ -59,7 +59,7 @@ let darkTheme = {
 }
 
 // Default color
-let defaultColor = {
+var defaultColor = {
   "--back": "#ffffff",
   "--text": "#000000",
   "--main": "rgba(255, 255, 255, 0.8)",
@@ -74,7 +74,7 @@ let defaultColor = {
 };
 
 // Gold color
-let goldColor = {
+var goldColor = {
   "--back": "#ffffff",
   "--text": "#000000",
   "--main": "rgba(255, 255, 255, 0.8)",
@@ -89,7 +89,7 @@ let goldColor = {
 };
 
 // Nature color
-let natureColor = {
+var natureColor = {
   "--back": "#ffffff",
   "--text": "#000000",
   "--main": "rgba(255, 255, 255, 0.8)",
@@ -104,7 +104,7 @@ let natureColor = {
 };
 
 // Sky color
-let skyColor = {
+var skyColor = {
   "--back": "#ffffff",
   "--text": "#000000",
   "--main": "rgba(255, 255, 255, 0.8)",
