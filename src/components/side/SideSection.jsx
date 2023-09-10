@@ -19,7 +19,7 @@ import SideFeature from './SideFeature';
 
 // Componenti di caricamento ed errore
 import Loading from '../await/Loading';
-import Error from '../await/Error';
+import Error from '../await/Errors';
 
 // Axios
 import axios from 'axios';

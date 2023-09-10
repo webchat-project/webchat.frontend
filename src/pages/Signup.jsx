@@ -7,7 +7,7 @@ import Theme from '../components/theme/Theme';
 
 // Componenti di caricamento e errore
 import Loading from "../components/await/Loading";
-import Error from "../components/await/Error";
+import Error from "../components/await/Errors";
 import Success from "../components/await/Success";
 
 // Axios

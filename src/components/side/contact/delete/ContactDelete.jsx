@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // Componenti caricamento e errore
 import Loading from '../../../await/Loading';
-import Error from '../../../await/Error';
+import Error from '../../../await/Errors';
 
 // Backend
 import { deleteContactRoute } from '../../../../utils/ApiRoutes';

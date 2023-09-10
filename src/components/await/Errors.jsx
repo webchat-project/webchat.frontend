@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Error({ event }) {
+export default function Errors({ event }) {
 
     // Componente mostrato quando una chiamata restituisce un errore
     return (

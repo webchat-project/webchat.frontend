@@ -4,7 +4,7 @@ import { loginRoute } from "../utils/ApiRoutes";
 
 // Componenti di caricamento e errore
 import Loading from "../components/await/Loading";
-import Error from "../components/await/Error";
+import Error from "../components/await/Errors";
 
 // Jwt e Axios
 import jwtDecode from "jwt-decode";
