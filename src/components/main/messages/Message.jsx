@@ -23,7 +23,7 @@ export default function Message({ message, image, time, owner, lastAccess }) {
   } else {
     classType = "received-message"
     classTime = "received-time-date-container"
-    content = ''
+    content = ' '
   }
 
   // Conversione data

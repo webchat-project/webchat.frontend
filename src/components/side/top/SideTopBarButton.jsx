@@ -21,11 +21,11 @@ export default function SideTopBarButton({ material, name, route, getChatList, g
     }
 
     // Ripristina lo sfondo degli elementi ed evidenzia l'elemento attivo
-    var elements = document.getElementsByClassName("side-top-bar-button");
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute("style");
+    let elements = document.getElementsByClassName("side-top-bar-button");
+    for (const element of elements) {
+      element.removeAttribute("style");
     }
-    var element = document.getElementById("side-top-bar-button: " + name);
+    let element = document.getElementById("side-top-bar-button: " + name);
     element.style.backgroundColor = "var(--button-click)";
     element.style.border = "1px solid var(--border)";
   }
