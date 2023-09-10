@@ -99,7 +99,6 @@
     margin: 10px;
     height: 30px;
     width: calc(100% - 20px);
-    border: 0px;
     outline: 0px;
     border-radius: 10px;
     border: 1px solid var(--border);
@@ -110,7 +109,6 @@
 
 #abort-add-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 10px;
     border: 1px solid var(--border);
@@ -125,7 +123,6 @@
 
 #confirm-add-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 10px;
     border: 1px solid var(--border);
@@ -140,7 +137,6 @@
 
 #abort-delete-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -155,7 +151,6 @@
 
 #confirm-delete-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -169,7 +164,6 @@
 
 #abort-request-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -184,7 +178,6 @@
 
 #send-request-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -198,7 +191,6 @@
 
 #accept-request-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -208,7 +200,6 @@
 
 #reject-request-contact-button {
     height: 30px;
-    border: 0px;
     outline: 0px;
     border-radius: 12px;
     border: 1px solid var(--border);

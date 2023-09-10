@@ -2,5 +2,5 @@ projectKey=webchat.frontend.main
 serverUrl=http://localhost:9000
 serverVersion=10.1.0.73491
 dashboardUrl=http://localhost:9000/dashboard?id=webchat.frontend.main
-ceTaskId=AYp8Mh0XAnMucGSxk5E5
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYp8Mh0XAnMucGSxk5E5
+ceTaskId=AYp_oYj3izpqeYFMeCDq
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYp_oYj3izpqeYFMeCDq
