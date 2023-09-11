@@ -66,7 +66,7 @@ export default function Login({ jwt, setJwt }) {
   // Metodo per validare l'input
   const handleValidation = (user) => {
     const errors = {};
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const { email, password } = user;
 
     if (email.trim() === '') {

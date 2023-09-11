@@ -126,7 +126,7 @@ export default function Signup() {
   const handleValidation = (user) => {
     let errors = {};
 
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const regexPassword = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
 
     const { firstName, lastName, password, confirmPassword, email, confirmEmail, } = user;
